@@ -1,0 +1,19 @@
+{
+  "name": "record-keeper",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "client": "npm start --prefix client",
+    "client:install": "npm install --prefix client",
+    "json-server": "json-server --watch db.json --port 5000",
+    "dev": "concurrently \"npm run client\" \"npm run json-server\""
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "concurrently": "^5.2.0",
+    "json-server": "^0.16.1"
+  }
+}
