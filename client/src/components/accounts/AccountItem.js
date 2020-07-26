@@ -1,5 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import Moment from 'react-moment';
+import NumberFormat from 'react-number-format';
 
 const AccountItem = ({ account }) => {
   const { name, balance, updatedDate, updatedBy } = account;
@@ -8,20 +10,37 @@ const AccountItem = ({ account }) => {
     <div className="card">
       <div className="card-content">
         <span className="card-title">{name}</span>
-        <ul>
-          <li>
-            <strong>Balance: </strong>
-            {balance}.00
-          </li>
-          <li>
-            <strong>Updated date: </strong>
-            {updatedDate}
-          </li>
-          <li>
-            <strong>Updated by: </strong>
-            {updatedBy}
-          </li>
-        </ul>
+        <div className="row">
+          <div className="col s12">
+            <div className="col s6">
+              <strong>Balance</strong>
+            </div>
+            <div className="col s6">
+              <NumberFormat
+                value={balance}
+                displayType="text"
+                thousandSeparator={true}
+                prefix="₱"
+              />
+            </div>
+          </div>
+
+          <div className="col s12">
+            <div className="col s6">
+              <strong>Updated by</strong>
+            </div>
+            <div className="col s6">{updatedBy}</div>
+          </div>
+
+          <div className="col s12">
+            <div className="col s6">
+              <strong>Updated date</strong>
+            </div>
+            <div className="col s6">
+              <Moment format="MMMM Do YYYY, h:mm:ss a">{updatedDate}</Moment>
+            </div>
+          </div>
+        </div>
       </div>
       <div className="card-action">
         <Link to="/transactions" className="waves-effect">

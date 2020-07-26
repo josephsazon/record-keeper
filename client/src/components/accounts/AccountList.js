@@ -28,9 +28,13 @@ const AccountList = () => {
 
   return (
     <Fragment>
-      {accounts.map((account) => (
-        <AccountItem key={account.id} account={account} />
-      ))}
+      <div className="row">
+        {accounts.map((account) => (
+          <div className="col s12 m6 l4">
+            <AccountItem key={account.id} account={account} />
+          </div>
+        ))}
+      </div>
     </Fragment>
   );
 };
