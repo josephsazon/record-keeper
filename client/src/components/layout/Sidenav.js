@@ -23,11 +23,6 @@ const Sidenav = () => {
           Accounts
         </Link>
       </li>
-      <li>
-        <Link to="/transactions" className="waves-effect">
-          Transactions
-        </Link>
-      </li>
     </ul>
   );
 };
