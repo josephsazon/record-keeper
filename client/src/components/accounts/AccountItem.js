@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 const AccountItem = ({ account }) => {
-  const { name, balance } = account;
+  const { name, balance, updatedDate, updatedBy } = account;
 
   return (
     <div className="card">
@@ -15,9 +15,11 @@ const AccountItem = ({ account }) => {
           </li>
           <li>
             <strong>Updated date: </strong>
+            {updatedDate}
           </li>
           <li>
             <strong>Updated by: </strong>
+            {updatedBy}
           </li>
         </ul>
       </div>

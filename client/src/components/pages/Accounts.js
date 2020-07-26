@@ -1,13 +1,14 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 
 // components
 import AccountList from '../accounts/AccountList';
 
 const Accounts = () => {
   return (
-    <div className="container">
+    <Fragment>
+      <h4 className="center">Accounts</h4>
       <AccountList />
-    </div>
+    </Fragment>
   );
 };
 

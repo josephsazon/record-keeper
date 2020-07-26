@@ -28,7 +28,6 @@ const AccountList = () => {
 
   return (
     <Fragment>
-      <h4 className="center">Accounts</h4>
       {accounts.map((account) => (
         <AccountItem key={account.id} account={account} />
       ))}

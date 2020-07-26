@@ -2,8 +2,10 @@
   "accounts": [
     {
       "id": 1,
-      "name": "Daungan",
-      "balance": 10000
+      "name": "Bukid - Daungan",
+      "balance": 10000,
+      "updatedBy": "Joseph Sazon",
+      "updatedDate": "07-26-2020"
     }
   ]
 }

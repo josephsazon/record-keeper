@@ -24,9 +24,11 @@ const App = () => {
         <Navbar />
         <SideNav />
         <Switch>
-          <Route exact path="/" render={() => <span>Home page</span>} />
-          <Route exact path="/accounts" component={Accounts} />
-          <Route exact path="/transactions" component={Transactions} />
+          <div className="container">
+            <Route exact path="/" render={() => <span>Home page</span>} />
+            <Route exact path="/accounts" component={Accounts} />
+            <Route exact path="/transactions" component={Transactions} />
+          </div>
         </Switch>
       </Fragment>
     </Router>
