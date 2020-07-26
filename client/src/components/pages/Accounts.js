@@ -5,10 +5,10 @@ import AccountList from '../accounts/AccountList';
 
 const Accounts = () => {
   return (
-    <Fragment>
+    <div className="container">
       <h4 className="center">Accounts</h4>
       <AccountList />
-    </Fragment>
+    </div>
   );
 };
 

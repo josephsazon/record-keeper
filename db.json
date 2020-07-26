@@ -7,5 +7,46 @@
       "updatedBy": "Joseph Sazon",
       "updatedDate": "07-26-2020"
     }
+  ],
+  "transactions": [
+    {
+      "id": 1,
+      "name": "Punla",
+      "type": "labor",
+      "purpose": "Punla",
+      "amount": 500,
+      "entryType": "debit",
+      "balance": 10000,
+      "createdBy": "Joseph Sazon",
+      "worker": "Ricky",
+      "account": "Bukid - Daungan",
+      "date": "06-04-2020"
+    },
+    {
+      "id": 2,
+      "name": "Diesel",
+      "type": "materials",
+      "purpose": "Diesel",
+      "amount": 135,
+      "entryType": "debit",
+      "balance": 10500,
+      "createdBy": "Joseph Sazon",
+      "worker": "",
+      "account": "Bukid - Daungan",
+      "date": "06-04-2020"
+    },
+    {
+      "id": 3,
+      "name": "Additional budget",
+      "type": "inflow",
+      "purpose": "Additional budget",
+      "amount": 8500,
+      "entryType": "credit",
+      "balance": 2000,
+      "createdBy": "Joseph Sazon",
+      "worker": "",
+      "account": "Bukid - Daungan",
+      "date": "06-04-2020"
+    }
   ]
 }

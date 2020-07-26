@@ -6,8 +6,8 @@ const Sidenav = () => {
     <ul id="slide-out" className="sidenav sidenav-close">
       <li>
         <div className="user-view">
-          <a href="#">Joseph Sazon</a>
-          <a href="#" className="secondary-content">
+          <a href="#!">Joseph Sazon</a>
+          <a href="#!" className="secondary-content">
             <i className="material-icons">keyboard_tab</i>
           </a>
         </div>
