@@ -1,7 +1,12 @@
 import React, { useEffect, Fragment } from 'react';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 // components
 import M from 'materialize-css/dist/js/materialize.min.js';
+import Navbar from './components/layout/Navbar';
+import SideNav from './components/layout/Sidenav';
+import Accounts from './components/pages/Accounts';
+import Transactions from './components/pages/Transactions';
 
 // styles
 import 'materialize-css/dist/css/materialize.min.css';
@@ -13,7 +18,19 @@ const App = () => {
     M.AutoInit();
   });
 
-  return <Fragment>My App</Fragment>;
+  return (
+    <Router>
+      <Fragment>
+        <Navbar />
+        <SideNav />
+        <Switch>
+          <Route exact path="/" render={() => <span>Home page</span>} />
+          <Route exact path="/accounts" component={Accounts} />
+          <Route exact path="/transactions" component={Transactions} />
+        </Switch>
+      </Fragment>
+    </Router>
+  );
 };
 
 export default App;
