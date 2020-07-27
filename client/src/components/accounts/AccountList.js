@@ -30,8 +30,8 @@ const AccountList = () => {
     <Fragment>
       <div className="row">
         {accounts.map((account) => (
-          <div className="col s12 m6 l4">
-            <AccountItem key={account.id} account={account} />
+          <div className="col s12 m6 l4" key={account.id}>
+            <AccountItem account={account} />
           </div>
         ))}
       </div>

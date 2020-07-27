@@ -1,9 +1,10 @@
-import React, { Fragment, useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import NumberFormat from 'react-number-format';
 
 // components
 import TransactionList from '../transactions/TransactionList';
-import NumberFormat from 'react-number-format';
+import TransactionFAB from '../transactions/TransactionFAB';
 
 const Transactions = () => {
   const [account, setAccount] = useState({});
@@ -50,6 +51,7 @@ const Transactions = () => {
         </div>
       )}
       <TransactionList />
+      <TransactionFAB />
     </div>
   );
 };
