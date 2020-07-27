@@ -1,15 +1,36 @@
-import React, { useEffect } from 'react';
-
-import M from 'materialize-css/dist/js/materialize.min.js';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
+// components
+import M from 'materialize-css/dist/js/materialize.min.js';
+import ConfirmTransactionModal from './ConfirmTransactionModal';
+
 const AddTransactionForm = () => {
+  const [name, setName] = useState('');
+  const [description, setDescription] = useState('');
+  const [amount, setAmount] = useState('');
+  const [worker, setWorker] = useState('');
+  const [type, setType] = useState('');
+
   useEffect(() => {
     M.AutoInit();
   }, []);
 
+  const onSubmit = () => {
+    const transaction = {
+      name,
+      description,
+      amount,
+      worker,
+      type,
+    };
+
+    console.log(transaction);
+  };
+
   return (
     <div className="container">
+      <ConfirmTransactionModal onSubmit={onSubmit} />
       <h4 className="center">
         <Link to="/transactions" className="left">
           <i className="material-icons ">arrow_back</i>
@@ -19,7 +40,13 @@ const AddTransactionForm = () => {
       <div className="row">
         <form className="col s12">
           <div className="input-field col s12">
-            <input type="text" id="name" name="name" />
+            <input
+              type="text"
+              id="name"
+              name="name"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+            />
             <label htmlFor="name">Name</label>
           </div>
 
@@ -28,17 +55,31 @@ const AddTransactionForm = () => {
               id="description"
               className="materialize-textarea"
               name="description"
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
             />
             <label htmlFor="description">Description</label>
           </div>
 
           <div className="input-field col s12">
-            <input type="number" id="amount" name="amount" />
+            <input
+              type="number"
+              id="amount"
+              name="amount"
+              value={amount}
+              onChange={(e) => setAmount(e.target.value)}
+            />
             <label htmlFor="amount">Amount</label>
           </div>
 
           <div className="input-field col s12">
-            <select name="worker" id="worker" defaultValue="">
+            <select
+              name="worker"
+              id="worker"
+              defaultValue=""
+              value={worker}
+              onChange={(e) => setWorker(e.target.value)}
+            >
               <option>N/A</option>
               <option>Ricky</option>
               <option>Sindak</option>
@@ -47,7 +88,13 @@ const AddTransactionForm = () => {
           </div>
 
           <div className="input-field col s12">
-            <select name="type" id="type" defaultValue="">
+            <select
+              name="type"
+              id="type"
+              defaultValue=""
+              value={type}
+              onChange={(e) => setType(e.target.value)}
+            >
               <option value="" disabled>
                 Choose...
               </option>
@@ -63,7 +110,7 @@ const AddTransactionForm = () => {
           <div className="col s12">
             <div className="col s12 m3 right">
               <a
-                href="#confirm-transaction"
+                href="#confirm-transaction-modal"
                 className="btn-large blue lighten-2 modal-trigger"
                 style={{ display: 'block' }}
               >
