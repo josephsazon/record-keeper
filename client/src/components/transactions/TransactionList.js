@@ -18,7 +18,7 @@ const TransactionList = () => {
     setLoading(true);
 
     try {
-      const res = await fetch('/transactions');
+      const res = await fetch('/transactions?_sort=id&_order=desc');
       const data = await res.json();
 
       setTransactions(data);

@@ -12,19 +12,33 @@ const TransactionItem = ({ transaction }) => {
     createdBy,
     date,
     entryType,
-    name,
-    purpose,
+    description,
     type,
     worker,
   } = transaction;
 
+  const getIcon = () => {
+    switch (type) {
+      case 'labor':
+      case 'Labor':
+        return 'directions_walk';
+      case 'materials':
+      case 'Materials':
+        return 'local_grocery_store';
+      case 'inflow':
+        return 'attach_money';
+      default:
+        return 'local_offer';
+    }
+  };
+
   return (
     <li>
       <div className="collapsible-header" style={collapsibleHeaderStyle}>
-        <i className="material-icons green-text text-lighten-1">
-          monetization_on
-        </i>
-        <span className="truncate">{name}</span>
+        <i className={`material-icons grey-text text-lighten-1`}>{getIcon()}</i>
+        <span className="truncate">
+          {type.charAt(0).toUpperCase() + type.slice(1)}
+        </span>
 
         <div
           className="collapsible-secondary"
@@ -49,18 +63,7 @@ const TransactionItem = ({ transaction }) => {
       </div>
       <div className="collapsible-body">
         <div className="row">
-          <InfoPair
-            label="Amount"
-            value={
-              <NumberFormat
-                value={amount}
-                displayType="text"
-                prefix="₱"
-                thousandSeparator={true}
-              />
-            }
-            col="s6"
-          />
+          <InfoPair label="Description" value={description} />
           <InfoPair
             label="Balance"
             value={
@@ -73,11 +76,6 @@ const TransactionItem = ({ transaction }) => {
             }
             col="s6"
           />
-          <InfoPair
-            label="Type"
-            value={type.charAt(0).toUpperCase() + type.slice(1)}
-            col="s6"
-          />
           <InfoPair label="Worker" value={worker} col="s6" />
           <InfoPair label="Created by" value={createdBy} col="s6" />
           <InfoPair
@@ -85,7 +83,6 @@ const TransactionItem = ({ transaction }) => {
             value={<Moment format="MMMM Do YYYY">{date}</Moment>}
             col="s6"
           />
-          <InfoPair label="Description" value={purpose} />
         </div>
       </div>
     </li>

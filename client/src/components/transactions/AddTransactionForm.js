@@ -1,35 +1,91 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 
 // components
 import M from 'materialize-css/dist/js/materialize.min.js';
 import ConfirmTransactionModal from './ConfirmTransactionModal';
 
 const AddTransactionForm = () => {
-  const [name, setName] = useState('');
   const [description, setDescription] = useState('');
-  const [amount, setAmount] = useState('');
+  const [amount, setAmount] = useState('git p');
   const [worker, setWorker] = useState('');
   const [type, setType] = useState('');
 
+  const [success, setSuccess] = useState(false);
+  const [balance, setBalance] = useState(0);
+  const [account, setAccount] = useState({});
+
   useEffect(() => {
     M.AutoInit();
+    getAccount(1);
   }, []);
+
+  const addTransaction = async (transaction) => {
+    setSuccess(false);
+    try {
+      const res = await fetch('/transactions', {
+        method: 'POST',
+        body: JSON.stringify(transaction),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+      const data = await res.json();
+
+      updateAccountBalance(1);
+
+      setSuccess(true);
+    } catch (err) {}
+  };
+
+  const getAccount = async (id) => {
+    try {
+      const res = await fetch(`/accounts?_q=${id}`);
+      const data = await res.json();
+
+      setBalance(data[0].balance);
+      setAccount(data[0]);
+    } catch (err) {}
+  };
+
+  const updateAccountBalance = async (id) => {
+    try {
+      await fetch(`/accounts/${id}`, {
+        method: 'PUT',
+        body: JSON.stringify({
+          ...account,
+          updatedDate: new Date(),
+          balance: type === 'inflow' ? +balance + +amount : balance - amount,
+        }),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+    } catch (err) {}
+  };
 
   const onSubmit = () => {
     const transaction = {
-      name,
       description,
       amount,
       worker,
       type,
+      balance: type === 'inflow' ? +balance + +amount : balance - amount,
+      createdBy: 'Joseph Sazon',
+      date: new Date(),
+      entryType: type === 'inflow' ? 'credit' : 'debit',
     };
 
-    console.log(transaction);
+    if (amount && type && description) {
+      addTransaction(transaction);
+    } else {
+      M.toast({ html: 'Missing fields' });
+    }
   };
 
   return (
     <div className="container">
+      {success && <Redirect to="/transactions" />}
       <ConfirmTransactionModal onSubmit={onSubmit} />
       <h4 className="center">
         <Link to="/transactions" className="left">
@@ -39,17 +95,6 @@ const AddTransactionForm = () => {
       </h4>
       <div className="row">
         <form className="col s12">
-          <div className="input-field col s12">
-            <input
-              type="text"
-              id="name"
-              name="name"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-            />
-            <label htmlFor="name">Name</label>
-          </div>
-
           <div className="input-field col s12">
             <textarea
               id="description"
@@ -80,7 +125,7 @@ const AddTransactionForm = () => {
               value={worker}
               onChange={(e) => setWorker(e.target.value)}
             >
-              <option>N/A</option>
+              <option value="">N/A</option>
               <option>Ricky</option>
               <option>Sindak</option>
             </select>
@@ -98,8 +143,7 @@ const AddTransactionForm = () => {
               <option value="" disabled>
                 Choose...
               </option>
-              <option>Adjustment</option>
-              <option>Inflow</option>
+              <option value="inflow">Inflow</option>
               <option>Labor</option>
               <option>Materials</option>
               <option>Others</option>
