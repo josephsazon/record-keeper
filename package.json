@@ -7,8 +7,10 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "client": "npm start --prefix client",
     "client:install": "npm install --prefix client",
+    "server": "npm run server --prefix server",
     "json-server": "json-server --watch db.json --port 5000",
-    "dev": "concurrently \"npm run client\" \"npm run json-server\""
+    "dev": "concurrently \"npm run client\" \"npm run server\"",
+    "dev:json-server": "concurrently \"npm run client\" \"npm run json-server\""
   },
   "author": "",
   "license": "ISC",
