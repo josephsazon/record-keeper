@@ -3,7 +3,7 @@ import { Link, Redirect } from 'react-router-dom';
 
 // components
 import M from 'materialize-css/dist/js/materialize.min.js';
-import ConfirmTransactionModal from './ConfirmTransactionModal';
+import ConfirmModal from '../layout/ConfirmModal';
 
 const AddTransactionForm = () => {
   const [description, setDescription] = useState('');
@@ -86,7 +86,11 @@ const AddTransactionForm = () => {
   return (
     <div className="container">
       {success && <Redirect to="/transactions" />}
-      <ConfirmTransactionModal onSubmit={onSubmit} />
+      <ConfirmModal
+        title="Confirmation"
+        message="Do you want to save this transaction?"
+        onSubmit={onSubmit}
+      />
       <h4 className="center">
         <Link to="/transactions" className="left">
           <i className="material-icons ">arrow_back</i>
@@ -154,7 +158,7 @@ const AddTransactionForm = () => {
           <div className="col s12">
             <div className="col s12 m3 right">
               <a
-                href="#confirm-transaction-modal"
+                href="#confirm-modal"
                 className="btn-large blue lighten-2 modal-trigger"
                 style={{ display: 'block' }}
               >

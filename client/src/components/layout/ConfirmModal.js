@@ -1,12 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const ConfirmTransactionModal = ({ onSubmit }) => {
+const ConfirmModal = ({ title, message, onSubmit }) => {
   return (
-    <div id="confirm-transaction-modal" className="modal">
+    <div id="confirm-modal" className="modal">
       <div className="modal-content">
-        <h4>Confirmation</h4>
-        <p>Do you want to save this transaction?</p>
+        <h4>{title}</h4>
+        <p>{message}</p>
         <div className="row" style={{ margin: '0' }}>
           <div className="right">
             <button className="btn-flat grey-text modal-close">Cancel</button>
@@ -23,8 +23,10 @@ const ConfirmTransactionModal = ({ onSubmit }) => {
   );
 };
 
-ConfirmTransactionModal.propTypes = {
+ConfirmModal.propTypes = {
+  message: PropTypes.string,
   onSubmit: PropTypes.func.isRequired,
+  title: PropTypes.string.isRequired,
 };
 
-export default ConfirmTransactionModal;
+export default ConfirmModal;
