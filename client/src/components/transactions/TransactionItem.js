@@ -76,7 +76,7 @@ const TransactionItem = ({ transaction }) => {
             }
             col="s6"
           />
-          <InfoPair label="Worker" value={worker} col="s6" />
+          <InfoPair label="Assigned to" value={worker} col="s6" />
           <InfoPair label="Created by" value={createdBy} col="s6" />
           <InfoPair
             label="Date"

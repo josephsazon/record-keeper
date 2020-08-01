@@ -1,5 +1,9 @@
 import React, { useEffect, Fragment } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { Provider } from 'react-redux';
+
+// state
+import store from './state/store';
 
 // components
 import M from 'materialize-css/dist/js/materialize.min.js';
@@ -20,22 +24,24 @@ const App = () => {
   });
 
   return (
-    <Router>
-      <Fragment>
-        <Navbar />
-        <SideNav />
-        <Switch>
-          <Route exact path="/" render={() => <span>Home page</span>} />
-          <Route exact path="/accounts" component={Accounts} />
-          <Route exact path="/transactions" component={Transactions} />
-          <Route
-            exact
-            path="/transactions/add"
-            component={AddTransactionForm}
-          />
-        </Switch>
-      </Fragment>
-    </Router>
+    <Provider store={store}>
+      <Router>
+        <Fragment>
+          <Navbar />
+          <SideNav />
+          <Switch>
+            <Route exact path="/" render={() => <span>Home page</span>} />
+            <Route exact path="/accounts" component={Accounts} />
+            <Route exact path="/transactions" component={Transactions} />
+            <Route
+              exact
+              path="/transactions/add"
+              component={AddTransactionForm}
+            />
+          </Switch>
+        </Fragment>
+      </Router>
+    </Provider>
   );
 };
 
