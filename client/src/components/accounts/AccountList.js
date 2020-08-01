@@ -16,7 +16,7 @@ const AccountList = () => {
     setLoading(true);
 
     try {
-      const res = await fetch('/accounts');
+      const res = await fetch('/api/accounts');
       const data = await res.json();
 
       setAccounts(data);

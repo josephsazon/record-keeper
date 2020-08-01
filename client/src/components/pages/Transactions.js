@@ -19,7 +19,7 @@ const Transactions = () => {
     setAccountSuccess(false);
 
     try {
-      const res = await fetch(`/accounts?q=${id}`);
+      const res = await fetch(`/api/accounts?q=${id}`);
       const data = await res.json();
 
       setAccount(data[0]);

@@ -3,9 +3,9 @@
     {
       "id": 1,
       "name": "Bukid - Daungan",
-      "balance": 10000,
+      "balance": 9500,
       "updatedBy": "Joseph Sazon",
-      "updatedDate": "07-26-2020"
+      "updatedDate": "2020-07-30T11:17:55.426Z"
     }
   ],
   "transactions": [
@@ -47,6 +47,17 @@
       "worker": "",
       "account": "Bukid - Daungan",
       "date": "06-04-2020"
+    },
+    {
+      "description": "Pang spray",
+      "amount": "500",
+      "worker": "",
+      "type": "Materials",
+      "balance": 9500,
+      "createdBy": "Joseph Sazon",
+      "date": "2020-07-30T11:17:55.339Z",
+      "entryType": "debit",
+      "id": 4
     }
   ]
 }

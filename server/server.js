@@ -1,18 +1,17 @@
 const express = require('express');
+const connectDB = require('./config/db');
+const routes = require('./routes');
 
 const app = express();
 
-app.get('/accounts', (req, res) => {
-  res.json([
-    {
-      id: 1,
-      name: 'Bukid - Daungan',
-      balance: 10000,
-      updatedBy: 'Joseph Sazon',
-      updatedDate: '07-26-2020',
-    },
-  ]);
-});
+// Connect database.
+connectDB();
+
+// Init middleware.
+app.use(express.json({ extended: false }));
+
+// Define route.
+routes.init(app);
 
 const PORT = process.env.PORT || 5000;
 
