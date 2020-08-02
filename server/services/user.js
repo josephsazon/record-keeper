@@ -2,7 +2,7 @@ const bcrypt = require('bcryptjs');
 
 const User = require('../models/User');
 
-const createUser = async (req, res, next) => {
+const createUser = async (req, res) => {
   const { username, password } = req.body;
 
   try {
@@ -30,8 +30,15 @@ const createUser = async (req, res, next) => {
   }
 };
 
-const getUser = (req, res, next) => {
-  res.send('get user from service');
+const getUser = async (req, res) => {
+  try {
+    const user = await User.findById(req.user.id).select('-password');
+
+    res.json(user);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).json('Server error');
+  }
 };
 
 module.exports = {

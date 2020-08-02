@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const auth = require('../middleware/auth');
 
 const userService = require('../services/user');
 
@@ -15,6 +16,6 @@ router.post('/', userService.createUser);
  * @desc      Get logged in user.
  * @access    Private
  */
-router.get('/', userService.getUser);
+router.get('/', auth, userService.getUser);
 
 module.exports = router;
