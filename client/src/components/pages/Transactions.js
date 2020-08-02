@@ -31,7 +31,7 @@ const Transactions = () => {
     <div className="container">
       <h4 className="center">
         <Link to="/accounts" className="left">
-          <i className="material-icons ">arrow_back</i>
+          <i className="material-icons">arrow_back</i>
         </Link>
         <span>Transactions</span>
       </h4>

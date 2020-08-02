@@ -97,7 +97,7 @@ const AddTransactionForm = () => {
         </Link>
         <span>Add Transaction</span>
       </h4>
-      <div className="row">
+      <div className="row" style={{ maxWidth: '750px' }}>
         <form className="col s12">
           <div className="input-field col s12">
             <textarea
@@ -159,7 +159,7 @@ const AddTransactionForm = () => {
             <div className="col s12 m3 right">
               <a
                 href="#confirm-modal"
-                className="btn-large blue lighten-2 modal-trigger"
+                className="btn-large blue lighten-2 modal-trigger waves-effect"
                 style={{ display: 'block' }}
               >
                 Submit

@@ -7,9 +7,9 @@ const Sidenav = () => {
       <li>
         <div className="user-view">
           <a href="#!">Joseph Sazon</a>
-          <a href="#!" className="secondary-content">
+          <Link to="/login" className="secondary-content">
             <i className="material-icons">keyboard_tab</i>
-          </a>
+          </Link>
         </div>
       </li>
       <li className="divider"></li>
