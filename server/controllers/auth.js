@@ -6,9 +6,9 @@ const router = express.Router();
 const authService = require('../services/auth');
 
 /**
- * @route     POST /api/auth
- * @desc      Auth user & get token.
- * @access    Public
+ * @route         POST /api/auth
+ * @description   Auth user & get token.
+ * @access        Public
  */
 router.post(
   '/',

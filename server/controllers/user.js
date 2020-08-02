@@ -7,9 +7,9 @@ const router = express.Router();
 const userService = require('../services/user');
 
 /**
- * @route     POST /api/user
- * @desc      Register user.
- * @access    Public
+ * @route         POST /api/user
+ * @description   Register user.
+ * @access        Public
  */
 router.post(
   '/',
@@ -22,9 +22,9 @@ router.post(
 );
 
 /**
- * @route     GET /api/user
- * @desc      Get logged in user.
- * @access    Private
+ * @route         GET /api/user
+ * @description   Get logged in user.
+ * @access        Private
  */
 router.get('/', auth, userService.getUser);
 
