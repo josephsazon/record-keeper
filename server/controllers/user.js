@@ -1,6 +1,8 @@
 const express = require('express');
-const router = express.Router();
+const { check } = require('express-validator');
 const auth = require('../middleware/auth');
+const validate = require('../middleware/validate');
+const router = express.Router();
 
 const userService = require('../services/user');
 
@@ -9,7 +11,15 @@ const userService = require('../services/user');
  * @desc      Register user.
  * @access    Public
  */
-router.post('/', userService.createUser);
+router.post(
+  '/',
+  [
+    check('username', 'Username is required.').exists(),
+    check('password', 'Password is required.').exists(),
+  ],
+  validate,
+  userService.createUser
+);
 
 /**
  * @route     GET /api/user
