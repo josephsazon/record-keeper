@@ -1,3 +1,4 @@
 {
-  "mongoURI": "mongodb+srv://admin:123@BCde@recordkeeper.0obbz.mongodb.net/Records?retryWrites=true&w=majority"
+  "mongoURI": "mongodb+srv://admin:123@BCde@recordkeeper.0obbz.mongodb.net/Records?retryWrites=true&w=majority",
+  "jwtSecret": "secret"
 }
