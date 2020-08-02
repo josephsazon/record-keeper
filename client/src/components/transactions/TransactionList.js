@@ -1,40 +1,36 @@
-import React, { Fragment, useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
+import { connect } from 'react-redux';
+
+// state
+import { getTransactions } from '../../state/actions/transactionActions';
 
 // components
-import { Collapsible } from 'react-materialize';
 import Preloader from '../layout/Preloader';
 import TransactionItem from './TransactionItem';
 
-const TransactionList = () => {
-  const [transactions, setTransactions] = useState([]);
-  const [loading, setLoading] = useState(false);
-
+const TransactionList = ({
+  transaction: { transactions, success, loading },
+  getTransactions,
+}) => {
   useEffect(() => {
     getTransactions();
     // eslint-disable-next-line
   }, []);
 
-  const getTransactions = async () => {
-    setLoading(true);
-
-    try {
-      const res = await fetch('/transactions?_sort=id&_order=desc');
-      const data = await res.json();
-
-      setTransactions(data);
-    } catch (err) {}
-    setLoading(false);
-  };
-
   if (loading) return <Preloader />;
 
   return (
-    <Collapsible>
-      {transactions.map((transaction) => (
-        <TransactionItem key={transaction.id} transaction={transaction} />
-      ))}
-    </Collapsible>
+    <ul className="collapsible">
+      {success &&
+        transactions.map((transaction) => (
+          <TransactionItem key={transaction.id} transaction={transaction} />
+        ))}
+    </ul>
   );
 };
 
-export default TransactionList;
+const mapStateToProps = (state) => ({
+  transaction: state.transaction,
+});
+
+export default connect(mapStateToProps, { getTransactions })(TransactionList);

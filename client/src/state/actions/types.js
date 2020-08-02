@@ -1,4 +1,8 @@
 export const ACCOUNT = {
   GET_ALL: 'ACCOUNT_GET_ALL',
 };
+export const TRANSACTION = {
+  ERROR: 'TRANSACTION_ERROR',
+  GET_ALL: 'TRANSACTION_GET_ALL',
+};
 export const SET_LOADING = 'SET_LOADING';
