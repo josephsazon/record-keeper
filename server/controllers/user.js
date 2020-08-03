@@ -37,7 +37,7 @@ router.post(
  */
 router.get('/', auth, async (req, res) => {
   try {
-    const user = await userService.getUser(req.user);
+    const user = await userService.getUser(req.user.id);
 
     res.status(200).json({ user });
   } catch (err) {

@@ -23,7 +23,7 @@ const createUser = async ({ username, password }) => {
   return user;
 };
 
-const getUser = async ({ id }) => {
+const getUser = async (id) => {
   const user = await User.findById(id).select('-password');
 
   return user;

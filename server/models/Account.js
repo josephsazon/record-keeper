@@ -8,24 +8,30 @@ const AccountSchema = mongoose.Schema({
   },
   balance: {
     type: Number,
-    required: true,
+    default: 0,
   },
   createdBy: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'users',
+    type: String,
+    required: true,
   },
   createdDate: {
     type: Date,
     default: Date.now,
   },
   updatedBy: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'users',
+    type: String,
+    required: true,
   },
   updatedDate: {
     type: Date,
     default: Date.now,
   },
+  users: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'users',
+    },
+  ],
 });
 
 module.exports = mongoose.model('account', AccountSchema);
