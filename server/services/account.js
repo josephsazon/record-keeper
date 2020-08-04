@@ -23,16 +23,10 @@ const createAccount = async (payload, userId) => {
   return newAccount;
 };
 
-const getAccounts = (req, res) => {
-  res.json([
-    {
-      id: 1,
-      name: 'Bukid - Daungan',
-      balance: 10000,
-      updatedBy: 'Joseph Sazon',
-      updatedDate: '07-26-2020',
-    },
-  ]);
+const getAccounts = async () => {
+  const accounts = await Account.find().sort({ createdDate: -1 });
+
+  return accounts;
 };
 
 module.exports = {
