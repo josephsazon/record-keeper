@@ -39,7 +39,7 @@ router.get('/', auth, async (req, res) => {
   try {
     const user = await userService.getUser(req.user.id);
 
-    res.status(200).json({ user });
+    res.status(200).json(user);
   } catch (err) {
     console.error(err.message);
     res.status(500).json({ msg: err.message });

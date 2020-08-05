@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { Provider } from 'react-redux';
 
 // state
-import store from './state/store';
+import { store } from './state/store';
 
 // components
 import M from 'materialize-css/dist/js/materialize.min.js';
@@ -11,6 +11,7 @@ import Navbar from './components/layout/Navbar';
 import SideNav from './components/layout/Sidenav';
 import Accounts from './components/pages/Accounts';
 import AddTransactionForm from './components/transactions/AddTransactionForm';
+import Home from './components/pages/Home';
 import Login from './components/auth/Login';
 import PrivateRoute from './components/routing/PrivateRoute';
 import Transactions from './components/pages/Transactions';
@@ -39,7 +40,7 @@ const App = () => {
           <Navbar />
           <SideNav />
           <Switch>
-            <Route exact path="/" render={() => <span>Home page</span>} />
+            <PrivateRoute exact path="/" component={Home} />
             <PrivateRoute exact path="/accounts" component={Accounts} />
             <Route exact path="/login" component={Login} />
             <Route exact path="/transactions" component={Transactions} />

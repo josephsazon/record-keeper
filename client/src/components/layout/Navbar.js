@@ -1,13 +1,20 @@
 import React from 'react';
+import { connect } from 'react-redux';
 
-const Navbar = () => {
+const Navbar = ({ auth: { isAuthenticated } }) => {
   return (
     <nav className="blue lighten-1" style={{ marginBottom: '30px' }}>
-      <a href="#slide-out" className="sidenav-trigger show-on-large">
-        <i className="material-icons">menu</i>
-      </a>
+      {isAuthenticated && (
+        <a href="#slide-out" className="sidenav-trigger show-on-large">
+          <i className="material-icons">menu</i>
+        </a>
+      )}
     </nav>
   );
 };
 
-export default Navbar;
+const mapStateToProps = (state) => ({
+  auth: state.auth,
+});
+
+export default connect(mapStateToProps)(Navbar);
