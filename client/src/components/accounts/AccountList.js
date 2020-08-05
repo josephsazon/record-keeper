@@ -21,7 +21,7 @@ const AccountList = ({ account: { accounts, loading }, getAccounts }) => {
       <div className="row">
         {accounts &&
           accounts.map((account) => (
-            <div className="col s12 m6 l4" key={account.id}>
+            <div className="col s12 m6 l4" key={account._id}>
               <AccountItem account={account} />
             </div>
           ))}

@@ -11,12 +11,19 @@ import Navbar from './components/layout/Navbar';
 import SideNav from './components/layout/Sidenav';
 import Accounts from './components/pages/Accounts';
 import AddTransactionForm from './components/transactions/AddTransactionForm';
-import Login from './components/pages/Login';
+import Login from './components/auth/Login';
 import Transactions from './components/pages/Transactions';
 
 // styles
 import 'materialize-css/dist/css/materialize.min.css';
 import './App.css';
+
+// utils
+import setAuthToken from './utils/setAuthToken';
+
+if (localStorage.token) {
+  setAuthToken(localStorage.token);
+}
 
 const App = () => {
   useEffect(() => {

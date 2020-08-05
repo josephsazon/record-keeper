@@ -1,6 +1,10 @@
 import React, { useState } from 'react';
+import { connect } from 'react-redux';
 
-const Login = () => {
+// state
+import { login } from '../../state/actions/authActions';
+
+const Login = ({ login }) => {
   const [user, setUser] = useState({
     username: '',
     password: '',
@@ -14,6 +18,7 @@ const Login = () => {
 
   const onSubmit = (e) => {
     e.preventDefault();
+    login(user);
   };
 
   return (
@@ -58,4 +63,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default connect(null, { login })(Login);
