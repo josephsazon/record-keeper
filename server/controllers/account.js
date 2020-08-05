@@ -11,20 +11,16 @@ const accountService = require('../services/account');
  * @description   Get accounts.
  * @access        Private
  */
-router.get(
-  '/',
-  // auth,
-  async (req, res) => {
-    try {
-      const accounts = await accountService.getAccounts();
+router.get('/', auth, async (req, res) => {
+  try {
+    const accounts = await accountService.getAccounts();
 
-      res.status(200).json(accounts);
-    } catch (err) {
-      console.error(err.message);
-      res.status(500).json({ msg: err.message });
-    }
+    res.status(200).json(accounts);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).json({ msg: err.message });
   }
-);
+});
 
 /**
  * @route         POST /api/accounts

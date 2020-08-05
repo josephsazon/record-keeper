@@ -1,10 +1,16 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 
 // state
 import { login } from '../../state/actions/authActions';
 
-const Login = ({ login }) => {
+const Login = ({ auth: { isAuthenticated }, history, login }) => {
+  useEffect(() => {
+    if (isAuthenticated) {
+      history.push('/');
+    }
+  }, [isAuthenticated]);
+
   const [user, setUser] = useState({
     username: '',
     password: '',
@@ -63,4 +69,8 @@ const Login = ({ login }) => {
   );
 };
 
-export default connect(null, { login })(Login);
+const mapStateToProps = (state) => ({
+  auth: state.auth,
+});
+
+export default connect(mapStateToProps, { login })(Login);

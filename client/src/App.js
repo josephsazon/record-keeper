@@ -12,6 +12,7 @@ import SideNav from './components/layout/Sidenav';
 import Accounts from './components/pages/Accounts';
 import AddTransactionForm from './components/transactions/AddTransactionForm';
 import Login from './components/auth/Login';
+import PrivateRoute from './components/routing/PrivateRoute';
 import Transactions from './components/pages/Transactions';
 
 // styles
@@ -39,7 +40,7 @@ const App = () => {
           <SideNav />
           <Switch>
             <Route exact path="/" render={() => <span>Home page</span>} />
-            <Route exact path="/accounts" component={Accounts} />
+            <PrivateRoute exact path="/accounts" component={Accounts} />
             <Route exact path="/login" component={Login} />
             <Route exact path="/transactions" component={Transactions} />
             <Route
