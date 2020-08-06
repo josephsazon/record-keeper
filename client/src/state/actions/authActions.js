@@ -6,7 +6,7 @@ import setAuthToken from '../../utils/setAuthToken';
 
 export const login = (formData) => async (dispatch) => {
   axios
-    .post('/auth', JSON.stringify(formData), {
+    .post('/api/auth', JSON.stringify(formData), {
       headers: { 'Content-Type': 'application/json' },
     })
     .then((res) => {
@@ -32,7 +32,7 @@ export const loadUser = () => async (dispatch) => {
   }
 
   axios
-    .get('/user')
+    .get('/api/user')
     .then((res) => {
       dispatch({ type: AUTH.LOAD_USER_SUCCESS, payload: res.data });
     })

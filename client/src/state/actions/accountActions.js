@@ -6,7 +6,7 @@ export const getAccounts = () => async (dispatch) => {
   setLoading();
 
   axios
-    .get('/accounts')
+    .get('/api/accounts')
     .then((res) => {
       dispatch({ type: ACCOUNT.GET_ALL, payload: res.data });
     })
@@ -20,8 +20,8 @@ export const getAccounts = () => async (dispatch) => {
     });
 };
 
-const setLoading = () => {
-  return {
+const setLoading = () => async (dispatch) => {
+  dispatch({
     type: SET_LOADING,
-  };
+  });
 };
