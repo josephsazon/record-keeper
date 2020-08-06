@@ -46,4 +46,54 @@ router.get('/', auth, async (req, res) => {
   }
 });
 
+/**
+ * @route         POST /api/user/account
+ * @description   Add account to user.
+ * @access        Private
+ */
+router.post(
+  '/account',
+  auth,
+  [check('accountId', 'accountId is required.').exists()],
+  validate,
+  async (req, res) => {
+    try {
+      const user = await userService.addAccountToUser(
+        req.user.id,
+        req.body.accountId
+      );
+
+      res.status(200).json(user);
+    } catch (err) {
+      console.error(err.message);
+      res.status(500).json({ msg: err.message });
+    }
+  }
+);
+
+/**
+ * @route         POST /api/user/account
+ * @description   Add account to user.
+ * @access        Private
+ */
+router.delete(
+  '/account',
+  auth,
+  [check('accountId', 'accountId is required.').exists()],
+  validate,
+  async (req, res) => {
+    try {
+      const user = await userService.deleteAccountFromUser(
+        req.user.id,
+        req.body.accountId
+      );
+
+      res.status(200).json(user);
+    } catch (err) {
+      console.error(err.message);
+      res.status(500).json({ msg: err.message });
+    }
+  }
+);
+
 module.exports = router;

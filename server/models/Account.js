@@ -26,12 +26,6 @@ const AccountSchema = mongoose.Schema({
     type: Date,
     default: Date.now,
   },
-  users: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'users',
-    },
-  ],
 });
 
 module.exports = mongoose.model('account', AccountSchema);
