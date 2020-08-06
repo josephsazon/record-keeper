@@ -30,6 +30,15 @@ const addTransaction = async (transaction, accountId) => {
   return result;
 };
 
+const getTransactions = async (accountId) => {
+  const transactions = await Transaction.find({ account: accountId }).sort({
+    createdDate: -1,
+  });
+
+  return transactions;
+};
+
 module.exports = {
   addTransaction,
+  getTransactions,
 };
