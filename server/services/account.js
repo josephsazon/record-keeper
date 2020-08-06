@@ -29,7 +29,32 @@ const getAccounts = async () => {
   return accounts;
 };
 
+/**
+ *
+ * @param {string} id - ID from Account schema.
+ * @param {Object} payload - Contains amount and entryType.
+ * @returns {Object} Updated account.
+ */
+const updateBalance = async (id, payload) => {
+  const account = await Account.findById(id);
+
+  if (!account) throw new Error('Account not found. Cannot update balance.');
+
+  const { amount, entryType } = payload;
+
+  if (entryType === 'debit') {
+    account.balance = account.balance - parseInt(amount);
+  } else {
+    account.balance = account.balance + parseInt(amount);
+  }
+
+  const updatedAccount = await account.save();
+
+  return updatedAccount;
+};
+
 module.exports = {
   createAccount,
   getAccounts,
+  updateBalance,
 };
