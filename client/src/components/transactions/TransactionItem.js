@@ -13,13 +13,13 @@ const TransactionItem = ({ transaction }) => {
 
   const {
     amount,
+    assignedTo,
     balance,
     createdBy,
     createdDate,
-    entryType,
     description,
+    entryType,
     type,
-    worker,
   } = transaction;
 
   const getIcon = () => {
@@ -81,7 +81,7 @@ const TransactionItem = ({ transaction }) => {
             }
             col="s6"
           />
-          <InfoPair label="Assigned to" value={worker} col="s6" />
+          <InfoPair label="Assigned to" value={assignedTo} col="s6" />
           <InfoPair label="Created by" value={createdBy} col="s6" />
           <InfoPair
             label="Date"

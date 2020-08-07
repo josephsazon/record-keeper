@@ -1,6 +1,7 @@
 import { TRANSACTION } from '../actions/types';
 
 const initialState = {
+  addTransactionSuccess: false,
   error: null,
   loading: false,
   success: false,
@@ -9,6 +10,12 @@ const initialState = {
 
 export default (state = initialState, action) => {
   switch (action.type) {
+    case TRANSACTION.ADD_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        addTransactionSuccess: true,
+      };
     case TRANSACTION.ERROR:
       return {
         ...state,
@@ -21,6 +28,11 @@ export default (state = initialState, action) => {
         loading: false,
         success: true,
         transactions: action.payload,
+      };
+    case TRANSACTION.RESET:
+      return {
+        ...state,
+        addTransactionSuccess: false,
       };
     case TRANSACTION.SET_LOADING:
       return {
