@@ -22,6 +22,11 @@ export default (state = initialState, action) => {
         success: true,
         transactions: action.payload,
       };
+    case TRANSACTION.SET_LOADING:
+      return {
+        ...state,
+        loading: true,
+      };
     default:
       return state;
   }

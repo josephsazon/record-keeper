@@ -1,9 +1,10 @@
 import React, { useEffect, Fragment } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { Provider } from 'react-redux';
+import { PersistGate } from 'redux-persist/integration/react';
 
 // state
-import { store } from './state/store';
+import { store, persistor } from './state/store';
 
 // components
 import M from 'materialize-css/dist/js/materialize.min.js';
@@ -35,23 +36,29 @@ const App = () => {
 
   return (
     <Provider store={store}>
-      <Router>
-        <Fragment>
-          <Navbar />
-          <SideNav />
-          <Switch>
-            <PrivateRoute exact path="/" component={Home} />
-            <PrivateRoute exact path="/accounts" component={Accounts} />
-            <Route exact path="/login" component={Login} />
-            <Route exact path="/transactions" component={Transactions} />
-            <Route
-              exact
-              path="/transactions/add"
-              component={AddTransactionForm}
-            />
-          </Switch>
-        </Fragment>
-      </Router>
+      <PersistGate persistor={persistor}>
+        <Router>
+          <Fragment>
+            <Navbar />
+            <SideNav />
+            <Switch>
+              <PrivateRoute exact path="/" component={Home} />
+              <PrivateRoute exact path="/accounts" component={Accounts} />
+              <Route exact path="/login" component={Login} />
+              <PrivateRoute
+                exact
+                path="/transactions"
+                component={Transactions}
+              />
+              <PrivateRoute
+                exact
+                path="/transactions/add"
+                component={AddTransactionForm}
+              />
+            </Switch>
+          </Fragment>
+        </Router>
+      </PersistGate>
     </Provider>
   );
 };

@@ -10,22 +10,22 @@ const Transactions = () => {
   const [account, setAccount] = useState({});
   const [accountSuccess, setAccountSuccess] = useState(false);
 
-  useEffect(() => {
-    getAccount('1');
-    // eslint-disable-next-line
-  }, []);
+  // useEffect(() => {
+  // getAccount('1');
+  // eslint-disable-next-line
+  // }, []);
 
-  const getAccount = async (id) => {
-    setAccountSuccess(false);
+  // const getAccount = async (id) => {
+  //   setAccountSuccess(false);
 
-    try {
-      const res = await fetch(`/accounts?q=${id}`);
-      const data = await res.json();
+  //   try {
+  //     const res = await fetch(`/accounts?q=${id}`);
+  //     const data = await res.json();
 
-      setAccount(data[0]);
-      setAccountSuccess(true);
-    } catch (err) {}
-  };
+  //     setAccount(data[0]);
+  //     setAccountSuccess(true);
+  //   } catch (err) {}
+  // };
 
   return (
     <div className="container">

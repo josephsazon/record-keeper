@@ -16,14 +16,14 @@ const TransactionList = ({
     getTransactions();
     // eslint-disable-next-line
   }, []);
-
+  console.log(loading);
   if (loading) return <Preloader />;
 
   return (
     <ul className="collapsible">
       {success &&
         transactions.map((transaction) => (
-          <TransactionItem key={transaction.id} transaction={transaction} />
+          <TransactionItem key={transaction._id} transaction={transaction} />
         ))}
     </ul>
   );
