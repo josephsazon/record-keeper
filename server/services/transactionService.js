@@ -1,25 +1,32 @@
 const Transaction = require('../models/Transaction');
 
 const accountService = require('./account');
+const userService = require('./user');
 
 /**
  * Add transaction to account.
  * @param {Object} transaction
  * @returns {Object} Saved transaction.
  */
-const addTransaction = async (transaction, accountId) => {
+const addTransaction = async (transaction, userId, accountId) => {
   const { amount, assignedTo, description, entryType, type } = transaction;
+  const user = await userService.getUser(userId);
 
-  const updatedAccount = await accountService.updateBalance(accountId, {
-    amount,
-    entryType,
-  });
+  const updatedAccount = await accountService.updateBalance(
+    accountId,
+    user.username,
+    {
+      amount,
+      entryType,
+    }
+  );
 
   const newTransaction = new Transaction({
     account: accountId,
     amount,
     assignedTo,
     balance: updatedAccount.balance,
+    createdBy: user.username,
     description,
     entryType,
     type,

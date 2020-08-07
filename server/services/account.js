@@ -33,9 +33,10 @@ const getAccounts = async () => {
  *
  * @param {string} id - ID from Account schema.
  * @param {Object} payload - Contains amount and entryType.
+ * @param {string} username - Updated by this user.
  * @returns {Object} Updated account.
  */
-const updateBalance = async (id, payload) => {
+const updateBalance = async (id, username, payload) => {
   const account = await Account.findById(id);
 
   if (!account) throw new Error('Account not found. Cannot update balance.');
@@ -47,6 +48,9 @@ const updateBalance = async (id, payload) => {
   } else {
     account.balance = account.balance + parseInt(amount);
   }
+
+  account.updatedBy = username;
+  account.updatedDate = new Date();
 
   const updatedAccount = await account.save();
 

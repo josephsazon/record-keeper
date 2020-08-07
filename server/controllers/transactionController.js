@@ -15,6 +15,7 @@ router.post('/:id', auth, async (req, res) => {
   try {
     const transaction = await transactionService.addTransaction(
       req.body,
+      req.user.id,
       req.params.id
     );
 

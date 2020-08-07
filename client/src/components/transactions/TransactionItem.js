@@ -15,7 +15,7 @@ const TransactionItem = ({ transaction }) => {
     amount,
     balance,
     createdBy,
-    date,
+    createdDate,
     entryType,
     description,
     type,
@@ -85,7 +85,9 @@ const TransactionItem = ({ transaction }) => {
           <InfoPair label="Created by" value={createdBy} col="s6" />
           <InfoPair
             label="Date"
-            value={<Moment format="MMMM Do YYYY">{date}</Moment>}
+            value={
+              <Moment format="MMMM Do YYYY, h:mm:ss a">{createdDate}</Moment>
+            }
             col="s6"
           />
         </div>
