@@ -16,7 +16,7 @@ const TransactionList = ({
     getTransactions();
     // eslint-disable-next-line
   }, []);
-  console.log(loading);
+
   if (loading) return <Preloader />;
 
   return (

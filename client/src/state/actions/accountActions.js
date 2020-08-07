@@ -1,9 +1,9 @@
 import axios from 'axios';
 
-import { ACCOUNT, SET_LOADING } from './types';
+import { ACCOUNT } from './types';
 
 export const getAccounts = () => async (dispatch) => {
-  setLoading();
+  dispatch({ type: ACCOUNT.SET_LOADING });
 
   axios
     .get('/api/accounts')
@@ -18,10 +18,4 @@ export const getAccounts = () => async (dispatch) => {
         payload: response.data.msg || response.statusText,
       });
     });
-};
-
-const setLoading = () => async (dispatch) => {
-  dispatch({
-    type: SET_LOADING,
-  });
 };

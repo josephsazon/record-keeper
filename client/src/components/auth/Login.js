@@ -4,7 +4,10 @@ import { connect } from 'react-redux';
 // state
 import { login } from '../../state/actions/authActions';
 
-const Login = ({ auth: { isAuthenticated }, history, login }) => {
+// components
+import Preloader from '../layout/Preloader';
+
+const Login = ({ auth: { isAuthenticated, loading }, history, login }) => {
   useEffect(() => {
     if (isAuthenticated) {
       history.push('/');
@@ -30,6 +33,7 @@ const Login = ({ auth: { isAuthenticated }, history, login }) => {
   return (
     <div className="container" style={{ maxWidth: '500px' }}>
       <h4 className="center">Login</h4>
+      {loading && <Preloader />}
       <div className="row">
         <form onSubmit={onSubmit}>
           <div className="input-field col s12">

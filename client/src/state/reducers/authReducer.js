@@ -38,6 +38,11 @@ export default (state = initialState, action) => {
         token: null,
         user: null,
       };
+    case AUTH.SET_LOADING:
+      return {
+        ...state,
+        loading: true,
+      };
     default:
       return state;
   }

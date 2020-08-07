@@ -1,4 +1,4 @@
-import { ACCOUNT, SET_LOADING } from '../actions/types';
+import { ACCOUNT } from '../actions/types';
 
 const initialState = {
   accounts: null,
@@ -11,9 +11,9 @@ export default (state = initialState, action) => {
       return {
         ...state,
         accounts: action.payload,
-        // loading: false,
+        loading: false,
       };
-    case SET_LOADING:
+    case ACCOUNT.SET_LOADING:
       return {
         ...state,
         loading: true,

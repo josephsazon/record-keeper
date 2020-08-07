@@ -5,6 +5,8 @@ import axios from 'axios';
 import setAuthToken from '../../utils/setAuthToken';
 
 export const login = (formData) => async (dispatch) => {
+  dispatch({ type: AUTH.SET_LOADING });
+
   axios
     .post('/api/auth', JSON.stringify(formData), {
       headers: { 'Content-Type': 'application/json' },
