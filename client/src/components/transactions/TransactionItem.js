@@ -1,11 +1,16 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Moment from 'react-moment';
 import NumberFormat from 'react-number-format';
 
 // components
 import InfoPair from '../layout/InfoPair';
+import M from 'materialize-css/dist/js/materialize.min.js';
 
 const TransactionItem = ({ transaction }) => {
+  useEffect(() => {
+    M.AutoInit();
+  }, []);
+
   const {
     amount,
     balance,

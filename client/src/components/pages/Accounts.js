@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 
 // components
 import AccountList from '../accounts/AccountList';

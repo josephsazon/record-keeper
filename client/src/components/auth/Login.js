@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
 // state
 import { login } from '../../state/actions/authActions';
@@ -29,6 +30,7 @@ const Login = ({ auth: { isAuthenticated, loading }, history, login }) => {
     e.preventDefault();
     login(user);
   };
+  console.log(typeof history);
 
   return (
     <div className="container" style={{ maxWidth: '500px' }}>
@@ -71,6 +73,11 @@ const Login = ({ auth: { isAuthenticated, loading }, history, login }) => {
       </div>
     </div>
   );
+};
+
+Login.propTypes = {
+  auth: PropTypes.object.isRequired,
+  login: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({

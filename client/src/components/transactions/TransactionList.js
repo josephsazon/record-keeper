@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
 // state
 import { getTransactions } from '../../state/actions/transactionActions';
@@ -27,6 +28,11 @@ const TransactionList = ({
         ))}
     </ul>
   );
+};
+
+TransactionList.propTypes = {
+  getTransactions: PropTypes.func.isRequired,
+  transaction: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = (state) => ({

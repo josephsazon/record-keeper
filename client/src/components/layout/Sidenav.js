@@ -1,11 +1,18 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 // state
 import { logout } from '../../state/actions/authActions';
 
+// components
+import M from 'materialize-css/dist/js/materialize.min.js';
+
 const Sidenav = ({ auth: { user }, logout }) => {
+  useEffect(() => {
+    M.AutoInit();
+  }, []);
+
   const onLogout = () => {
     logout();
   };
@@ -15,7 +22,12 @@ const Sidenav = ({ auth: { user }, logout }) => {
       <li>
         <div className="user-view">
           <a href="#!">{user ? user.username : null}</a>
-          <a to="#!" className="secondary-content" onClick={onLogout}>
+          <a
+            to="#!"
+            className="secondary-content"
+            onClick={onLogout}
+            style={{ cursor: 'pointer' }}
+          >
             <i className="material-icons blue-text text-lighten-2">
               keyboard_tab
             </i>
