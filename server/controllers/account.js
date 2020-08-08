@@ -7,6 +7,22 @@ const router = express.Router();
 const accountService = require('../services/account');
 
 /**
+ * @route         GET /api/accounts/:id
+ * @description   Get account by id.
+ * @access        Private
+ */
+router.get('/:id', auth, async (req, res) => {
+  try {
+    const account = await accountService.getAccount(req.params.id);
+
+    res.status(200).json(account);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).json({ msg: err.message });
+  }
+});
+
+/**
  * @route         GET /api/accounts
  * @description   Get accounts.
  * @access        Private

@@ -2,6 +2,12 @@ const Account = require('../models/Account');
 
 const userService = require('./user');
 
+/**
+ * Create new account.
+ * @param {Object} payload - Account to be created.
+ * @param {string} userId - ID from User schema.
+ * @returns {Object} Created account.
+ */
 const createAccount = async (payload, userId) => {
   const { name } = payload;
 
@@ -23,6 +29,23 @@ const createAccount = async (payload, userId) => {
   return newAccount;
 };
 
+/**
+ * Get account by id.
+ * @param {string} id - ID from Account schema.
+ * @returns {Object} Account details.
+ */
+const getAccount = async (id) => {
+  const account = await Account.findById(id);
+
+  if (!account) throw new Error('Account not found.');
+
+  return account;
+};
+
+/**
+ * Get list of accounts.
+ * @returns {Array} List of accounts.
+ */
 const getAccounts = async () => {
   const accounts = await Account.find().sort({ createdDate: -1 });
 
@@ -59,6 +82,7 @@ const updateBalance = async (id, username, payload) => {
 
 module.exports = {
   createAccount,
+  getAccount,
   getAccounts,
   updateBalance,
 };
