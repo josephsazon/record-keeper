@@ -1,9 +1,9 @@
 const express = require('express');
 const router = express.Router();
 
-router.use('/accounts', require('../controllers/account'));
-router.use('/auth', require('../controllers/auth'));
+router.use('/accounts', require('../controllers/accountController'));
+router.use('/auth', require('../controllers/authController'));
 router.use('/transaction', require('../controllers/transactionController'));
-router.use('/user', require('../controllers/user'));
+router.use('/user', require('../controllers/userController'));
 
 module.exports = router;
