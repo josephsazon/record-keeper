@@ -43,7 +43,10 @@ const AccountItem = ({ account }) => {
         </div>
       </div>
       <div className="card-action">
-        <Link to="/transactions" className="waves-effect">
+        <Link
+          to={{ pathname: `/${account._id}/transactions` }}
+          className="waves-effect"
+        >
           <span className="blue-text">View Transactions</span>
         </Link>
       </div>

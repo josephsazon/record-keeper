@@ -1,31 +1,20 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
 import NumberFormat from 'react-number-format';
+
+// state
+import { getAccount } from '../../state/actions/accountActions';
 
 // components
 import TransactionList from '../transactions/TransactionList';
 import TransactionFAB from '../transactions/TransactionFAB';
 
-const Transactions = () => {
-  const [account, setAccount] = useState({});
-  const [accountSuccess, setAccountSuccess] = useState(false);
-
-  // useEffect(() => {
-  // getAccount('1');
-  // eslint-disable-next-line
-  // }, []);
-
-  // const getAccount = async (id) => {
-  //   setAccountSuccess(false);
-
-  //   try {
-  //     const res = await fetch(`/accounts?q=${id}`);
-  //     const data = await res.json();
-
-  //     setAccount(data[0]);
-  //     setAccountSuccess(true);
-  //   } catch (err) {}
-  // };
+const Transactions = ({ account: { success, account }, match, getAccount }) => {
+  useEffect(() => {
+    getAccount(match.params.accountId);
+    // eslint-disable-next-line;
+  }, []);
 
   return (
     <div className="container">
@@ -35,7 +24,7 @@ const Transactions = () => {
         </Link>
         <span>Transactions</span>
       </h4>
-      {accountSuccess && (
+      {success && (
         <div style={accountDetailStyle}>
           <h6>
             <span>{account.name}</span>
@@ -60,4 +49,8 @@ const accountDetailStyle = {
   margin: '1.6rem 0',
 };
 
-export default Transactions;
+const mapStateToProps = (state) => ({
+  account: state.account,
+});
+
+export default connect(mapStateToProps, { getAccount })(Transactions);

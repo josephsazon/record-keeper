@@ -18,58 +18,9 @@ const AddTransactionForm = ({
   const [assignedTo, setAssignedTo] = useState('');
   const [type, setType] = useState('');
 
-  // const [success, setSuccess] = useState(false);
-  // const [balance, setBalance] = useState(0);
-  // const [account, setAccount] = useState({});
-
   useEffect(() => {
     M.AutoInit();
-    // getAccount(1);
   }, []);
-
-  // const addTransaction = async (transaction) => {
-  //   setSuccess(false);
-  //   try {
-  //     const res = await fetch('/transactions', {
-  //       method: 'POST',
-  //       body: JSON.stringify(transaction),
-  //       headers: {
-  //         'Content-Type': 'application/json',
-  //       },
-  //     });
-  //     const data = await res.json();
-
-  //     updateAccountBalance(1);
-
-  //     setSuccess(true);
-  //   } catch (err) {}
-  // };
-
-  // const getAccount = async (id) => {
-  //   try {
-  //     const res = await fetch(`/accounts?_q=${id}`);
-  //     const data = await res.json();
-
-  //     setBalance(data[0].balance);
-  //     setAccount(data[0]);
-  //   } catch (err) {}
-  // };
-
-  // const updateAccountBalance = async (id) => {
-  //   try {
-  //     await fetch(`/accounts/${id}`, {
-  //       method: 'PUT',
-  //       body: JSON.stringify({
-  //         ...account,
-  //         updatedDate: new Date(),
-  //         balance: type === 'inflow' ? +balance + +amount : balance - amount,
-  //       }),
-  //       headers: {
-  //         'Content-Type': 'application/json',
-  //       },
-  //     });
-  //   } catch (err) {}
-  // };
 
   const onSubmit = () => {
     const transaction = {
@@ -97,7 +48,7 @@ const AddTransactionForm = ({
         onSubmit={onSubmit}
       />
       <h4 className="center">
-        <Link to="/transactions" className="left">
+        <Link to="/5f28274568879d399c29bd90/transactions" className="left">
           <i className="material-icons ">arrow_back</i>
         </Link>
         <span>Add Transaction</span>

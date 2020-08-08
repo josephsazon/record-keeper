@@ -47,7 +47,7 @@ const App = () => {
               <Route exact path="/login" component={Login} />
               <PrivateRoute
                 exact
-                path="/transactions"
+                path="/:accountId/transactions"
                 component={Transactions}
               />
               <PrivateRoute
