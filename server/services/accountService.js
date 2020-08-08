@@ -1,6 +1,6 @@
 const Account = require('../models/Account');
 
-const userService = require('./user');
+const userService = require('./userService');
 
 /**
  * Create new account.

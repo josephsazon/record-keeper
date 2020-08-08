@@ -4,7 +4,7 @@ const auth = require('../middleware/auth');
 const validate = require('../middleware/validate');
 const router = express.Router();
 
-const accountService = require('../services/account');
+const accountService = require('../services/accountService');
 
 /**
  * @route         GET /api/accounts/:id

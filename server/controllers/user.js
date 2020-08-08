@@ -4,7 +4,7 @@ const auth = require('../middleware/auth');
 const validate = require('../middleware/validate');
 const router = express.Router();
 
-const userService = require('../services/user');
+const userService = require('../services/userService');
 
 /**
  * @route         POST /api/user

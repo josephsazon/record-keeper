@@ -3,7 +3,7 @@ const { check } = require('express-validator');
 const validate = require('../middleware/validate');
 const router = express.Router();
 
-const authService = require('../services/auth');
+const authService = require('../services/authService');
 
 /**
  * @route         POST /api/auth

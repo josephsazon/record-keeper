@@ -1,7 +1,7 @@
 const Transaction = require('../models/Transaction');
 
-const accountService = require('./account');
-const userService = require('./user');
+const accountService = require('./accountService');
+const userService = require('./userService');
 
 /**
  * Add transaction to account.
