@@ -47,7 +47,23 @@ const getAccount = async (id) => {
  * @returns {Array} List of accounts.
  */
 const getAccounts = async () => {
-  const accounts = await Account.find().sort({ createdDate: -1 });
+  const accounts = await Account.find().sort({ name: 1 });
+
+  return accounts;
+};
+
+/**
+ * Get list of accounts for user.
+ * @param {string} userId - ID from User schema.
+ * @returns {Array} List of accounts.
+ */
+const getAccountsForUser = async (userId) => {
+  const user = await userService.getUser(userId);
+
+  const accounts = await Account.find()
+    .where('_id')
+    .in(user.accounts)
+    .sort({ name: 1 });
 
   return accounts;
 };
@@ -84,5 +100,6 @@ module.exports = {
   createAccount,
   getAccount,
   getAccounts,
+  getAccountsForUser,
   updateBalance,
 };

@@ -7,6 +7,22 @@ const router = express.Router();
 const accountService = require('../services/accountService');
 
 /**
+ * @route         GET /api/accounts/all
+ * @description   Get all accounts.
+ * @access        Private
+ */
+router.get('/all', auth, async (req, res) => {
+  try {
+    const accounts = await accountService.getAccounts();
+
+    res.status(200).json(accounts);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).json({ msg: err.message });
+  }
+});
+
+/**
  * @route         GET /api/accounts/:id
  * @description   Get account by id.
  * @access        Private
@@ -24,12 +40,12 @@ router.get('/:id', auth, async (req, res) => {
 
 /**
  * @route         GET /api/accounts
- * @description   Get accounts.
+ * @description   Get accounts for user.
  * @access        Private
  */
 router.get('/', auth, async (req, res) => {
   try {
-    const accounts = await accountService.getAccounts();
+    const accounts = await accountService.getAccountsForUser(req.user.id);
 
     res.status(200).json(accounts);
   } catch (err) {
