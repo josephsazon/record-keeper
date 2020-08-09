@@ -7,7 +7,7 @@ export const getTransactions = () => async (dispatch) => {
   dispatch({ type: TRANSACTION.RESET });
 
   axios
-    .get('/api/transaction/5f28274568879d399c29bd90')
+    .get('/api/transaction')
     .then((res) => {
       dispatch({
         type: TRANSACTION.GET_ALL,
@@ -26,15 +26,11 @@ export const addTransaction = (payload) => async (dispatch) => {
   dispatch({ type: TRANSACTION.SET_LOADING });
 
   axios
-    .post(
-      '/api/transaction/5f28274568879d399c29bd90',
-      JSON.stringify(payload),
-      {
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      }
-    )
+    .post('/api/transaction', JSON.stringify(payload), {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
     .then((res) => {
       dispatch({
         type: TRANSACTION.ADD_SUCCESS,

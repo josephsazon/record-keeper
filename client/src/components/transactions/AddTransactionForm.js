@@ -48,7 +48,7 @@ const AddTransactionForm = ({
         onSubmit={onSubmit}
       />
       <h4 className="center">
-        <Link to="/5f28274568879d399c29bd90/transactions" className="left">
+        <Link to="/transactions" className="left">
           <i className="material-icons ">arrow_back</i>
         </Link>
         <span>Add Transaction</span>

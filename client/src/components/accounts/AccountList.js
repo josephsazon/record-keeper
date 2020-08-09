@@ -9,7 +9,11 @@ import { getAccounts } from '../../state/actions/accountActions';
 import AccountItem from './AccountItem';
 import Preloader from '../layout/Preloader';
 
-const AccountList = ({ account: { accounts, loading }, getAccounts }) => {
+const AccountList = ({
+  account: { accounts, loading },
+  getAccounts,
+  history,
+}) => {
   useEffect(() => {
     getAccounts();
   }, []);
@@ -22,7 +26,7 @@ const AccountList = ({ account: { accounts, loading }, getAccounts }) => {
         {accounts &&
           accounts.map((account) => (
             <div className="col s12 m6 l4" key={account._id}>
-              <AccountItem account={account} />
+              <AccountItem account={account} history={history} />
             </div>
           ))}
       </div>

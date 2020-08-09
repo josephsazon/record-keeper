@@ -1,25 +1,38 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import NumberFormat from 'react-number-format';
 
 // state
-import { getAccount } from '../../state/actions/accountActions';
+import {
+  getAccount,
+  clearAccountToken,
+} from '../../state/actions/accountActions';
 
 // components
 import TransactionList from '../transactions/TransactionList';
 import TransactionFAB from '../transactions/TransactionFAB';
 
-const Transactions = ({ account: { success, account }, match, getAccount }) => {
+const Transactions = ({
+  account: { success, account, accountToken },
+  clearAccountToken,
+  getAccount,
+}) => {
   useEffect(() => {
-    getAccount(match.params.accountId);
+    if (accountToken) {
+      getAccount();
+    }
     // eslint-disable-next-line;
-  }, []);
+  }, [accountToken]);
 
   return (
     <div className="container">
       <h4 className="center">
-        <Link to="/accounts" className="left">
+        <Link
+          to="/accounts"
+          className="left"
+          onClick={() => clearAccountToken()}
+        >
           <i className="material-icons">arrow_back</i>
         </Link>
         <span>Transactions</span>
@@ -53,4 +66,6 @@ const mapStateToProps = (state) => ({
   account: state.account,
 });
 
-export default connect(mapStateToProps, { getAccount })(Transactions);
+export default connect(mapStateToProps, { clearAccountToken, getAccount })(
+  Transactions
+);

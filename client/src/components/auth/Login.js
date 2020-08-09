@@ -30,7 +30,6 @@ const Login = ({ auth: { isAuthenticated, loading }, history, login }) => {
     e.preventDefault();
     login(user);
   };
-  console.log(typeof history);
 
   return (
     <div className="container" style={{ maxWidth: '500px' }}>
