@@ -5,18 +5,19 @@ const validate = require('../middleware/validate');
 const router = express.Router();
 
 const transactionService = require('../services/transactionService');
+const authAccount = require('../middleware/authAccount');
 
 /**
  * @route         POST /api/transaction/:id
  * @description   Add transaction to account.
  * @access        Private
  */
-router.post('/:id', auth, async (req, res) => {
+router.post('/', auth, authAccount, async (req, res) => {
   try {
     const transaction = await transactionService.addTransaction(
       req.body,
       req.user.id,
-      req.params.id
+      req.account.id
     );
 
     res.status(201).json(transaction);
@@ -26,10 +27,10 @@ router.post('/:id', auth, async (req, res) => {
   }
 });
 
-router.get('/:id', auth, async (req, res) => {
+router.get('/', auth, authAccount, async (req, res) => {
   try {
     const transactions = await transactionService.getTransactions(
-      req.params.id
+      req.account.id
     );
 
     res.status(200).json(transactions);

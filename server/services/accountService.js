@@ -1,3 +1,6 @@
+const jwt = require('jsonwebtoken');
+const config = require('config');
+
 const Account = require('../models/Account');
 
 const userService = require('./userService');
@@ -69,6 +72,35 @@ const getAccountsForUser = async (userId) => {
 };
 
 /**
+ * Authenticate user on selected account.
+ * @param {string} accountId - ID from Account schema.
+ * @param {string} userId - ID from User schema.
+ * @returns {string} Account token.
+ */
+const requestToken = async (accountId, userId) => {
+  const user = await userService.getUser(userId);
+
+  if (!user.accounts.find((account) => account.toString() === accountId))
+    throw new Error('Account not registered for user.');
+
+  const account = await Account.findById(accountId);
+
+  if (!account) throw new Error('Account not found.');
+
+  const payload = {
+    account: {
+      id: account._id,
+    },
+  };
+
+  const accountToken = jwt.sign(payload, config.get('jwtSecret'), {
+    expiresIn: 3600,
+  });
+
+  return accountToken;
+};
+
+/**
  *
  * @param {string} id - ID from Account schema.
  * @param {Object} payload - Contains amount and entryType.
@@ -101,5 +133,6 @@ module.exports = {
   getAccount,
   getAccounts,
   getAccountsForUser,
+  requestToken,
   updateBalance,
 };

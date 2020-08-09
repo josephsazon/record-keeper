@@ -1,6 +1,7 @@
 const express = require('express');
 const { check } = require('express-validator');
 const auth = require('../middleware/auth');
+const authAccount = require('../middleware/authAccount');
 const validate = require('../middleware/validate');
 const router = express.Router();
 
@@ -23,13 +24,32 @@ router.get('/all', auth, async (req, res) => {
 });
 
 /**
+ * @route         POST /api/accounts/token
+ * @description   Authenticate user on selected account.
+ * @access        Private
+ */
+router.post('/token', auth, async (req, res) => {
+  try {
+    const accountToken = await accountService.requestToken(
+      req.body.accountId,
+      req.user.id
+    );
+
+    res.status(200).json({ accountToken });
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).json({ msg: err.message });
+  }
+});
+
+/**
  * @route         GET /api/accounts/:id
  * @description   Get account by id.
  * @access        Private
  */
-router.get('/:id', auth, async (req, res) => {
+router.get('/one', auth, authAccount, async (req, res) => {
   try {
-    const account = await accountService.getAccount(req.params.id);
+    const account = await accountService.getAccount(req.account.id);
 
     res.status(200).json(account);
   } catch (err) {
