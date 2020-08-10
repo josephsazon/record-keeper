@@ -1,5 +1,4 @@
 import setAccountToken from '../../utils/setAccountToken';
-import axios from 'axios';
 import { ACCOUNT } from '../actions/types';
 
 const initialState = {

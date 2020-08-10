@@ -2,12 +2,12 @@ import axios from 'axios';
 
 import { TRANSACTION } from './types';
 
-export const getTransactions = () => async (dispatch) => {
+export const getTransactions = (page, limit) => async (dispatch) => {
   dispatch({ type: TRANSACTION.SET_LOADING });
   dispatch({ type: TRANSACTION.RESET });
 
   axios
-    .get('/api/transaction')
+    .get(`/api/transaction?page=${page}&limit=${limit}`)
     .then((res) => {
       dispatch({
         type: TRANSACTION.GET_ALL,

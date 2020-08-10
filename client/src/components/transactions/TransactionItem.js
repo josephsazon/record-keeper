@@ -40,11 +40,22 @@ const TransactionItem = ({ transaction }) => {
   return (
     <li>
       <div className="collapsible-header" style={collapsibleHeaderStyle}>
-        <i className={`material-icons grey-text text-lighten-1`}>{getIcon()}</i>
-        <span className="truncate">
-          {type.charAt(0).toUpperCase() + type.slice(1)}
-        </span>
-
+        <i
+          className={`material-icons grey-text text-lighten-1`}
+          style={{ alignSelf: 'center' }}
+        >
+          {getIcon()}
+        </i>
+        <div>
+          <span className="truncate">
+            {type.charAt(0).toUpperCase() + type.slice(1)}
+          </span>
+          <div style={{ fontSize: '10px' }}>
+            <Moment calendar className="grey-text">
+              {createdDate}
+            </Moment>
+          </div>
+        </div>
         <div
           className="collapsible-secondary"
           style={collapsibleSecondaryStyle}
@@ -99,6 +110,7 @@ const TransactionItem = ({ transaction }) => {
 const collapsibleHeaderStyle = { position: 'relative' };
 
 const collapsibleSecondaryStyle = {
+  alignSelf: 'center',
   position: 'absolute',
   right: '0',
   paddingRight: '1rem',

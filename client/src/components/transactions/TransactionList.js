@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState, Fragment } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
@@ -7,26 +7,66 @@ import { getTransactions } from '../../state/actions/transactionActions';
 
 // components
 import Preloader from '../layout/Preloader';
+import Spinner from '../layout/Spinner';
 import TransactionItem from './TransactionItem';
 
 const TransactionList = ({
-  transaction: { transactions, success, loading },
+  transaction: { transactions, success, loading, page, limit, hasNextPage },
   getTransactions,
 }) => {
+  const [displayedTransactions, setDisplayedTransactions] = useState([]);
+
   useEffect(() => {
-    getTransactions();
+    getTransactions(1, 10);
+
     // eslint-disable-next-line
   }, []);
 
-  if (loading) return <Preloader />;
+  useEffect(() => {
+    if (transactions) {
+      if (displayedTransactions && page === 1) {
+        setDisplayedTransactions(transactions);
+      } else {
+        setDisplayedTransactions([...displayedTransactions, ...transactions]);
+      }
+    }
+    // eslint-disable-next-line
+  }, [transactions]);
+
+  useEffect(() => {
+    return setDisplayedTransactions([]);
+  }, []);
+
+  const onLoadMoreClick = () => {
+    getTransactions(page + 1, 10);
+  };
 
   return (
-    <ul className="collapsible">
-      {success &&
-        transactions.map((transaction) => (
-          <TransactionItem key={transaction._id} transaction={transaction} />
-        ))}
-    </ul>
+    <Fragment>
+      {success && (
+        <ul className="collapsible">
+          {displayedTransactions.map((transaction) => (
+            <TransactionItem key={transaction._id} transaction={transaction} />
+          ))}
+        </ul>
+      )}
+      {hasNextPage && (
+        <div style={{ display: 'flex' }}>
+          <div style={{ margin: 'auto', marginBottom: '20px' }}>
+            {loading ? (
+              <Spinner />
+            ) : (
+              <button
+                className="btn-flat waves-effect"
+                onClick={onLoadMoreClick}
+              >
+                Load more
+              </button>
+            )}
+          </div>
+        </div>
+      )}
+    </Fragment>
   );
 };
 
