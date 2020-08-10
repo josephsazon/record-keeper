@@ -37,10 +37,18 @@ const addTransaction = async (transaction, userId, accountId) => {
   return result;
 };
 
-const getTransactions = async (accountId) => {
-  const transactions = await Transaction.find({ account: accountId }).sort({
-    createdDate: -1,
-  });
+/**
+ * Get paginated transactions.
+ * @param {string} accountId - ID from Account schema.
+ * @param {number} limit - Pagination limit.
+ * @param {number} page - Pagination page number.
+ * @returns {Object} Paginated transactions.
+ */
+const getTransactions = async (accountId, limit, page) => {
+  const transactions = await Transaction.paginate(
+    { account: accountId },
+    { page: page || 1, limit: limit || 10, sort: { createdDate: 'desc' } }
+  );
 
   return transactions;
 };

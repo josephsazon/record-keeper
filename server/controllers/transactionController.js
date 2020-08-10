@@ -8,7 +8,7 @@ const transactionService = require('../services/transactionService');
 const authAccount = require('../middleware/authAccount');
 
 /**
- * @route         POST /api/transaction/:id
+ * @route         POST /api/transaction
  * @description   Add transaction to account.
  * @access        Private
  */
@@ -27,10 +27,17 @@ router.post('/', auth, authAccount, async (req, res) => {
   }
 });
 
+/**
+ * @route         GET /api/transaction
+ * @description   Get paginated transactions
+ * @access        Private
+ */
 router.get('/', auth, authAccount, async (req, res) => {
   try {
     const transactions = await transactionService.getTransactions(
-      req.account.id
+      req.account.id,
+      req.query.limit,
+      req.query.page
     );
 
     res.status(200).json(transactions);

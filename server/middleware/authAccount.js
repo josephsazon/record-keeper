@@ -14,6 +14,7 @@ module.exports = (req, res, next) => {
     req.account = decoded.account;
     next();
   } catch (err) {
+    console.error('Account token is not valid.');
     res.status(401).json({ msg: 'Account token is not valid.' });
   }
 };
