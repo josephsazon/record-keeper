@@ -30,9 +30,8 @@ const AddTransactionForm = ({
       entryType: type === 'inflow' ? 'credit' : 'debit',
       type,
     };
-    console.log(transaction);
 
-    if (amount && type && description) {
+    if (amount && type) {
       addTransaction(transaction);
     } else {
       M.toast({ html: 'Missing fields' });
@@ -47,23 +46,31 @@ const AddTransactionForm = ({
         message="Do you want to save this transaction?"
         onSubmit={onSubmit}
       />
-      <h4 className="center">
+      <div className="page-header">
         <Link to="/transactions" className="left">
           <i className="material-icons ">arrow_back</i>
         </Link>
         <span>Add Transaction</span>
-      </h4>
+      </div>
       <div className="row" style={{ maxWidth: '750px' }}>
         <form className="col s12">
           <div className="input-field col s12">
-            <textarea
-              id="description"
-              className="materialize-textarea"
-              name="description"
-              value={description}
-              onChange={(e) => setDescription(e.target.value)}
-            />
-            <label htmlFor="description">Description</label>
+            <select
+              name="type"
+              id="type"
+              defaultValue=""
+              value={type}
+              onChange={(e) => setType(e.target.value)}
+            >
+              <option value="" disabled>
+                Choose...
+              </option>
+              <option value="inflow">Inflow</option>
+              <option value="labor">Labor</option>
+              <option value="materials">Materials</option>
+              <option value="others">Others</option>
+            </select>
+            <label htmlFor="type">Type</label>
           </div>
 
           <div className="input-field col s12">
@@ -89,22 +96,14 @@ const AddTransactionForm = ({
           </div>
 
           <div className="input-field col s12">
-            <select
-              name="type"
-              id="type"
-              defaultValue=""
-              value={type}
-              onChange={(e) => setType(e.target.value)}
-            >
-              <option value="" disabled>
-                Choose...
-              </option>
-              <option value="inflow">Inflow</option>
-              <option value="labor">Labor</option>
-              <option value="materials">Materials</option>
-              <option value="others">Others</option>
-            </select>
-            <label htmlFor="type">Type</label>
+            <textarea
+              id="description"
+              className="materialize-textarea"
+              name="description"
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+            />
+            <label htmlFor="description">Description</label>
           </div>
 
           <div className="col s12">

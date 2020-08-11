@@ -16,9 +16,9 @@ const AccountItem = ({
 }) => {
   const { name, balance, updatedDate, updatedBy } = account;
 
-  const onViewTransactionsClick = () => {
+  const accessAccount = (path) => {
     requestAccountToken(account._id).then(() => {
-      history.push('/transactions');
+      history.push(path);
     });
   };
 
@@ -54,15 +54,36 @@ const AccountItem = ({
               <strong>Updated date</strong>
             </div>
             <div className="col s6">
-              <Moment format="MMMM Do YYYY, h:mm:ss a">{updatedDate}</Moment>
+              <Moment calendar>{updatedDate}</Moment>
             </div>
           </div>
         </div>
+        <button
+          className="btn-floating right waves-effect white"
+          onClick={() => accessAccount('/account/settings')}
+        >
+          <i className="material-icons grey-text">settings</i>
+        </button>
       </div>
       <div className="card-action">
-        <a onClick={onViewTransactionsClick} className="waves-effect">
-          <span className="blue-text">View Transactions</span>
-        </a>
+        <div className="row" style={{ marginBottom: '0' }}>
+          <div className="col">
+            <a
+              onClick={() => accessAccount('/transactions')}
+              className="waves-effect"
+            >
+              <span className="blue-text">Transactions</span>
+            </a>
+          </div>
+          <div className="col">
+            <a
+              onClick={() => accessAccount('/transactions')}
+              className="waves-effect"
+            >
+              <span className="blue-text">Pricelist</span>
+            </a>
+          </div>
+        </div>
       </div>
     </div>
   );

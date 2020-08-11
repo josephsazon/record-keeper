@@ -11,7 +11,11 @@ const Home = ({ loadUser }) => {
     // eslint-disable-next-line
   }, []);
 
-  return <div className="container">Home page</div>;
+  return (
+    <div className="container">
+      <div className="page-header">Home</div>
+    </div>
+  );
 };
 
 Home.propTypes = {

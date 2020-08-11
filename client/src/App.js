@@ -11,6 +11,7 @@ import M from 'materialize-css/dist/js/materialize.min.js';
 import Navbar from './components/layout/Navbar';
 import SideNav from './components/layout/Sidenav';
 import Accounts from './components/pages/Accounts';
+import AccountSettings from './components/accounts/AccountSettings';
 import AddTransactionForm from './components/transactions/AddTransactionForm';
 import Home from './components/pages/Home';
 import Login from './components/auth/Login';
@@ -42,9 +43,14 @@ const App = () => {
             <Navbar />
             <SideNav />
             <Switch>
+              <Route exact path="/login" component={Login} />
               <PrivateRoute exact path="/" component={Home} />
               <PrivateRoute exact path="/accounts" component={Accounts} />
-              <Route exact path="/login" component={Login} />
+              <PrivateRoute
+                exact
+                path="/account/settings"
+                component={AccountSettings}
+              />
               <PrivateRoute
                 exact
                 path="/transactions"

@@ -6,7 +6,7 @@ import AccountList from '../accounts/AccountList';
 const Accounts = ({ history }) => {
   return (
     <div className="container">
-      <h4 className="center">Accounts</h4>
+      <div className="page-header">Accounts</div>
       <AccountList history={history} />
     </div>
   );

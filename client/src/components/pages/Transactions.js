@@ -27,7 +27,7 @@ const Transactions = ({
 
   return (
     <div className="container">
-      <h4 className="center">
+      <div className="page-header">
         <Link
           to="/accounts"
           className="left"
@@ -35,11 +35,11 @@ const Transactions = ({
         >
           <i className="material-icons">arrow_back</i>
         </Link>
-        <span>Transactions</span>
-      </h4>
+        Transactions
+      </div>
       {success && (
         <div style={accountDetailStyle}>
-          <h6>
+          <h6 style={{ marginBottom: '0' }}>
             <span>{account.name}</span>
             <span className="right">
               <NumberFormat
@@ -50,6 +50,10 @@ const Transactions = ({
               />
             </span>
           </h6>
+          <div className="grey-text" style={{ fontSize: '10px' }}>
+            <span>Account name</span>
+            <span className="right">Balance</span>
+          </div>
         </div>
       )}
       <TransactionList />

@@ -1,0 +1,26 @@
+.account-details__key {
+  text-align: right;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.account-details__value {
+  font-size: 14px;
+  font-weight: 300;
+}
+
+.account-settings__header {
+  font-weight: 300;
+}
+
+.account-settings__subheader {
+  margin: 20px 0;
+}
+
+.account-settings__subheader > h6 {
+  font-weight: 500;
+}
+
+.account-settings__transaction-types > .collection {
+  border: none
+}
