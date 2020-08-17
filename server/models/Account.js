@@ -10,6 +10,24 @@ const AccountSchema = mongoose.Schema({
     type: Number,
     default: 0,
   },
+  transactionTypes: [
+    {
+      name: {
+        type: String,
+        required: true,
+        unique: true,
+      },
+      entryType: {
+        type: String,
+        required: true,
+        enum: ['debit', 'credit'],
+      },
+      icon: {
+        type: String,
+        required: true,
+      },
+    },
+  ],
   createdBy: {
     type: String,
     required: true,
