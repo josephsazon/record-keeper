@@ -58,6 +58,11 @@ router.post(
   }
 );
 
+/**
+ * @route         PUT /api/products/:id
+ * @description   Update product details.
+ * @access        Private
+ */
 router.put(
   '/:id',
   auth,
@@ -84,8 +89,22 @@ router.put(
   }
 );
 
+/**
+ * @route         DELETE /api/products/:id
+ * @description   Delete product from account.
+ * @access        Private
+ */
 router.delete('/:id', auth, authAccount, async (req, res) => {
-  res.send('Delete product from controller');
+  try {
+    const result = await productService.deleteProduct(req.params.id);
+
+    res
+      .status(200)
+      .json({ product: result, msg: 'Product has been deleted from account.' });
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).json({ msg: err.message });
+  }
 });
 
 module.exports = router;

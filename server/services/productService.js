@@ -41,6 +41,18 @@ const addProduct = async (productDTO, accountId, userId) => {
 };
 
 /**
+ * Delete product.
+ * @param {string} productId
+ */
+const deleteProduct = async (productId) => {
+  const deletedProduct = await Product.findByIdAndRemove(productId);
+
+  if (!deletedProduct) throw new Error('Product is not existing.');
+
+  return deletedProduct;
+};
+
+/**
  * Get paginated products.
  * @param {string} accountId
  * @param {number} limit
@@ -104,6 +116,7 @@ const updateProduct = async (productDTO, accountId, userId) => {
 
 module.exports = {
   addProduct,
+  deleteProduct,
   getProducts,
   updateProduct,
 };
