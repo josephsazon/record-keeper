@@ -9,8 +9,8 @@ const productService = require('../services/productService');
 
 /**
  * @route         GET /api/products
- * @description   Get paginated products
- * @access
+ * @description   Get paginated products for account.
+ * @access        Private
  */
 router.get('/', auth, authAccount, async (req, res) => {
   try {
@@ -27,9 +27,35 @@ router.get('/', auth, authAccount, async (req, res) => {
   }
 });
 
-router.post('/', auth, authAccount, async (req, res) => {
-  res.send('Create product from controller');
-});
+/**
+ * @route         POST /api/products
+ * @description   Add product to account.
+ * @access        Private
+ */
+router.post(
+  '/',
+  auth,
+  authAccount,
+  [
+    check('name', 'Product name is required.').exists(),
+    check('amount', 'Product amount is required.').exists(),
+  ],
+  validate,
+  async (req, res) => {
+    try {
+      const result = await productService.addProduct(
+        req.body,
+        req.account.id,
+        req.user.id
+      );
+
+      res.status(201).json(result);
+    } catch (err) {
+      console.error(err.message);
+      res.status(500).json({ msg: err.message });
+    }
+  }
+);
 
 router.put('/:id', auth, authAccount, async (req, res) => {
   res.send('Update product from controller');

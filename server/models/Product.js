@@ -10,11 +10,13 @@ const ProductSchema = mongoose.Schema({
   name: {
     type: String,
     required: true,
-    unique: true,
   },
   amount: {
     type: Number,
     required: true,
+  },
+  classification: {
+    type: String,
   },
   createdBy: {
     type: String,
