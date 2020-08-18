@@ -3,6 +3,7 @@ const router = express.Router();
 
 router.use('/accounts', require('../controllers/accountController'));
 router.use('/auth', require('../controllers/authController'));
+router.use('/products', require('../controllers/productController'));
 router.use('/transaction', require('../controllers/transactionController'));
 router.use(
   '/account/transaction-type',
