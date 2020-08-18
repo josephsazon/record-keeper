@@ -39,6 +39,7 @@ router.post(
   [
     check('name', 'Product name is required.').exists(),
     check('amount', 'Product amount is required.').exists(),
+    check('classification', 'Product classification is required.').exists(),
   ],
   validate,
   async (req, res) => {
@@ -57,9 +58,31 @@ router.post(
   }
 );
 
-router.put('/:id', auth, authAccount, async (req, res) => {
-  res.send('Update product from controller');
-});
+router.put(
+  '/:id',
+  auth,
+  authAccount,
+  [
+    check('name', 'Product name is required.').exists(),
+    check('amount', 'Product amount is required.').exists(),
+    check('classification', 'Product classification is required.').exists(),
+  ],
+  validate,
+  async (req, res) => {
+    try {
+      const result = await productService.updateProduct(
+        { ...req.body, ...req.params },
+        req.account.id,
+        req.user.id
+      );
+
+      res.status(200).json(result);
+    } catch (err) {
+      console.error(err.message);
+      res.status(500).json({ msg: err.message });
+    }
+  }
+);
 
 router.delete('/:id', auth, authAccount, async (req, res) => {
   res.send('Delete product from controller');

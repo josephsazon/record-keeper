@@ -49,13 +49,61 @@ const addProduct = async (productDTO, accountId, userId) => {
 const getProducts = async (accountId, limit, page) => {
   const products = await Product.paginate(
     { account: accountId },
-    { page: page || 1, limit: limit || 10, sort: { name: 'asc' } }
+    {
+      page: page || 1,
+      limit: limit || 10,
+      sort: { name: 'asc', classification: 'asc' },
+    }
   );
 
   return products;
 };
 
+/**
+ * Update product details.
+ * @param {Object} productDTO
+ * @param {string} accountId
+ * @param {string} userId
+ */
+const updateProduct = async (productDTO, accountId, userId) => {
+  const { name, amount, classification } = productDTO;
+
+  const existingProduct = await Product.findOne({
+    account: accountId,
+    name,
+    classification,
+  });
+
+  if (existingProduct && existingProduct._id.toString() !== productDTO.id)
+    throw new Error(
+      'Cannot change product details. Product is already existing.'
+    );
+
+  const user = await userService.getUser(userId);
+
+  const updatedProduct = await Product.findByIdAndUpdate(
+    productDTO.id,
+    {
+      $set: {
+        name,
+        amount,
+        classification,
+        updatedBy: user.username,
+        updatedDate: new Date(),
+      },
+    },
+    { new: true, runValidators: true }
+  );
+
+  if (!updatedProduct) throw new Error('Product not found in account.');
+
+  console.log(`Updated product '${name}' successfully.`);
+
+  return updatedProduct;
+};
+
 module.exports = {
   addProduct,
   getProducts,
+  updateProduct,
 };
