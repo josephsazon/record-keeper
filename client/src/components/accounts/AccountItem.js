@@ -77,10 +77,10 @@ const AccountItem = ({
           </div>
           <div className="col">
             <a
-              onClick={() => accessAccount('/transactions')}
+              onClick={() => accessAccount('/products')}
               className="waves-effect"
             >
-              <span className="blue-text">Pricelist</span>
+              <span className="blue-text">Products</span>
             </a>
           </div>
         </div>

@@ -24,6 +24,7 @@ import './App.css';
 
 // utils
 import setAuthToken from './utils/setAuthToken';
+import Products from './components/pages/Products';
 
 if (localStorage.token) {
   setAuthToken(localStorage.token);
@@ -51,6 +52,7 @@ const App = () => {
                 path="/account/settings"
                 component={AccountSettings}
               />
+              <PrivateRoute exact path="/products" component={Products} />
               <PrivateRoute
                 exact
                 path="/transactions"
