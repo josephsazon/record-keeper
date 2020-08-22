@@ -64,7 +64,7 @@ const getProducts = async (accountId, limit, page) => {
     {
       page: page || 1,
       limit: limit || 10,
-      sort: { name: 'asc', classification: 'asc' },
+      sort: { classification: 'asc', name: 'asc' },
     }
   );
 
