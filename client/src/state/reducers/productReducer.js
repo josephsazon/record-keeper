@@ -2,8 +2,10 @@ import { PRODUCT } from '../actions/types';
 
 const initialState = {
   error: null,
-  getProductsLoading: false,
+  loading: false,
   getProductsSuccess: false,
+  hasNextPage: false,
+  page: null,
   products: null,
 };
 
@@ -14,18 +16,25 @@ export default (state = initialState, action) => {
       return {
         ...state,
         error: action.payload,
-        getProductsLoading: false,
         getProductsSuccess: false,
+        hasNextPage: false,
+        loading: false,
         products: [],
       };
     case PRODUCT.GET_ALL:
       return {
         ...state,
-        getProductsLoading: false,
         getProductsSuccess: true,
-        products: action.payload,
+        hasNextPage: action.payload.hasNextPage,
+        loading: false,
+        page: action.payload.page,
+        products: action.payload.docs,
       };
-
+    case PRODUCT.SET_LOADING:
+      return {
+        ...state,
+        loading: true,
+      };
     default:
       return state;
   }

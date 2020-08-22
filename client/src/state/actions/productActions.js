@@ -5,11 +5,13 @@ export const clearProducts = () => (dispatch) => {
   dispatch({ type: PRODUCT.CLEAR_ALL });
 };
 
-export const getProducts = () => async (dispatch) => {
+export const getProducts = (page, limit) => async (dispatch) => {
+  dispatch({ type: PRODUCT.SET_LOADING });
+
   axios
-    .get('/api/products')
+    .get(`/api/products?page=${page}&limit=${limit}`)
     .then((res) => {
-      dispatch({ type: PRODUCT.GET_ALL, payload: res.data.docs });
+      dispatch({ type: PRODUCT.GET_ALL, payload: res.data });
     })
     .catch((err) => {
       dispatch({

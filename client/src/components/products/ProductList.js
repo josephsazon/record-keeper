@@ -7,6 +7,7 @@ import { clearProducts, getProducts } from '../../state/actions/productActions';
 
 // components
 import ProductItem from './ProductItem';
+import Spinner from '../layout/Spinner';
 
 // styles
 import './ProductList.css';
@@ -14,11 +15,14 @@ import './ProductList.css';
 // utils
 import groupProducts from '../../utils/groupProducts';
 
-const ProductList = ({
-  product: { getProductsSuccess, products },
-  getProducts,
-  clearProducts,
-}) => {
+const ProductList = ({ productState, getProducts, clearProducts }) => {
+  const {
+    getProductsSuccess,
+    hasNextPage,
+    loading,
+    page,
+    products,
+  } = productState;
   const [rawProducts, setRawProducts] = useState([]);
   const [displayedProducts, setDisplayedProducts] = useState([]);
 
@@ -28,16 +32,26 @@ const ProductList = ({
     return () => {
       clearProducts();
     };
-
     // eslint-disable-next-line
   }, []);
 
   useEffect(() => {
-    if (getProductsSuccess && products.length > 0) {
+    if (getProductsSuccess && products.length) {
       setRawProducts([...rawProducts, ...products]);
-      setDisplayedProducts(groupProducts([...rawProducts, ...products]));
     }
+    // eslint-disable-next-line
   }, [products]);
+
+  useEffect(() => {
+    if (rawProducts.length) {
+      setDisplayedProducts(groupProducts(rawProducts));
+    }
+    // eslint-disable-next-line
+  }, [rawProducts]);
+
+  const onLoadMoreClick = () => {
+    getProducts(page + 1, 10);
+  };
 
   return (
     <div className="product-list">
@@ -56,18 +70,29 @@ const ProductList = ({
             </Fragment>
           );
         })}
+      <div className="product-list__bottom-placeholder">
+        {loading ? (
+          <Spinner />
+        ) : (
+          hasNextPage && (
+            <button className="btn-flat waves-effect" onClick={onLoadMoreClick}>
+              Load more
+            </button>
+          )
+        )}
+      </div>
     </div>
   );
 };
 
 ProductList.propTypes = {
-  product: PropTypes.object.isRequired,
+  productState: PropTypes.object.isRequired,
   clearProducts: PropTypes.func.isRequired,
   getProducts: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
-  product: state.product,
+  productState: state.product,
 });
 
 export default connect(mapStateToProps, { clearProducts, getProducts })(
