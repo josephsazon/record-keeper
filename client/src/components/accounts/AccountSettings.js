@@ -1,13 +1,10 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import Moment from 'react-moment';
 
 // state
-import {
-  clearAccountToken,
-  getAccount,
-} from '../../state/actions/accountActions';
+import { clearAccountToken } from '../../state/actions/accountActions';
 
 // components
 import AccountType from './AccountType';
@@ -15,12 +12,9 @@ import AccountType from './AccountType';
 // styles
 import './AccountSettings.css';
 
-const AccountSettings = ({ account, clearAccountToken, getAccount }) => {
-  useEffect(() => {
-    getAccount();
-  }, []);
-
+const AccountSettings = ({ account, clearAccountToken }) => {
   const { createdBy, createdDate, name } = account;
+
   return (
     <div className="container">
       <div className="page-header">
@@ -84,6 +78,4 @@ const mapStateToProps = (state) => ({
   account: state.account.account,
 });
 
-export default connect(mapStateToProps, { clearAccountToken, getAccount })(
-  AccountSettings
-);
+export default connect(mapStateToProps, { clearAccountToken })(AccountSettings);

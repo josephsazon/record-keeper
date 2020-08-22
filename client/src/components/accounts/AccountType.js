@@ -5,7 +5,10 @@ import './AccountType.css';
 
 const AccountType = ({ entryType, icon, iconColor, type }) => {
   return (
-    <li class="collection-item account-type" onClick={() => console.log(type)}>
+    <li
+      className="collection-item account-type"
+      onClick={() => console.log(type)}
+    >
       <i
         className={`material-icons ${iconColor || 'grey'}-text text-lighten-1`}
       >
@@ -13,7 +16,9 @@ const AccountType = ({ entryType, icon, iconColor, type }) => {
       </i>
       <span className="account-type__text">{type}</span>
       <div className="secondary-content">
-        <span class={`${entryType === 'debit' ? 'red-text' : 'green-text'}`}>
+        <span
+          className={`${entryType === 'debit' ? 'red-text' : 'green-text'}`}
+        >
           {entryType}
         </span>
       </div>

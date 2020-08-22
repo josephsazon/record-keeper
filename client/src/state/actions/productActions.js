@@ -1,9 +1,11 @@
 import axios from 'axios';
 import { PRODUCT } from './types';
 
-export const getProducts = () => async (dispatch) => {
+export const clearProducts = () => (dispatch) => {
   dispatch({ type: PRODUCT.CLEAR_ALL });
+};
 
+export const getProducts = () => async (dispatch) => {
   axios
     .get('/api/products')
     .then((res) => {
