@@ -94,7 +94,6 @@ const ProductList = ({ productState, getProducts, resetGetProducts }) => {
 
 ProductList.propTypes = {
   productState: PropTypes.object.isRequired,
-  clearProducts: PropTypes.func.isRequired,
   getProducts: PropTypes.func.isRequired,
 };
 

@@ -10,10 +10,10 @@ import { store, persistor } from './state/store';
 import Accounts from './components/pages/Accounts';
 import AccountSettings from './components/accounts/AccountSettings';
 import AddTransactionForm from './components/transactions/AddTransactionForm';
-import EditProduct from './components/pages/EditProduct';
 import Home from './components/pages/Home';
 import Login from './components/auth/Login';
 import Products from './components/pages/Products';
+import ProductForm from './components/pages/ProductForm';
 import Transactions from './components/pages/Transactions';
 
 // components
@@ -58,8 +58,8 @@ const App = () => {
               <PrivateRoute exact path="/products" component={Products} />
               <PrivateRoute
                 exact
-                path="/products/edit"
-                component={EditProduct}
+                path="/products/form"
+                component={ProductForm}
               />
               <PrivateRoute
                 exact

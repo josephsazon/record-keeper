@@ -18,7 +18,7 @@ const ProductItem = ({ product, setCurrentProduct }) => {
 
   return (
     <li className="collection-item">
-      <Link to="/products/edit" onClick={onClick}>
+      <Link to="/products/form" onClick={onClick}>
         <div className="product-item ">
           <span>{name}</span>
           <span>

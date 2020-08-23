@@ -8,6 +8,9 @@ import { clearAccountToken } from '../../state/actions/accountActions';
 // components
 import ProductList from '../products/ProductList';
 
+// styles
+import './Products.css';
+
 const Products = ({ clearAccountToken }) => {
   return (
     <div className="products container">
@@ -22,6 +25,11 @@ const Products = ({ clearAccountToken }) => {
         Products
       </div>
       <ProductList />
+      <div className="fixed-action-btn">
+        <Link to="/products/form" className="btn-floating btn blue lighten-2">
+          <i className="material-icons">add</i>
+        </Link>
+      </div>
     </div>
   );
 };

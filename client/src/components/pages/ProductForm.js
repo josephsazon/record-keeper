@@ -4,31 +4,33 @@ import { connect } from 'react-redux';
 
 // state
 import {
-  updateProduct,
+  addProduct,
   clearCurrentProduct,
-  resetUpdateProduct,
+  resetSubmitProduct,
+  updateProduct,
 } from '../../state/actions/productActions';
 
 // components
 import M from 'materialize-css/dist/js/materialize.min.js';
-
-// styles
-import './EditProduct.css';
 import ConfirmModal from '../layout/ConfirmModal';
 import Spinner from '../layout/Spinner';
 
-const EditProduct = ({
+// styles
+import './ProductForm.css';
+
+const ProductForm = ({
   productState,
+  addProduct,
   clearCurrentProduct,
+  resetSubmitProduct,
   updateProduct,
-  resetUpdateProduct,
 }) => {
   const {
     current,
     error,
-    loading,
-    updateProductSuccess,
-    updateProductTriggered,
+    submitProductLoading,
+    submitProductSuccess,
+    submitProductTriggered,
   } = productState;
   const [name, setName] = useState('');
   const [amount, setAmount] = useState('');
@@ -38,7 +40,7 @@ const EditProduct = ({
     M.AutoInit();
 
     return () => {
-      resetUpdateProduct();
+      resetSubmitProduct();
       clearCurrentProduct();
     };
     // eslint-disable-next-line
@@ -54,47 +56,52 @@ const EditProduct = ({
   }, [current]);
 
   useEffect(() => {
-    if (updateProductTriggered) {
-      if (updateProductSuccess) {
-        M.toast({ html: `Updated '${name}' product` });
+    if (submitProductTriggered) {
+      if (submitProductSuccess) {
+        M.toast({ html: `${current ? 'Updated' : 'Added'} '${name}' product` });
       } else {
         M.toast({ html: error });
       }
     }
     // eslint-disable-next-line
-  }, [updateProductTriggered]);
+  }, [submitProductTriggered]);
 
   const onSubmit = () => {
     const product = {
-      _id: current._id,
+      _id: current ? current._id : null,
       name,
       amount,
       classification,
     };
 
     if (name && amount && classification) {
-      updateProduct(product);
+      if (current) {
+        updateProduct(product);
+      } else {
+        delete product._id;
+        addProduct(product);
+      }
     } else {
       M.toast({ html: 'Missing fields' });
     }
   };
 
   return (
-    <div className="edit-product container">
-      {updateProductSuccess && <Redirect to="/products" />}
+    <div className="product-form container">
+      {submitProductSuccess && <Redirect to="/products" />}
       <ConfirmModal
         title="Confirmation"
         message="Do you want to save this product?"
         onSubmit={onSubmit}
       />
-      <div className="edit-product__header page-header">
+      <div className="product-form__header page-header">
         <Link to="/products" className="left">
           <i className="material-icons ">arrow_back</i>
         </Link>
-        Edit product
+        {`${current ? 'Edit' : 'Add'} product`}
       </div>
-      <div className="edit-product__content">
-        <form className="edit-product__form">
+      <div className="product-form__content">
+        <form>
           <div className="input-field">
             <input
               type="text"
@@ -136,14 +143,14 @@ const EditProduct = ({
         </form>
         <div className="row">
           <div className="col s12 m3 right">
-            {loading ? (
+            {submitProductLoading ? (
               <div className="center-align">
                 <Spinner />
               </div>
             ) : (
               <a
                 href="#confirm-modal"
-                className="edit-product__submit-btn btn-large blue lighten-2 waves-effect modal-trigger"
+                className="product-form__submit-btn btn-large blue lighten-2 waves-effect modal-trigger"
               >
                 Save
               </a>
@@ -160,7 +167,8 @@ const mapStateToProps = (state) => ({
 });
 
 export default connect(mapStateToProps, {
+  addProduct,
   clearCurrentProduct,
   updateProduct,
-  resetUpdateProduct,
-})(EditProduct);
+  resetSubmitProduct,
+})(ProductForm);

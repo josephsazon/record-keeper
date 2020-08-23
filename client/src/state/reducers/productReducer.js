@@ -8,9 +8,9 @@ const initialState = {
   hasNextPage: false,
   page: null,
   products: null,
-  updateProductLoading: false,
-  updateProductSuccess: false,
-  updateProductTriggered: false,
+  submitProductLoading: false,
+  submitProductSuccess: false,
+  submitProductTriggered: false,
 };
 
 export default (state = initialState, action) => {
@@ -56,32 +56,32 @@ export default (state = initialState, action) => {
         page: action.payload.page,
         products: action.payload.docs,
       };
-    case PRODUCT.UPDATE_FAIL:
+    case PRODUCT.SUBMIT_FAIL:
       return {
         ...state,
         error: action.payload,
-        updateProductLoading: false,
-        updateProductSuccess: false,
-        updateProductTriggered: true,
+        submitProductLoading: false,
+        submitProductSuccess: false,
+        submitProductTriggered: true,
       };
-    case PRODUCT.UPDATE_LOADING:
+    case PRODUCT.SUBMIT_LOADING:
       return {
         ...state,
-        updateProductLoading: true,
+        submitProductLoading: true,
       };
-    case PRODUCT.UPDATE_RESET:
+    case PRODUCT.SUBMIT_RESET:
       return {
         ...state,
         error: null,
-        updateProductSuccess: false,
-        updateProductTriggered: false,
+        submitProductSuccess: false,
+        submitProductTriggered: false,
       };
-    case PRODUCT.UPDATE_SUCCESS:
+    case PRODUCT.SUBMIT_SUCCESS:
       return {
         ...state,
-        updateProductLoading: false,
-        updateProductSuccess: true,
-        updateProductTriggered: true,
+        submitProductLoading: false,
+        submitProductSuccess: true,
+        submitProductTriggered: true,
       };
     default:
       return state;
