@@ -22,14 +22,6 @@ export const addProduct = (product) => async (dispatch) => {
     });
 };
 
-export const clearCurrentProduct = () => (dispatch) => {
-  dispatch({ type: PRODUCT.CURRENT_CLEAR });
-};
-
-export const clearProducts = () => (dispatch) => {
-  dispatch({ type: PRODUCT.CLEAR_ALL });
-};
-
 export const deleteProduct = (id) => async (dispatch) => {
   dispatch({ type: PRODUCT.SUBMIT_LOADING });
   dispatch({ type: PRODUCT.SUBMIT_RESET });
@@ -63,18 +55,6 @@ export const getProducts = (page, limit) => async (dispatch) => {
     });
 };
 
-export const resetGetProducts = () => (dispatch) => {
-  dispatch({ type: PRODUCT.GET_ALL_RESET });
-};
-
-export const resetSubmitProduct = () => (dispatch) => {
-  dispatch({ type: PRODUCT.SUBMIT_RESET });
-};
-
-export const setCurrentProduct = (product) => (dispatch) => {
-  dispatch({ type: PRODUCT.CURRENT_SET, payload: product });
-};
-
 export const updateProduct = (product) => async (dispatch) => {
   dispatch({ type: PRODUCT.SUBMIT_LOADING });
   dispatch({ type: PRODUCT.SUBMIT_RESET });
@@ -97,4 +77,20 @@ export const updateProduct = (product) => async (dispatch) => {
         payload: err.response.data.msg || err.response.statusText,
       });
     });
+};
+
+export const clearCurrentProduct = () => (dispatch) => {
+  dispatch({ type: PRODUCT.CURRENT_CLEAR });
+};
+
+export const resetGetProducts = () => (dispatch) => {
+  dispatch({ type: PRODUCT.GET_ALL_RESET });
+};
+
+export const resetSubmitProduct = () => (dispatch) => {
+  dispatch({ type: PRODUCT.SUBMIT_RESET });
+};
+
+export const setCurrentProduct = (product) => (dispatch) => {
+  dispatch({ type: PRODUCT.CURRENT_SET, payload: product });
 };
