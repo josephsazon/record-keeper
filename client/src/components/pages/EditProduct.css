@@ -1,0 +1,12 @@
+.edit-product__content {
+  margin: auto;
+  max-width: 750px;
+}
+
+.edit-product__form {
+  margin-bottom: 30px;
+}
+
+.edit-product__submit-btn {
+  display: block !important;
+}

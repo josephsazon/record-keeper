@@ -1,16 +1,28 @@
 import { PRODUCT } from '../actions/types';
 
 const initialState = {
+  current: null,
   error: null,
   loading: false,
   getProductsSuccess: false,
   hasNextPage: false,
   page: null,
   products: null,
+  updateProductSuccess: false,
 };
 
 export default (state = initialState, action) => {
   switch (action.type) {
+    case PRODUCT.CURRENT_CLEAR:
+      return {
+        ...state,
+        current: null,
+      };
+    case PRODUCT.CURRENT_SET:
+      return {
+        ...state,
+        current: action.payload,
+      };
     case PRODUCT.CLEAR_ALL:
     case PRODUCT.ERROR:
       return {
@@ -34,6 +46,25 @@ export default (state = initialState, action) => {
       return {
         ...state,
         loading: true,
+      };
+    case PRODUCT.UPDATE_FAIL:
+      return {
+        ...state,
+        error: action.payload,
+        loading: false,
+        updateProductSuccess: false,
+      };
+    case PRODUCT.UPDATE_RESET:
+      return {
+        ...state,
+        error: null,
+        updateProductSuccess: false,
+      };
+    case PRODUCT.UPDATE_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        updateProductSuccess: true,
       };
     default:
       return state;

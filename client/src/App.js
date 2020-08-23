@@ -6,17 +6,21 @@ import { PersistGate } from 'redux-persist/integration/react';
 // state
 import { store, persistor } from './state/store';
 
+// pages
+import Accounts from './components/pages/Accounts';
+import AccountSettings from './components/accounts/AccountSettings';
+import AddTransactionForm from './components/transactions/AddTransactionForm';
+import EditProduct from './components/pages/EditProduct';
+import Home from './components/pages/Home';
+import Login from './components/auth/Login';
+import Products from './components/pages/Products';
+import Transactions from './components/pages/Transactions';
+
 // components
 import M from 'materialize-css/dist/js/materialize.min.js';
 import Navbar from './components/layout/Navbar';
 import SideNav from './components/layout/Sidenav';
-import Accounts from './components/pages/Accounts';
-import AccountSettings from './components/accounts/AccountSettings';
-import AddTransactionForm from './components/transactions/AddTransactionForm';
-import Home from './components/pages/Home';
-import Login from './components/auth/Login';
 import PrivateRoute from './components/routing/PrivateRoute';
-import Transactions from './components/pages/Transactions';
 
 // styles
 import 'materialize-css/dist/css/materialize.min.css';
@@ -24,7 +28,6 @@ import './App.css';
 
 // utils
 import setAuthToken from './utils/setAuthToken';
-import Products from './components/pages/Products';
 
 if (localStorage.token) {
   setAuthToken(localStorage.token);
@@ -53,6 +56,11 @@ const App = () => {
                 component={AccountSettings}
               />
               <PrivateRoute exact path="/products" component={Products} />
+              <PrivateRoute
+                exact
+                path="/products/edit"
+                component={EditProduct}
+              />
               <PrivateRoute
                 exact
                 path="/transactions"

@@ -1,23 +1,38 @@
 import React from 'react';
-
-import './ProductItem.css';
+import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
 import NumberFormat from 'react-number-format';
 
-const ProductItem = ({ product }) => {
+// state
+import { setCurrentProduct } from '../../state/actions/productActions';
+
+// styles
+import './ProductItem.css';
+
+const ProductItem = ({ product, setCurrentProduct }) => {
   const { name, amount } = product;
+
+  const onClick = () => {
+    setCurrentProduct(product);
+  };
+
   return (
-    <li className="product-item collection-item">
-      <span>{name}</span>
-      <span>
-        <NumberFormat
-          value={amount}
-          displayType="text"
-          prefix="₱"
-          thousandSeparator={true}
-        />
-      </span>
+    <li className="collection-item">
+      <Link to="/products/edit" onClick={onClick}>
+        <div className="product-item ">
+          <span>{name}</span>
+          <span>
+            <NumberFormat
+              value={amount}
+              displayType="text"
+              prefix="₱"
+              thousandSeparator={true}
+            />
+          </span>
+        </div>
+      </Link>
     </li>
   );
 };
 
-export default ProductItem;
+export default connect(null, { setCurrentProduct })(ProductItem);
