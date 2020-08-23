@@ -1,24 +1,20 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import Moment from 'react-moment';
 import NumberFormat from 'react-number-format';
 import { connect } from 'react-redux';
 
 // state
-import { requestAccountToken } from '../../state/actions/accountActions';
-import Preloader from '../layout/Preloader';
-
-const AccountItem = ({
-  account,
-  history,
-  accountState,
+import {
+  getAccount,
   requestAccountToken,
-}) => {
+} from '../../state/actions/accountActions';
+
+const AccountItem = ({ account, history, getAccount, requestAccountToken }) => {
   const { name, balance, updatedDate, updatedBy } = account;
 
   const accessAccount = (path) => {
     requestAccountToken(account._id).then(() => {
-      history.push(path);
+      getAccount().then(() => history.push(path));
     });
   };
 
@@ -26,7 +22,6 @@ const AccountItem = ({
     <div className="card">
       <div className="card-content">
         <span className="card-title">{name}</span>
-        {/* {accountState.getAccountLoading && <Preloader />} */}
         <div className="row">
           <div className="col s12">
             <div className="col s6">
@@ -77,10 +72,10 @@ const AccountItem = ({
           </div>
           <div className="col">
             <a
-              onClick={() => accessAccount('/transactions')}
+              onClick={() => accessAccount('/products')}
               className="waves-effect"
             >
-              <span className="blue-text">Pricelist</span>
+              <span className="blue-text">Products</span>
             </a>
           </div>
         </div>
@@ -89,8 +84,4 @@ const AccountItem = ({
   );
 };
 
-const mapStateToProps = (state) => ({
-  accountState: state.account,
-});
-
-export default connect(mapStateToProps, { requestAccountToken })(AccountItem);
+export default connect(null, { requestAccountToken, getAccount })(AccountItem);

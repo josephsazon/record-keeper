@@ -5,7 +5,7 @@ import { ACCOUNT } from './types';
 export const getAccount = () => async (dispatch) => {
   dispatch({ type: ACCOUNT.GET_ONE_LOADING });
 
-  axios
+  return axios
     .get(`/api/accounts/one`)
     .then((res) => {
       dispatch({ type: ACCOUNT.GET, payload: res.data });

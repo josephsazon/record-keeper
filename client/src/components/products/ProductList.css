@@ -1,0 +1,13 @@
+.product-list .collection {
+  border: none;
+}
+
+.product-list__classification {
+  font-weight: 500;
+}
+
+.product-list__bottom-placeholder {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}

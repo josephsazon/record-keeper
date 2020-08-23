@@ -6,17 +6,21 @@ import { PersistGate } from 'redux-persist/integration/react';
 // state
 import { store, persistor } from './state/store';
 
-// components
-import M from 'materialize-css/dist/js/materialize.min.js';
-import Navbar from './components/layout/Navbar';
-import SideNav from './components/layout/Sidenav';
+// pages
 import Accounts from './components/pages/Accounts';
 import AccountSettings from './components/accounts/AccountSettings';
 import AddTransactionForm from './components/transactions/AddTransactionForm';
 import Home from './components/pages/Home';
 import Login from './components/auth/Login';
-import PrivateRoute from './components/routing/PrivateRoute';
+import Products from './components/pages/Products';
+import ProductForm from './components/pages/ProductForm';
 import Transactions from './components/pages/Transactions';
+
+// components
+import M from 'materialize-css/dist/js/materialize.min.js';
+import Navbar from './components/layout/Navbar';
+import SideNav from './components/layout/Sidenav';
+import PrivateRoute from './components/routing/PrivateRoute';
 
 // styles
 import 'materialize-css/dist/css/materialize.min.css';
@@ -50,6 +54,12 @@ const App = () => {
                 exact
                 path="/account/settings"
                 component={AccountSettings}
+              />
+              <PrivateRoute exact path="/products" component={Products} />
+              <PrivateRoute
+                exact
+                path="/products/form"
+                component={ProductForm}
               />
               <PrivateRoute
                 exact

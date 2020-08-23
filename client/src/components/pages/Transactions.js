@@ -1,30 +1,16 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import NumberFormat from 'react-number-format';
 
 // state
-import {
-  getAccount,
-  clearAccountToken,
-} from '../../state/actions/accountActions';
+import { clearAccountToken } from '../../state/actions/accountActions';
 
 // components
 import TransactionList from '../transactions/TransactionList';
 import TransactionFAB from '../transactions/TransactionFAB';
 
-const Transactions = ({
-  account: { success, account, accountToken },
-  clearAccountToken,
-  getAccount,
-}) => {
-  useEffect(() => {
-    if (accountToken) {
-      getAccount();
-    }
-    // eslint-disable-next-line;
-  }, [accountToken]);
-
+const Transactions = ({ account: { success, account }, clearAccountToken }) => {
   return (
     <div className="container">
       <div className="page-header">
@@ -70,6 +56,4 @@ const mapStateToProps = (state) => ({
   account: state.account,
 });
 
-export default connect(mapStateToProps, { clearAccountToken, getAccount })(
-  Transactions
-);
+export default connect(mapStateToProps, { clearAccountToken })(Transactions);

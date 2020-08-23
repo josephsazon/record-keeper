@@ -42,6 +42,7 @@ const AddTransactionForm = ({
     <div className="container">
       {addTransactionSuccess && <Redirect to="/transactions" />}
       <ConfirmModal
+        id="confirmAddTransactionModal"
         title="Confirmation"
         message="Do you want to save this transaction?"
         onSubmit={onSubmit}
@@ -109,7 +110,7 @@ const AddTransactionForm = ({
           <div className="col s12">
             <div className="col s12 m3 right">
               <a
-                href="#confirm-modal"
+                href="#confirmAddTransactionModal"
                 className="btn-large blue lighten-2 modal-trigger waves-effect"
                 style={{ display: 'block' }}
               >
