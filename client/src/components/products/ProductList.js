@@ -3,7 +3,10 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 // state
-import { clearProducts, getProducts } from '../../state/actions/productActions';
+import {
+  getProducts,
+  resetGetProducts,
+} from '../../state/actions/productActions';
 
 // components
 import ProductItem from './ProductItem';
@@ -15,11 +18,11 @@ import './ProductList.css';
 // utils
 import groupProducts from '../../utils/groupProducts';
 
-const ProductList = ({ productState, getProducts, clearProducts }) => {
+const ProductList = ({ productState, getProducts, resetGetProducts }) => {
   const {
+    getProductsLoading,
     getProductsSuccess,
     hasNextPage,
-    loading,
     page,
     products,
   } = productState;
@@ -30,7 +33,7 @@ const ProductList = ({ productState, getProducts, clearProducts }) => {
     getProducts(1, 10);
 
     return () => {
-      clearProducts();
+      resetGetProducts();
     };
     // eslint-disable-next-line
   }, []);
@@ -38,6 +41,10 @@ const ProductList = ({ productState, getProducts, clearProducts }) => {
   useEffect(() => {
     if (getProductsSuccess && products.length) {
       setRawProducts([...rawProducts, ...products]);
+    }
+
+    if (getProductsSuccess && hasNextPage) {
+      getProducts(page + 1, 10);
     }
     // eslint-disable-next-line
   }, [products]);
@@ -71,7 +78,7 @@ const ProductList = ({ productState, getProducts, clearProducts }) => {
           );
         })}
       <div className="product-list__bottom-placeholder">
-        {loading ? (
+        {getProductsLoading ? (
           <Spinner />
         ) : (
           hasNextPage && (
@@ -95,6 +102,7 @@ const mapStateToProps = (state) => ({
   productState: state.product,
 });
 
-export default connect(mapStateToProps, { clearProducts, getProducts })(
-  ProductList
-);
+export default connect(mapStateToProps, {
+  getProducts,
+  resetGetProducts,
+})(ProductList);

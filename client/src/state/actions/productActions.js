@@ -10,19 +10,27 @@ export const clearProducts = () => (dispatch) => {
 };
 
 export const getProducts = (page, limit) => async (dispatch) => {
-  dispatch({ type: PRODUCT.SET_LOADING });
+  dispatch({ type: PRODUCT.GET_ALL_LOADING });
 
   axios
     .get(`/api/products?page=${page}&limit=${limit}`)
     .then((res) => {
-      dispatch({ type: PRODUCT.GET_ALL, payload: res.data });
+      dispatch({ type: PRODUCT.GET_ALL_SUCCESS, payload: res.data });
     })
     .catch((err) => {
       dispatch({
-        type: PRODUCT.ERROR,
+        type: PRODUCT.GET_ALL_FAIL,
         payload: err.response.data.msg || err.response.statusText,
       });
     });
+};
+
+export const resetGetProducts = () => (dispatch) => {
+  dispatch({ type: PRODUCT.GET_ALL_RESET });
+};
+
+export const resetUpdateProduct = () => (dispatch) => {
+  dispatch({ type: PRODUCT.UPDATE_RESET });
 };
 
 export const setCurrentProduct = (product) => (dispatch) => {
@@ -30,7 +38,8 @@ export const setCurrentProduct = (product) => (dispatch) => {
 };
 
 export const updateProduct = (product) => async (dispatch) => {
-  dispatch({ type: PRODUCT.SET_LOADING });
+  dispatch({ type: PRODUCT.UPDATE_LOADING });
+  dispatch({ type: PRODUCT.UPDATE_RESET });
 
   return axios
     .put(`/api/products/${product._id}`, JSON.stringify(product), {
@@ -50,8 +59,4 @@ export const updateProduct = (product) => async (dispatch) => {
         payload: err.response.data.msg || err.response.statusText,
       });
     });
-};
-
-export const updateProductReset = () => (dispatch) => {
-  dispatch({ type: PRODUCT.UPDATE_RESET });
 };

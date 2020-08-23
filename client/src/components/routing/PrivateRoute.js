@@ -6,6 +6,9 @@ import PropTypes from 'prop-types';
 // state
 import { loadUser } from '../../state/actions/authActions';
 
+// components
+import Spinner from '../layout/Spinner';
+
 const PrivateRoute = ({
   auth: { isAuthenticated, loading },
   component: Component,
@@ -21,10 +24,12 @@ const PrivateRoute = ({
     <Route
       {...rest}
       render={(props) =>
-        !isAuthenticated && !loading ? (
-          <Redirect to="/login" />
-        ) : (
+        loading ? (
+          <Spinner />
+        ) : isAuthenticated ? (
           <Component {...props} />
+        ) : (
+          <Redirect to="/login" />
         )
       }
     />

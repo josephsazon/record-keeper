@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import {
   updateProduct,
   clearCurrentProduct,
-  updateProductReset,
+  resetUpdateProduct,
 } from '../../state/actions/productActions';
 
 // components
@@ -18,11 +18,18 @@ import ConfirmModal from '../layout/ConfirmModal';
 import Spinner from '../layout/Spinner';
 
 const EditProduct = ({
-  productState: { current, loading, updateProductSuccess },
+  productState,
   clearCurrentProduct,
   updateProduct,
-  updateProductReset,
+  resetUpdateProduct,
 }) => {
+  const {
+    current,
+    error,
+    loading,
+    updateProductSuccess,
+    updateProductTriggered,
+  } = productState;
   const [name, setName] = useState('');
   const [amount, setAmount] = useState('');
   const [classification, setClassification] = useState('');
@@ -31,8 +38,8 @@ const EditProduct = ({
     M.AutoInit();
 
     return () => {
+      resetUpdateProduct();
       clearCurrentProduct();
-      updateProductReset();
     };
     // eslint-disable-next-line
   }, []);
@@ -46,7 +53,18 @@ const EditProduct = ({
     // eslint-disable-next-line
   }, [current]);
 
-  const onSubmit = async () => {
+  useEffect(() => {
+    if (updateProductTriggered) {
+      if (updateProductSuccess) {
+        M.toast({ html: `Updated '${name}' product` });
+      } else {
+        M.toast({ html: error });
+      }
+    }
+    // eslint-disable-next-line
+  }, [updateProductTriggered]);
+
+  const onSubmit = () => {
     const product = {
       _id: current._id,
       name,
@@ -55,9 +73,7 @@ const EditProduct = ({
     };
 
     if (name && amount && classification) {
-      await updateProduct(product);
-
-      M.toast({ html: `Updated '${name}' product` });
+      updateProduct(product);
     } else {
       M.toast({ html: 'Missing fields' });
     }
@@ -146,5 +162,5 @@ const mapStateToProps = (state) => ({
 export default connect(mapStateToProps, {
   clearCurrentProduct,
   updateProduct,
-  updateProductReset,
+  resetUpdateProduct,
 })(EditProduct);
