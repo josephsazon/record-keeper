@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 import {
   addProduct,
   clearCurrentProduct,
+  deleteProduct,
   resetSubmitProduct,
   updateProduct,
 } from '../../state/actions/productActions';
@@ -22,6 +23,7 @@ const ProductForm = ({
   productState,
   addProduct,
   clearCurrentProduct,
+  deleteProduct,
   resetSubmitProduct,
   updateProduct,
 }) => {
@@ -35,6 +37,7 @@ const ProductForm = ({
   const [name, setName] = useState('');
   const [amount, setAmount] = useState('');
   const [classification, setClassification] = useState('');
+  const [action, setAction] = useState('');
 
   useEffect(() => {
     M.AutoInit();
@@ -58,13 +61,18 @@ const ProductForm = ({
   useEffect(() => {
     if (submitProductTriggered) {
       if (submitProductSuccess) {
-        M.toast({ html: `${current ? 'Updated' : 'Added'} '${name}' product` });
+        M.toast({ html: `${action} '${classification}: ${name}' product` });
       } else {
         M.toast({ html: error });
       }
     }
     // eslint-disable-next-line
   }, [submitProductTriggered]);
+
+  const onDelete = () => {
+    deleteProduct(current._id);
+    setAction('Deleted');
+  };
 
   const onSubmit = () => {
     const product = {
@@ -77,9 +85,11 @@ const ProductForm = ({
     if (name && amount && classification) {
       if (current) {
         updateProduct(product);
+        setAction('Updated');
       } else {
         delete product._id;
         addProduct(product);
+        setAction('Added');
       }
     } else {
       M.toast({ html: 'Missing fields' });
@@ -90,15 +100,27 @@ const ProductForm = ({
     <div className="product-form container">
       {submitProductSuccess && <Redirect to="/products" />}
       <ConfirmModal
+        id="confirmSaveProductModal"
         title="Confirmation"
         message="Do you want to save this product?"
         onSubmit={onSubmit}
+      />
+      <ConfirmModal
+        id="confirmDeleteProductModal"
+        title="Confirmation"
+        message="Do you want to delete this product?"
+        onSubmit={onDelete}
       />
       <div className="product-form__header page-header">
         <Link to="/products" className="left">
           <i className="material-icons ">arrow_back</i>
         </Link>
         {`${current ? 'Edit' : 'Add'} product`}
+        {current && (
+          <a className="modal-trigger right" href="#confirmDeleteProductModal">
+            <i className="material-icons grey-text">delete</i>
+          </a>
+        )}
       </div>
       <div className="product-form__content">
         <form>
@@ -149,7 +171,7 @@ const ProductForm = ({
               </div>
             ) : (
               <a
-                href="#confirm-modal"
+                href="#confirmSaveProductModal"
                 className="product-form__submit-btn btn-large blue lighten-2 waves-effect modal-trigger"
               >
                 Save
@@ -169,6 +191,7 @@ const mapStateToProps = (state) => ({
 export default connect(mapStateToProps, {
   addProduct,
   clearCurrentProduct,
+  deleteProduct,
   updateProduct,
   resetSubmitProduct,
 })(ProductForm);

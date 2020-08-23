@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const ConfirmModal = ({ title, message, onSubmit }) => {
+const ConfirmModal = ({ id, title, message, onSubmit }) => {
   return (
-    <div id="confirm-modal" className="modal">
+    <div id={id} className="modal">
       <div className="modal-content">
         <h4>{title}</h4>
         <p>{message}</p>

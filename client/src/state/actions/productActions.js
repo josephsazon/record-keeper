@@ -30,6 +30,23 @@ export const clearProducts = () => (dispatch) => {
   dispatch({ type: PRODUCT.CLEAR_ALL });
 };
 
+export const deleteProduct = (id) => async (dispatch) => {
+  dispatch({ type: PRODUCT.SUBMIT_LOADING });
+  dispatch({ type: PRODUCT.SUBMIT_RESET });
+
+  axios
+    .delete(`/api/products/${id}`)
+    .then((res) => {
+      dispatch({ type: PRODUCT.SUBMIT_SUCCESS, payload: res.data });
+    })
+    .catch((err) => {
+      dispatch({
+        type: PRODUCT.SUBMIT_FAIL,
+        payload: err.response.data.msg || err.respose.statusText,
+      });
+    });
+};
+
 export const getProducts = (page, limit) => async (dispatch) => {
   dispatch({ type: PRODUCT.GET_ALL_LOADING });
 
