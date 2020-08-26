@@ -9,7 +9,7 @@ import { clearAccountToken } from '../../state/actions/accountActions';
 import AccountDetails from './AccountDetails';
 import TransactionTypes from './TransactionTypes';
 
-const AccountSettings = ({ account, clearAccountToken }) => {
+const AccountSettings = ({ account, clearAccountToken, history }) => {
   return (
     <div className="container">
       <div className="page-header">
@@ -25,7 +25,10 @@ const AccountSettings = ({ account, clearAccountToken }) => {
       <div className="divider"></div>
       <AccountDetails account={account} />
       <div className="divider"></div>
-      <TransactionTypes transactionTypes={account.transactionTypes} />
+      <TransactionTypes
+        transactionTypes={account.transactionTypes}
+        history={history}
+      />
     </div>
   );
 };

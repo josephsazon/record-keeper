@@ -4,6 +4,10 @@
   position: relative;
 }
 
+.transaction-type-item:hover {
+  cursor: pointer;
+}
+
 .transaction-type-item__text {
   color: black;
   font-weight: 300;

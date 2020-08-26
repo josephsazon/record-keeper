@@ -3,12 +3,9 @@ import React from 'react';
 // styles
 import './TransactionTypeItem.css';
 
-const TransactionTypeItem = ({ entryType, icon, iconColor, name }) => {
+const TransactionTypeItem = ({ entryType, icon, iconColor, name, onClick }) => {
   return (
-    <li
-      className="collection-item transaction-type-item"
-      onClick={() => console.log(name)}
-    >
+    <li className="collection-item transaction-type-item" onClick={onClick}>
       <i
         className={`material-icons ${iconColor || 'grey'}-text text-lighten-1`}
       >
