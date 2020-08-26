@@ -1,16 +1,16 @@
-.account-type {
+.transaction-type-item {
   align-items: center;
   display: flex;
   position: relative;
 }
 
-.account-type__text {
+.transaction-type-item__text {
   color: black;
   font-weight: 300;
   margin-left: 10px;
 }
 
-.account-type > .secondary-content {
+.transaction-type-item > .secondary-content {
   font-weight: 300;
   position: absolute;
   right: 0;

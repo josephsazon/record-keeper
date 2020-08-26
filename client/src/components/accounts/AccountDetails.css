@@ -1,0 +1,15 @@
+.account-details__header {
+  font-size: 16px;
+  font-weight: 500;
+  margin: 20px 0;
+}
+
+.account-details__key {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.account-details__value {
+  font-size: 14px;
+  font-weight: 300;
+}
