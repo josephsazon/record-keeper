@@ -3,16 +3,28 @@ import { Link, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 // state
-import { addTransaction } from '../../state/actions/transactionActions';
+import { getAccount } from '../../state/actions/accountActions';
+import {
+  addTransaction,
+  resetSubmitTransactionState,
+} from '../../state/actions/transactionActions';
 
 // components
 import M from 'materialize-css/dist/js/materialize.min.js';
 import ConfirmModal from '../layout/ConfirmModal';
 
 const AddTransactionForm = ({
-  transaction: { addTransactionSuccess },
+  transactionState,
   addTransaction,
+  getAccount,
+  resetSubmitTransactionState,
 }) => {
+  const {
+    error,
+    submitTransactionLoading,
+    submitTransactionSuccess,
+    submitTransactionTriggered,
+  } = transactionState;
   const [description, setDescription] = useState('');
   const [amount, setAmount] = useState('');
   const [assignedTo, setAssignedTo] = useState('');
@@ -20,7 +32,21 @@ const AddTransactionForm = ({
 
   useEffect(() => {
     M.AutoInit();
+    // eslint-disable-next-line
   }, []);
+
+  useEffect(() => {
+    if (submitTransactionTriggered) {
+      if (submitTransactionSuccess) {
+        M.toast({ html: 'Added transaction' });
+        getAccount();
+        resetSubmitTransactionState();
+      } else {
+        M.toast({ html: error });
+      }
+    }
+    // eslint-disable-next-line
+  }, [submitTransactionTriggered]);
 
   const onSubmit = () => {
     const transaction = {
@@ -40,7 +66,7 @@ const AddTransactionForm = ({
 
   return (
     <div className="container">
-      {addTransactionSuccess && <Redirect to="/transactions" />}
+      {submitTransactionSuccess && <Redirect to="/transactions" />}
       <ConfirmModal
         id="confirmAddTransactionModal"
         title="Confirmation"
@@ -125,7 +151,11 @@ const AddTransactionForm = ({
 };
 
 const mapStateToProps = (state) => ({
-  transaction: state.transaction,
+  transactionState: state.transaction,
 });
 
-export default connect(mapStateToProps, { addTransaction })(AddTransactionForm);
+export default connect(mapStateToProps, {
+  addTransaction,
+  getAccount,
+  resetSubmitTransactionState,
+})(AddTransactionForm);

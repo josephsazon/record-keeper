@@ -1,24 +1,20 @@
 import { TRANSACTION } from '../actions/types';
 
 const initialState = {
-  addTransactionSuccess: false,
   error: null,
   hasNextPage: false,
   limit: null,
   loading: false,
   page: null,
   success: false,
+  submitTransactionLoading: false,
+  submitTransactionSuccess: false,
+  submitTransactionTriggered: false,
   transactions: null,
 };
 
 export default (state = initialState, action) => {
   switch (action.type) {
-    case TRANSACTION.ADD_SUCCESS:
-      return {
-        ...state,
-        loading: false,
-        addTransactionSuccess: true,
-      };
     case TRANSACTION.ERROR:
       return {
         ...state,
@@ -45,6 +41,31 @@ export default (state = initialState, action) => {
       return {
         ...state,
         loading: true,
+      };
+    case TRANSACTION.SUBMIT_FAIL:
+      return {
+        ...state,
+        submitTransactionLoading: false,
+        submitTransactionSuccess: false,
+        submitTransactionTriggered: true,
+      };
+    case TRANSACTION.SUBMIT_LOADING:
+      return {
+        ...state,
+        submitTransactionLoading: true,
+      };
+    case TRANSACTION.SUBMIT_RESET:
+      return {
+        ...state,
+        submitTransactionSuccess: false,
+        submitTransactionTriggered: false,
+      };
+    case TRANSACTION.SUBMIT_SUCCESS:
+      return {
+        ...state,
+        submitTransactionLoading: false,
+        submitTransactionSuccess: true,
+        submitTransactionTriggered: true,
       };
     default:
       return state;
