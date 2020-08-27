@@ -1,5 +1,5 @@
-import { TRANSACTION_TYPE } from './types';
 import axios from 'axios';
+import { TRANSACTION_TYPE } from './types';
 
 export const addTransactionType = (transactionType) => async (dispatch) => {
   dispatch({ type: TRANSACTION_TYPE.SUBMIT_LOADING });
@@ -13,6 +13,23 @@ export const addTransactionType = (transactionType) => async (dispatch) => {
     })
     .then((res) => {
       dispatch({ type: TRANSACTION_TYPE.SUBMIT_SUCCESS, payload: res.data });
+    })
+    .catch((err) => {
+      dispatch({
+        type: TRANSACTION_TYPE.SUBMIT_FAIL,
+        payload: err.response.data.msg || err.response.statusText,
+      });
+    });
+};
+
+export const deleteTransactionType = (id) => async (dispatch) => {
+  dispatch({ type: TRANSACTION_TYPE.SUBMIT_LOADING });
+  dispatch({ type: TRANSACTION_TYPE.SUBMIT_RESET });
+
+  axios
+    .delete(`/api/account/transaction-type/${id}`)
+    .then((res) => {
+      dispatch({ type: TRANSACTION_TYPE.SUBMIT_SUCCESS });
     })
     .catch((err) => {
       dispatch({

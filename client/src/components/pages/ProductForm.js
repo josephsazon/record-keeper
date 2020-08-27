@@ -43,7 +43,6 @@ const ProductForm = ({
     M.AutoInit();
 
     return () => {
-      resetSubmitProduct();
       clearCurrentProduct();
     };
     // eslint-disable-next-line
@@ -62,6 +61,7 @@ const ProductForm = ({
     if (submitProductTriggered) {
       if (submitProductSuccess) {
         M.toast({ html: `${action} '${classification}: ${name}' product` });
+        resetSubmitProduct();
       } else {
         M.toast({ html: error });
       }

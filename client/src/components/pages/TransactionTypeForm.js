@@ -8,6 +8,7 @@ import { getAccount } from '../../state/actions/accountActions';
 import {
   addTransactionType,
   clearCurrentTransactionType,
+  deleteTransactionType,
   resetSubmitTransactionType,
   updateTransactionType,
 } from '../../state/actions/transactionTypeActions';
@@ -23,6 +24,7 @@ const TransactionTypeForm = ({
   transactionTypeState,
   addTransactionType,
   clearCurrentTransactionType,
+  deleteTransactionType,
   getAccount,
   resetSubmitTransactionType,
   updateTransactionType,
@@ -48,8 +50,6 @@ const TransactionTypeForm = ({
     }
 
     return () => {
-      getAccount();
-      resetSubmitTransactionType();
       clearCurrentTransactionType();
     };
     // eslint-disable-next-line
@@ -59,12 +59,19 @@ const TransactionTypeForm = ({
     if (submitTransactionTypeTriggered) {
       if (submitTransactionTypeSuccess) {
         M.toast({ html: `${action} '${name}'` });
+        resetSubmitTransactionType();
+        getAccount();
       } else {
         M.toast({ html: error });
       }
     }
     // eslint-disable-next-line
   }, [submitTransactionTypeTriggered]);
+
+  const onDelete = () => {
+    deleteTransactionType(current._id);
+    setAction('Deleted');
+  };
 
   const onSubmit = () => {
     const payload = {
@@ -96,11 +103,25 @@ const TransactionTypeForm = ({
         message="Do you want to save this transaction type?"
         onSubmit={onSubmit}
       />
+      <ConfirmModal
+        id="confirmDeleteTransactionTypeModal"
+        title="Confirmation"
+        message="Do you want to delete this transaction type?"
+        onSubmit={onDelete}
+      />
       <div className="page-header">
         <Link to="/account/settings" className="left">
           <i className="material-icons">arrow_back</i>
         </Link>
         {`${current ? 'Edit' : 'Add'} transaction type`}
+        {current && (
+          <a
+            href="#confirmDeleteTransactionTypeModal"
+            className="modal-trigger right"
+          >
+            <i className="material-icons grey-text">delete</i>
+          </a>
+        )}
       </div>
       <div className="transaction-type-form__content">
         <form>
@@ -180,6 +201,7 @@ const mapStateToProps = (state) => ({
 export default connect(mapStateToProps, {
   addTransactionType,
   clearCurrentTransactionType,
+  deleteTransactionType,
   getAccount,
   resetSubmitTransactionType,
   updateTransactionType,
