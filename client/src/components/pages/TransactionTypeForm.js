@@ -109,7 +109,7 @@ const TransactionTypeForm = ({
         message="Do you want to delete this transaction type?"
         onSubmit={onDelete}
       />
-      <div className="page-header">
+      <div className="transaction-type-form__header page-header">
         <Link to="/account/settings" className="left">
           <i className="material-icons">arrow_back</i>
         </Link>

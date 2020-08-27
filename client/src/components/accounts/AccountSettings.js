@@ -2,22 +2,15 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-// state
-import { clearAccountToken } from '../../state/actions/accountActions';
-
 // components
 import AccountDetails from './AccountDetails';
 import TransactionTypes from './TransactionTypes';
 
-const AccountSettings = ({ account, clearAccountToken, history }) => {
+const AccountSettings = ({ account, history }) => {
   return (
     <div className="container">
       <div className="page-header">
-        <Link
-          to="/accounts"
-          className="left"
-          onClick={() => clearAccountToken()}
-        >
+        <Link to="/accounts" className="left">
           <i className="material-icons">arrow_back</i>
         </Link>
         Account Settings
@@ -37,4 +30,4 @@ const mapStateToProps = (state) => ({
   account: state.account.account,
 });
 
-export default connect(mapStateToProps, { clearAccountToken })(AccountSettings);
+export default connect(mapStateToProps)(AccountSettings);

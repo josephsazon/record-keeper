@@ -1,3 +1,7 @@
+.transaction-type-form__header {
+  font-size: 28px !important;
+}
+
 .transaction-type-form__content {
   margin: auto;
   margin-bottom: 30px;
@@ -5,7 +9,7 @@
 }
 
 .transaction-type-form__content > form {
-margin-bottom: 50px;
+  margin-bottom: 50px;
 }
 
 .transaction-type-form__submit-btn {

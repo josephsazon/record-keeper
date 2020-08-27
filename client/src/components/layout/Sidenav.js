@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
@@ -8,7 +8,9 @@ import { logout } from '../../state/actions/authActions';
 // components
 import M from 'materialize-css/dist/js/materialize.min.js';
 
-const Sidenav = ({ auth: { user }, logout }) => {
+const Sidenav = ({ auth: { user }, accountState, logout }) => {
+  const { isAccountAuthenticated } = accountState;
+
   useEffect(() => {
     M.AutoInit();
   }, []);
@@ -45,11 +47,32 @@ const Sidenav = ({ auth: { user }, logout }) => {
           Accounts
         </Link>
       </li>
+      {isAccountAuthenticated && (
+        <Fragment>
+          <li className="divider"></li>
+          <li>
+            <Link to="/transactions" className="waves-effect">
+              Transactions
+            </Link>
+          </li>
+          <li>
+            <Link to="/products" className="waves-effect">
+              Products
+            </Link>
+          </li>
+          <li>
+            <Link to="/account/settings" className="waves-effect">
+              Account settings
+            </Link>
+          </li>
+        </Fragment>
+      )}
     </ul>
   );
 };
 
 const mapStateToProps = (state) => ({
+  accountState: state.account,
   auth: state.auth,
 });
 

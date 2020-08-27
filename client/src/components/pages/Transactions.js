@@ -3,22 +3,15 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import NumberFormat from 'react-number-format';
 
-// state
-import { clearAccountToken } from '../../state/actions/accountActions';
-
 // components
 import TransactionList from '../transactions/TransactionList';
 import TransactionFAB from '../transactions/TransactionFAB';
 
-const Transactions = ({ account: { success, account }, clearAccountToken }) => {
+const Transactions = ({ account: { success, account } }) => {
   return (
     <div className="container">
       <div className="page-header">
-        <Link
-          to="/accounts"
-          className="left"
-          onClick={() => clearAccountToken()}
-        >
+        <Link to="/accounts" className="left">
           <i className="material-icons">arrow_back</i>
         </Link>
         Transactions
@@ -56,4 +49,4 @@ const mapStateToProps = (state) => ({
   account: state.account,
 });
 
-export default connect(mapStateToProps, { clearAccountToken })(Transactions);
+export default connect(mapStateToProps)(Transactions);

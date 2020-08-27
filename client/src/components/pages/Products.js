@@ -1,9 +1,5 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { connect } from 'react-redux';
-
-// state
-import { clearAccountToken } from '../../state/actions/accountActions';
 
 // components
 import ProductList from '../products/ProductList';
@@ -11,15 +7,11 @@ import ProductList from '../products/ProductList';
 // styles
 import './Products.css';
 
-const Products = ({ clearAccountToken }) => {
+const Products = () => {
   return (
     <div className="products container">
       <div className="page-header">
-        <Link
-          to="/accounts"
-          className="left"
-          onClick={() => clearAccountToken()}
-        >
+        <Link to="/accounts" className="left">
           <i className="material-icons">arrow_back</i>
         </Link>
         Products
@@ -34,4 +26,4 @@ const Products = ({ clearAccountToken }) => {
   );
 };
 
-export default connect(null, { clearAccountToken })(Products);
+export default Products;

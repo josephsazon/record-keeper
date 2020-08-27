@@ -6,6 +6,7 @@ const initialState = {
   accountToken: null,
   error: null,
   getAccountLoading: false,
+  isAccountAuthenticated: false,
   loading: false,
 };
 
@@ -50,6 +51,7 @@ export default (state = initialState, action) => {
         ...state,
         account: {},
         accountToken: null,
+        isAccountAuthenticated: false,
       };
     case ACCOUNT.TOKEN_SET:
       localStorage.setItem('accountToken', action.payload.accountToken);
@@ -58,6 +60,7 @@ export default (state = initialState, action) => {
       return {
         ...state,
         accountToken: action.payload.accountToken,
+        isAccountAuthenticated: true,
         loading: false,
       };
     default:
