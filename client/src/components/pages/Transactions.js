@@ -36,7 +36,14 @@ const Transactions = ({ account: { success, account } }) => {
         </div>
       )}
       <TransactionList />
-      <TransactionFAB />
+      <div className="fixed-action-btn">
+        <Link
+          to="/transactions/form"
+          className="btn-floating btn green darken-2"
+        >
+          <i className="material-icons">add</i>
+        </Link>
+      </div>
     </div>
   );
 };

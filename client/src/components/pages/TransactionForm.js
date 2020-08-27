@@ -13,7 +13,11 @@ import {
 import M from 'materialize-css/dist/js/materialize.min.js';
 import ConfirmModal from '../layout/ConfirmModal';
 
-const AddTransactionForm = ({
+// styles
+import './TransactionForm.css';
+import Spinner from '../layout/Spinner';
+
+const TransactionForm = ({
   transactionState,
   addTransaction,
   getAccount,
@@ -65,7 +69,7 @@ const AddTransactionForm = ({
   };
 
   return (
-    <div className="container">
+    <div className="transaction-form container">
       {submitTransactionSuccess && <Redirect to="/transactions" />}
       <ConfirmModal
         id="confirmAddTransactionModal"
@@ -79,9 +83,9 @@ const AddTransactionForm = ({
         </Link>
         <span>Add Transaction</span>
       </div>
-      <div className="row" style={{ maxWidth: '750px' }}>
-        <form className="col s12">
-          <div className="input-field col s12">
+      <div className="transaction-form__content">
+        <form>
+          <div className="input-field">
             <select
               name="type"
               id="type"
@@ -100,7 +104,7 @@ const AddTransactionForm = ({
             <label htmlFor="type">Type</label>
           </div>
 
-          <div className="input-field col s12">
+          <div className="input-field">
             <input
               type="number"
               id="amount"
@@ -111,7 +115,7 @@ const AddTransactionForm = ({
             <label htmlFor="amount">Amount</label>
           </div>
 
-          <div className="input-field col s12">
+          <div className="input-field">
             <input
               type="text"
               id="assignedTo"
@@ -122,7 +126,7 @@ const AddTransactionForm = ({
             <label htmlFor="assignedTo">Assigned to</label>
           </div>
 
-          <div className="input-field col s12">
+          <div className="input-field">
             <textarea
               id="description"
               className="materialize-textarea"
@@ -132,19 +136,23 @@ const AddTransactionForm = ({
             />
             <label htmlFor="description">Description</label>
           </div>
-
-          <div className="col s12">
-            <div className="col s12 m3 right">
+        </form>
+        <div className="row">
+          <div className="col s12 m3 right">
+            {submitTransactionLoading ? (
+              <div className="center-align">
+                <Spinner />
+              </div>
+            ) : (
               <a
                 href="#confirmAddTransactionModal"
-                className="btn-large blue lighten-2 modal-trigger waves-effect"
-                style={{ display: 'block' }}
+                className="transaction-form__submit-btn btn-large blue lighten-2 modal-trigger waves-effect"
               >
                 Submit
               </a>
-            </div>
+            )}
           </div>
-        </form>
+        </div>
       </div>
     </div>
   );
@@ -158,4 +166,4 @@ export default connect(mapStateToProps, {
   addTransaction,
   getAccount,
   resetSubmitTransactionState,
-})(AddTransactionForm);
+})(TransactionForm);

@@ -9,12 +9,12 @@ import { store, persistor } from './state/store';
 // pages
 import Accounts from './components/pages/Accounts';
 import AccountSettings from './components/accounts/AccountSettings';
-import AddTransactionForm from './components/transactions/AddTransactionForm';
 import Home from './components/pages/Home';
 import Login from './components/auth/Login';
 import Products from './components/pages/Products';
 import ProductForm from './components/pages/ProductForm';
 import Transactions from './components/pages/Transactions';
+import TransactionForm from './components/pages/TransactionForm';
 import TransactionTypeForm from './components/pages/TransactionTypeForm';
 
 // components
@@ -79,8 +79,8 @@ const App = () => {
               />
               <PrivateAccountRoute
                 exact
-                path="/transactions/add"
-                component={AddTransactionForm}
+                path="/transactions/form"
+                component={TransactionForm}
               />
             </Switch>
           </Fragment>
