@@ -40,6 +40,7 @@ export const deleteProduct = (id) => async (dispatch) => {
 };
 
 export const getProducts = (page, limit) => async (dispatch) => {
+  dispatch({ type: PRODUCT.GET_ALL_RESET });
   dispatch({ type: PRODUCT.GET_ALL_LOADING });
 
   axios

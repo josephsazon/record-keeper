@@ -39,6 +39,7 @@ const TransactionTypeForm = ({
   const [name, setName] = useState('');
   const [entryType, setEntryType] = useState(current ? current.entryType : '');
   const [icon, setIcon] = useState('attach_money');
+  const [isLinkedToProducts, setIsLinkedToProducts] = useState(false);
   const [action, setAction] = useState('');
 
   useEffect(() => {
@@ -47,6 +48,7 @@ const TransactionTypeForm = ({
     if (current) {
       setName(current.name);
       setIcon(current.icon);
+      setIsLinkedToProducts(current.isLinkedToProducts);
     }
 
     return () => {
@@ -79,6 +81,7 @@ const TransactionTypeForm = ({
       name,
       entryType,
       icon,
+      isLinkedToProducts,
     };
 
     if (name && entryType && icon) {
@@ -174,6 +177,18 @@ const TransactionTypeForm = ({
             >
               See here for icon choices
             </a>
+          </div>
+          <div className="input-field">
+            <label htmlFor="isLinkedToProducts">
+              <input
+                type="checkbox"
+                id="isLinkedToProducts"
+                name="isLinkedToProducts"
+                checked={isLinkedToProducts}
+                onChange={(e) => setIsLinkedToProducts(e.target.checked)}
+              />
+              <span>Linked to products</span>
+            </label>
           </div>
         </form>
         <div className="row">

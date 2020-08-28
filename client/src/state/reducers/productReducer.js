@@ -5,6 +5,7 @@ const initialState = {
   error: null,
   getProductsLoading: false,
   getProductsSuccess: false,
+  getProductsTriggered: false,
   hasNextPage: false,
   page: null,
   products: null,
@@ -30,6 +31,7 @@ export default (state = initialState, action) => {
         ...state,
         getProductsLoading: true,
         getProductsSuccess: false,
+        getProductsTriggered: true,
         hasNextPage: false,
       };
     case PRODUCT.GET_ALL_LOADING:
@@ -43,6 +45,7 @@ export default (state = initialState, action) => {
         error: null,
         getProductsLoading: false,
         getProductsSuccess: false,
+        getProductsTriggered: false,
         hasNextPage: false,
         page: null,
         products: [],
@@ -52,6 +55,7 @@ export default (state = initialState, action) => {
         ...state,
         getProductsLoading: false,
         getProductsSuccess: true,
+        getProductsTriggered: true,
         hasNextPage: action.payload.hasNextPage,
         page: action.payload.page,
         products: action.payload.docs,

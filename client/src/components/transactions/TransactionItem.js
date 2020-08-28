@@ -26,6 +26,7 @@ const TransactionItem = ({ accountState, transaction }) => {
     description,
     entryType,
     icon,
+    product,
     type,
   } = transaction;
 
@@ -87,6 +88,7 @@ const TransactionItem = ({ accountState, transaction }) => {
             }
             col="s6"
           />
+          {product && <InfoPair label="Product" value={product} col="s6" />}
           <InfoPair label="Assigned to" value={assignedTo} col="s6" />
           <InfoPair label="Created by" value={createdBy} col="s6" />
           <InfoPair

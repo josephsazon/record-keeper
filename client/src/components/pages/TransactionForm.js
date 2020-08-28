@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 
 // state
 import { getAccount } from '../../state/actions/accountActions';
+import { getProducts } from '../../state/actions/productActions';
 import {
   addTransaction,
   resetSubmitTransactionState,
@@ -17,15 +18,19 @@ import Spinner from '../layout/Spinner';
 // styles
 import './TransactionForm.css';
 import TransactionTypeOptions from '../transactions/TransactionTypeOptions';
+import ProductOptions from '../products/ProductOptions';
 
 const TransactionForm = ({
   accountState,
+  productState,
   transactionState,
   addTransaction,
   getAccount,
+  getProducts,
   resetSubmitTransactionState,
 }) => {
   const { account } = accountState;
+  const { getProductsTriggered, products } = productState;
   const {
     error,
     submitTransactionLoading,
@@ -35,7 +40,9 @@ const TransactionForm = ({
   const [description, setDescription] = useState('');
   const [amount, setAmount] = useState('');
   const [assignedTo, setAssignedTo] = useState('');
+  const [product, setProduct] = useState('');
   const [type, setType] = useState('');
+  const [transactionTypeRef, setTransactionTypeRef] = useState({});
 
   useEffect(() => {
     M.AutoInit();
@@ -55,17 +62,41 @@ const TransactionForm = ({
     // eslint-disable-next-line
   }, [submitTransactionTriggered]);
 
-  const onSubmit = () => {
-    if (amount && type) {
+  useEffect(() => {
+    if (type) {
       const transactionType = account.transactionTypes.find(
         (transactionType) => transactionType.name === type
       );
+      setTransactionTypeRef(transactionType);
+
+      if (transactionType.isLinkedToProducts) {
+        getProducts(1, 10);
+      }
+    }
+    // eslint-disable-next-line
+  }, [type]);
+
+  useEffect(() => {
+    if (product) {
+      const productRef = products.find((item) => item.name === product);
+
+      setAmount(productRef.amount);
+      setDescription(
+        `${type} '${productRef.classification} - ${productRef.name}'`
+      );
+    }
+    // eslint-disable-next-line
+  }, [product]);
+
+  const onSubmit = () => {
+    if (amount && type) {
       const transaction = {
         amount,
         assignedTo,
         description,
-        icon: transactionType.icon,
-        entryType: transactionType.entryType,
+        entryType: transactionTypeRef.entryType,
+        icon: transactionTypeRef.icon,
+        product: product || null,
         type,
       };
 
@@ -109,6 +140,28 @@ const TransactionForm = ({
             <label htmlFor="type">Type</label>
           </div>
 
+          {transactionTypeRef.isLinkedToProducts && (
+            <div className="input-field">
+              <select
+                name="product"
+                id="product"
+                value={product}
+                onChange={(e) => setProduct(e.target.value)}
+              >
+                <option value="" disabled>
+                  Choose...
+                </option>
+                {getProductsTriggered && products && (
+                  <ProductOptions
+                    products={products}
+                    productOptionsRendered={() => M.AutoInit()}
+                  />
+                )}
+              </select>
+              <label htmlFor="product">Product</label>
+            </div>
+          )}
+
           <div className="input-field">
             <input
               type="number"
@@ -117,7 +170,9 @@ const TransactionForm = ({
               value={amount}
               onChange={(e) => setAmount(e.target.value)}
             />
-            <label htmlFor="amount">Amount</label>
+            <label htmlFor="amount" className={amount && 'active'}>
+              Amount
+            </label>
           </div>
 
           <div className="input-field">
@@ -139,7 +194,9 @@ const TransactionForm = ({
               value={description}
               onChange={(e) => setDescription(e.target.value)}
             />
-            <label htmlFor="description">Description</label>
+            <label htmlFor="description" className={description && 'active'}>
+              Description
+            </label>
           </div>
         </form>
         <div className="row">
@@ -165,11 +222,13 @@ const TransactionForm = ({
 
 const mapStateToProps = (state) => ({
   accountState: state.account,
+  productState: state.product,
   transactionState: state.transaction,
 });
 
 export default connect(mapStateToProps, {
   addTransaction,
   getAccount,
+  getProducts,
   resetSubmitTransactionState,
 })(TransactionForm);
