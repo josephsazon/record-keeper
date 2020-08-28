@@ -9,7 +9,14 @@ const userService = require('./userService');
  * @returns {Object} Saved transaction.
  */
 const addTransaction = async (transaction, userId, accountId) => {
-  const { amount, assignedTo, description, entryType, type } = transaction;
+  const {
+    amount,
+    assignedTo,
+    description,
+    entryType,
+    type,
+    icon,
+  } = transaction;
   const user = await userService.getUser(userId);
 
   const updatedAccount = await accountService.updateBalance(
@@ -30,6 +37,7 @@ const addTransaction = async (transaction, userId, accountId) => {
     description,
     entryType,
     type,
+    icon,
   });
 
   const result = await newTransaction.save();
