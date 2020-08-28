@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { connect } from 'react-redux';
 import Moment from 'react-moment';
 import NumberFormat from 'react-number-format';
 
@@ -6,7 +7,12 @@ import NumberFormat from 'react-number-format';
 import InfoPair from '../layout/InfoPair';
 import M from 'materialize-css/dist/js/materialize.min.js';
 
-const TransactionItem = ({ transaction }) => {
+// styles
+import './TransactionItem.css';
+
+const TransactionItem = ({ accountState, transaction }) => {
+  const { account } = accountState;
+
   useEffect(() => {
     M.AutoInit();
   }, []);
@@ -19,61 +25,50 @@ const TransactionItem = ({ transaction }) => {
     createdDate,
     description,
     entryType,
+    icon,
     type,
   } = transaction;
 
   const getIcon = () => {
-    switch (type) {
-      case 'labor':
-      case 'Labor':
-        return 'directions_walk';
-      case 'materials':
-      case 'Materials':
-        return 'local_grocery_store';
-      case 'inflow':
-        return 'attach_money';
-      default:
-        return 'local_offer';
+    const transactionType = account.transactionTypes.find(
+      (transactionType) =>
+        transactionType.name.toLowerCase() === type.toLowerCase()
+    );
+
+    if (transactionType) {
+      return transactionType.icon;
+    } else {
+      return icon || 'attach_money';
     }
   };
 
   return (
-    <li>
-      <div className="collapsible-header" style={collapsibleHeaderStyle}>
-        <i
-          className={`material-icons grey-text text-lighten-1`}
-          style={{ alignSelf: 'center' }}
-        >
+    <li className="transaction-item">
+      <div className="transaction-item__header collapsible-header">
+        <i className="transaction-item__icon material-icons grey-text text-lighten-1">
           {getIcon()}
         </i>
         <div>
-          <span className="truncate">
-            {type.charAt(0).toUpperCase() + type.slice(1)}
-          </span>
-          <div style={{ fontSize: '10px' }}>
+          <span className="transaction-item__type truncate">{type}</span>
+          <div className="transaction-item__date">
             <Moment calendar className="grey-text">
               {createdDate}
             </Moment>
           </div>
         </div>
-        <div
-          className="collapsible-secondary"
-          style={collapsibleSecondaryStyle}
-        >
+        <div className="transaction-item__amount collapsible-secondary">
           <span
             className={
               entryType === 'debit' ? 'red-text' : 'green-text text-darken-2'
             }
           >
-            <strong>
-              {entryType === 'debit' ? '-' : '+'}
-              <NumberFormat
-                value={amount}
-                displayType="text"
-                prefix="₱"
-                thousandSeparator={true}
-              />
-            </strong>
+            {entryType === 'debit' ? '-' : '+'}
+            <NumberFormat
+              value={amount}
+              displayType="text"
+              prefix="₱"
+              thousandSeparator={true}
+            />
           </span>
         </div>
       </div>
@@ -107,13 +102,8 @@ const TransactionItem = ({ transaction }) => {
   );
 };
 
-const collapsibleHeaderStyle = { position: 'relative' };
+const mapStateToProps = (state) => ({
+  accountState: state.account,
+});
 
-const collapsibleSecondaryStyle = {
-  alignSelf: 'center',
-  position: 'absolute',
-  right: '0',
-  paddingRight: '1rem',
-};
-
-export default TransactionItem;
+export default connect(mapStateToProps)(TransactionItem);

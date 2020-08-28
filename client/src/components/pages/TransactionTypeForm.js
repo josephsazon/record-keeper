@@ -38,7 +38,7 @@ const TransactionTypeForm = ({
   } = transactionTypeState;
   const [name, setName] = useState('');
   const [entryType, setEntryType] = useState(current ? current.entryType : '');
-  const [icon, setIcon] = useState('');
+  const [icon, setIcon] = useState('attach_money');
   const [action, setAction] = useState('');
 
   useEffect(() => {

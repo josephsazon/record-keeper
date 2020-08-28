@@ -1,0 +1,19 @@
+.transaction-item__header {
+  position: relative;
+}
+
+.transaction-item__icon {
+  align-self: center;
+}
+
+.transaction-item__date {
+  font-size: 10px;
+}
+
+.transaction-item__amount {
+  align-self: center;
+  font-weight: 500;
+  padding-right: 1rem;
+  position: absolute;
+  right: 0;
+}
