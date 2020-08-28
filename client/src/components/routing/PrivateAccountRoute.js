@@ -21,6 +21,7 @@ const PrivateAccountRoute = ({
     return () => {
       clearAccountToken();
     };
+    // eslint-disable-next-line
   }, []);
 
   return (

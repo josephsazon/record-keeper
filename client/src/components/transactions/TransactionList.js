@@ -38,7 +38,6 @@ const TransactionList = ({
     return () => {
       resetGetTransactionsState();
     };
-
     // eslint-disable-next-line
   }, []);
 
@@ -50,6 +49,7 @@ const TransactionList = ({
         M.toast({ html: error });
       }
     }
+    // eslint-disable-next-line
   }, [getTransactionsTriggered]);
 
   const onLoadMoreClick = () => {

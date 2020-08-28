@@ -25,7 +25,7 @@ const Sidenav = ({ auth: { user }, accountState, logout }) => {
         <div className="user-view">
           <a href="#!">{user ? user.username : null}</a>
           <a
-            to="#!"
+            href="#!"
             className="secondary-content"
             onClick={onLogout}
             style={{ cursor: 'pointer' }}

@@ -169,6 +169,7 @@ const TransactionTypeForm = ({
             <a
               className="right"
               target="_blank"
+              rel="noopener noreferrer"
               href="https://materializecss.com/icons.html"
             >
               See here for icon choices

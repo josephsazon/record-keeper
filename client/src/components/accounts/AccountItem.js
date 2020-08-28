@@ -64,6 +64,7 @@ const AccountItem = ({ account, history, getAccount, requestAccountToken }) => {
         <div className="row" style={{ marginBottom: '0' }}>
           <div className="col">
             <a
+              href="#!"
               onClick={() => accessAccount('/transactions')}
               className="waves-effect"
             >
@@ -72,6 +73,7 @@ const AccountItem = ({ account, history, getAccount, requestAccountToken }) => {
           </div>
           <div className="col">
             <a
+              href="#!"
               onClick={() => accessAccount('/products')}
               className="waves-effect"
             >

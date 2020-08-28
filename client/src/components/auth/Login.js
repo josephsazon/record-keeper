@@ -13,6 +13,7 @@ const Login = ({ auth: { isAuthenticated, loading }, history, login }) => {
     if (isAuthenticated) {
       history.push('/');
     }
+    // eslint-disable-next-line
   }, [isAuthenticated]);
 
   const [user, setUser] = useState({

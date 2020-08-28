@@ -16,6 +16,7 @@ const AccountList = ({
 }) => {
   useEffect(() => {
     getAccounts();
+    // eslint-disable-next-line
   }, []);
 
   if (loading) return <Preloader />;
