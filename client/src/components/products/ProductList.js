@@ -62,8 +62,7 @@ const ProductList = ({ productState, getProducts, resetGetProducts }) => {
 
   return (
     <div className="product-list">
-      {getProductsSuccess &&
-        displayedProducts.length > 0 &&
+      {displayedProducts.length > 0 &&
         displayedProducts.map(({ classification, items }) => {
           return (
             <Fragment key={classification}>

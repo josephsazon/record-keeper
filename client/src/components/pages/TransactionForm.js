@@ -12,10 +12,10 @@ import {
 // components
 import M from 'materialize-css/dist/js/materialize.min.js';
 import ConfirmModal from '../layout/ConfirmModal';
+import Spinner from '../layout/Spinner';
 
 // styles
 import './TransactionForm.css';
-import Spinner from '../layout/Spinner';
 
 const TransactionForm = ({
   transactionState,
@@ -43,8 +43,8 @@ const TransactionForm = ({
     if (submitTransactionTriggered) {
       if (submitTransactionSuccess) {
         M.toast({ html: 'Added transaction' });
-        getAccount();
         resetSubmitTransactionState();
+        getAccount();
       } else {
         M.toast({ html: error });
       }

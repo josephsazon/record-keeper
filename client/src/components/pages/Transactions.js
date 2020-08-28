@@ -5,7 +5,6 @@ import NumberFormat from 'react-number-format';
 
 // components
 import TransactionList from '../transactions/TransactionList';
-import TransactionFAB from '../transactions/TransactionFAB';
 
 const Transactions = ({ account: { success, account } }) => {
   return (

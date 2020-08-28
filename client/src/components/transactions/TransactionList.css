@@ -1,0 +1,5 @@
+.transaction-list__bottom-placeholder {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}

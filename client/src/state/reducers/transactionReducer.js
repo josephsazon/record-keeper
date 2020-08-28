@@ -2,11 +2,12 @@ import { TRANSACTION } from '../actions/types';
 
 const initialState = {
   error: null,
+  getTransactionsLoading: false,
+  getTransactionsSuccess: false,
+  getTransactionsTriggered: false,
   hasNextPage: false,
   limit: null,
-  loading: false,
   page: null,
-  success: false,
   submitTransactionLoading: false,
   submitTransactionSuccess: false,
   submitTransactionTriggered: false,
@@ -15,32 +16,39 @@ const initialState = {
 
 export default (state = initialState, action) => {
   switch (action.type) {
-    case TRANSACTION.ERROR:
+    case TRANSACTION.GET_ALL_FAIL:
       return {
         ...state,
         error: action.payload,
-        success: false,
-      };
-    case TRANSACTION.GET_ALL:
-      return {
-        ...state,
-        hasNextPage: action.payload.hasNextPage,
-        limit: action.payload.limit,
-        loading: false,
-        page: action.payload.page,
-        success: true,
-        transactions: action.payload.docs,
-      };
-    case TRANSACTION.RESET:
-      return {
-        ...state,
-        addTransactionSuccess: false,
+        getTransactionsLoading: false,
+        getTransactionsSuccess: false,
+        getTransactionsTriggered: true,
         transactions: null,
       };
-    case TRANSACTION.SET_LOADING:
+    case TRANSACTION.GET_ALL_LOADING:
       return {
         ...state,
-        loading: true,
+        getTransactionsLoading: true,
+      };
+    case TRANSACTION.GET_ALL_RESET:
+      return {
+        ...state,
+        error: null,
+        getTransactionsLoading: false,
+        getTransactionsSuccess: false,
+        getTransactionsTriggered: false,
+        transactions: null,
+      };
+    case TRANSACTION.GET_ALL_SUCCESS:
+      return {
+        ...state,
+        getTransactionsLoading: false,
+        getTransactionsSuccess: true,
+        getTransactionsTriggered: true,
+        hasNextPage: action.payload.hasNextPage,
+        limit: action.payload.limit,
+        page: action.payload.page,
+        transactions: action.payload.docs,
       };
     case TRANSACTION.SUBMIT_FAIL:
       return {
@@ -57,6 +65,7 @@ export default (state = initialState, action) => {
     case TRANSACTION.SUBMIT_RESET:
       return {
         ...state,
+        submitTransactionLoading: false,
         submitTransactionSuccess: false,
         submitTransactionTriggered: false,
       };

@@ -3,8 +3,8 @@ import axios from 'axios';
 import { TRANSACTION } from './types';
 
 export const addTransaction = (payload) => async (dispatch) => {
-  dispatch({ type: TRANSACTION.SUBMIT_LOADING });
   dispatch({ type: TRANSACTION.SUBMIT_RESET });
+  dispatch({ type: TRANSACTION.SUBMIT_LOADING });
 
   axios
     .post('/api/transaction', JSON.stringify(payload), {
@@ -27,23 +27,27 @@ export const addTransaction = (payload) => async (dispatch) => {
 };
 
 export const getTransactions = (page, limit) => async (dispatch) => {
-  dispatch({ type: TRANSACTION.SET_LOADING });
-  dispatch({ type: TRANSACTION.RESET });
+  dispatch({ type: TRANSACTION.GET_ALL_RESET });
+  dispatch({ type: TRANSACTION.GET_ALL_LOADING });
 
   axios
     .get(`/api/transaction?page=${page}&limit=${limit}`)
     .then((res) => {
       dispatch({
-        type: TRANSACTION.GET_ALL,
+        type: TRANSACTION.GET_ALL_SUCCESS,
         payload: res.data,
       });
     })
     .catch((err) => {
       dispatch({
-        type: TRANSACTION.ERROR,
+        type: TRANSACTION.GET_ALL_FAIL,
         payload: err.response.data.msg || err.response.statusText,
       });
     });
+};
+
+export const resetGetTransactionsState = () => (dispatch) => {
+  dispatch({ type: TRANSACTION.GET_ALL_RESET });
 };
 
 export const resetSubmitTransactionState = () => (dispatch) => {

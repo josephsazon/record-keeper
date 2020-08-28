@@ -1,82 +1,95 @@
-import React, { useEffect, useState, Fragment } from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 // state
-import { getTransactions } from '../../state/actions/transactionActions';
+import {
+  getTransactions,
+  resetGetTransactionsState,
+} from '../../state/actions/transactionActions';
 
 // components
-import Preloader from '../layout/Preloader';
+import M from 'materialize-css/dist/js/materialize.min.js';
 import Spinner from '../layout/Spinner';
 import TransactionItem from './TransactionItem';
 
+// styles
+import './TransactionList.css';
+
 const TransactionList = ({
-  transaction: { transactions, success, loading, page, limit, hasNextPage },
+  transactionState,
   getTransactions,
+  resetGetTransactionsState,
 }) => {
+  const {
+    error,
+    getTransactionsLoading,
+    getTransactionsSuccess,
+    getTransactionsTriggered,
+    hasNextPage,
+    page,
+    transactions,
+  } = transactionState;
   const [displayedTransactions, setDisplayedTransactions] = useState([]);
 
   useEffect(() => {
     getTransactions(1, 10);
 
+    return () => {
+      resetGetTransactionsState();
+    };
+
     // eslint-disable-next-line
   }, []);
 
   useEffect(() => {
-    if (transactions) {
-      if (displayedTransactions && page === 1) {
-        setDisplayedTransactions(transactions);
-      } else {
+    if (getTransactionsTriggered) {
+      if (getTransactionsSuccess) {
         setDisplayedTransactions([...displayedTransactions, ...transactions]);
+      } else {
+        M.toast({ html: error });
       }
     }
-    // eslint-disable-next-line
-  }, [transactions]);
-
-  useEffect(() => {
-    return setDisplayedTransactions([]);
-  }, []);
+  }, [getTransactionsTriggered]);
 
   const onLoadMoreClick = () => {
     getTransactions(page + 1, 10);
   };
 
   return (
-    <Fragment>
-      {success && (
+    <div className="transaction-list">
+      {displayedTransactions.length > 0 && (
         <ul className="collapsible">
           {displayedTransactions.map((transaction) => (
             <TransactionItem key={transaction._id} transaction={transaction} />
           ))}
         </ul>
       )}
-      {hasNextPage && (
-        <div style={{ display: 'flex' }}>
-          <div style={{ margin: 'auto', marginBottom: '20px' }}>
-            {loading ? (
-              <Spinner />
-            ) : (
-              <button
-                className="btn-flat waves-effect"
-                onClick={onLoadMoreClick}
-              >
-                Load more
-              </button>
-            )}
-          </div>
-        </div>
-      )}
-    </Fragment>
+      <div className="transaction-list__bottom-placeholder">
+        {getTransactionsLoading ? (
+          <Spinner />
+        ) : (
+          hasNextPage && (
+            <button className="btn-flat waves-effect" onClick={onLoadMoreClick}>
+              Load more
+            </button>
+          )
+        )}
+      </div>
+    </div>
   );
 };
 
 TransactionList.propTypes = {
   getTransactions: PropTypes.func.isRequired,
-  transaction: PropTypes.object.isRequired,
+  transactionState: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = (state) => ({
-  transaction: state.transaction,
+  transactionState: state.transaction,
 });
 
-export default connect(mapStateToProps, { getTransactions })(TransactionList);
+export default connect(mapStateToProps, {
+  getTransactions,
+  resetGetTransactionsState,
+})(TransactionList);
