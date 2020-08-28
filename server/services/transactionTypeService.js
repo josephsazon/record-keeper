@@ -18,10 +18,15 @@ const addTransactionType = async (transactionTypeDTO, accountId, userId) => {
   if (!account)
     throw new Error('Account not found. Cannot add transaction type.');
 
-  const { name, entryType, icon } = transactionTypeDTO;
+  const { name, entryType, icon, isLinkedToProducts } = transactionTypeDTO;
 
   if (!account.transactionTypes.find((type) => type.name === name)) {
-    account.transactionTypes.push({ name, entryType, icon });
+    account.transactionTypes.push({
+      name,
+      entryType,
+      icon,
+      isLinkedToProducts,
+    });
     account.updatedBy = user.username;
     account.updatedDate = new Date();
   } else {
@@ -56,7 +61,7 @@ const updateTransactionType = async (transactionTypeDTO, accountId, userId) => {
   if (!account)
     throw new Error('Account not found. Cannot update transaction type.');
 
-  const { name, entryType, icon } = transactionTypeDTO;
+  const { name, entryType, icon, isLinkedToProducts } = transactionTypeDTO;
 
   const updatedAccount = await Account.findOneAndUpdate(
     { 'transactionTypes._id': transactionTypeDTO._id },
@@ -65,6 +70,7 @@ const updateTransactionType = async (transactionTypeDTO, accountId, userId) => {
         'transactionTypes.$.name': name,
         'transactionTypes.$.entryType': entryType,
         'transactionTypes.$.icon': icon,
+        'transactionTypes.$.isLinkedToProducts': isLinkedToProducts,
         updatedBy: user.username,
         updatedDate: new Date(),
       },

@@ -26,6 +26,10 @@ const AccountSchema = mongoose.Schema({
         type: String,
         required: true,
       },
+      isLinkedToProducts: {
+        type: Boolean,
+        default: false,
+      },
     },
   ],
   createdBy: {

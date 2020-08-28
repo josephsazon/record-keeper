@@ -14,8 +14,9 @@ const addTransaction = async (transaction, userId, accountId) => {
     assignedTo,
     description,
     entryType,
-    type,
     icon,
+    product,
+    type,
   } = transaction;
   const user = await userService.getUser(userId);
 
@@ -36,8 +37,9 @@ const addTransaction = async (transaction, userId, accountId) => {
     createdBy: user.username,
     description,
     entryType,
-    type,
     icon,
+    product,
+    type,
   });
 
   const result = await newTransaction.save();

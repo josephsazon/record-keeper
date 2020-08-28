@@ -34,11 +34,14 @@ const TransactionSchema = mongoose.Schema({
     required: true,
     enum: ['debit', 'credit'],
   },
-  type: {
+  icon: {
     type: String,
     required: true,
   },
-  icon: {
+  product: {
+    type: String,
+  },
+  type: {
     type: String,
     required: true,
   },
