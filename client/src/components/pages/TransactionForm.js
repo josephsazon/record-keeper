@@ -16,13 +16,16 @@ import Spinner from '../layout/Spinner';
 
 // styles
 import './TransactionForm.css';
+import TransactionTypeOptions from '../transactions/TransactionTypeOptions';
 
 const TransactionForm = ({
+  accountState,
   transactionState,
   addTransaction,
   getAccount,
   resetSubmitTransactionState,
 }) => {
+  const { account } = accountState;
   const {
     error,
     submitTransactionLoading,
@@ -53,15 +56,19 @@ const TransactionForm = ({
   }, [submitTransactionTriggered]);
 
   const onSubmit = () => {
-    const transaction = {
-      amount,
-      assignedTo,
-      description,
-      entryType: type === 'inflow' ? 'credit' : 'debit',
-      type,
-    };
-
     if (amount && type) {
+      const transactionType = account.transactionTypes.find(
+        (transactionType) => transactionType.name === type
+      );
+      const transaction = {
+        amount,
+        assignedTo,
+        description,
+        icon: transactionType.icon,
+        entryType: transactionType.entryType,
+        type,
+      };
+
       addTransaction(transaction);
     } else {
       M.toast({ html: 'Missing fields' });
@@ -89,17 +96,15 @@ const TransactionForm = ({
             <select
               name="type"
               id="type"
-              defaultValue=""
               value={type}
               onChange={(e) => setType(e.target.value)}
             >
               <option value="" disabled>
                 Choose...
               </option>
-              <option value="inflow">Inflow</option>
-              <option value="labor">Labor</option>
-              <option value="materials">Materials</option>
-              <option value="others">Others</option>
+              <TransactionTypeOptions
+                transactionTypes={account.transactionTypes}
+              />
             </select>
             <label htmlFor="type">Type</label>
           </div>
@@ -159,6 +164,7 @@ const TransactionForm = ({
 };
 
 const mapStateToProps = (state) => ({
+  accountState: state.account,
   transactionState: state.transaction,
 });
 
