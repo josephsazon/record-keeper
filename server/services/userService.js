@@ -92,9 +92,29 @@ const getUser = async (id) => {
   return user;
 };
 
+/**
+ * Get users.
+ * @param {number} page - Page number.
+ * @param {number} limit - Number of docs.
+ */
+const getUsers = async (page, limit) => {
+  const users = await User.paginate(
+    {},
+    {
+      page: page || 1,
+      limit: limit || 10,
+      sort: { username: 'asc' },
+      select: 'username',
+    }
+  );
+
+  return users;
+};
+
 module.exports = {
   addAccountToUser,
   deleteAccountFromUser,
   createUser,
   getUser,
+  getUsers,
 };

@@ -5,6 +5,12 @@ const Account = require('../models/Account');
 
 const userService = require('./userService');
 
+/**
+ * Add new user id to account.
+ * @param {string} ownerId - Account owner's user id.
+ * @param {string} userIdToBeAdded - User id to be added to account.
+ * @param {string} accountId - Target account.
+ */
 const addUserToAccount = async (ownerId, userIdToBeAdded, accountId) => {
   const owner = await userService.getUser(ownerId);
   const account = await Account.findById(accountId);

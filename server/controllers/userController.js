@@ -96,4 +96,20 @@ router.delete(
   }
 );
 
+/**
+ * @route         GET /api/user/all
+ * @description   Get users.
+ * @access        Private
+ */
+router.get('/all', auth, async (req, res) => {
+  try {
+    const result = await userService.getUsers(req.query.page, req.query.limit);
+
+    res.status(200).json(result);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).json({ msg: err.message });
+  }
+});
+
 module.exports = router;
