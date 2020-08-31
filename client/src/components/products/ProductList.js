@@ -22,6 +22,7 @@ const ProductList = ({ productState, getProducts, resetGetProducts }) => {
   const {
     getProductsLoading,
     getProductsSuccess,
+    getProductsTriggered,
     hasNextPage,
     page,
     products,
@@ -30,7 +31,7 @@ const ProductList = ({ productState, getProducts, resetGetProducts }) => {
   const [displayedProducts, setDisplayedProducts] = useState([]);
 
   useEffect(() => {
-    getProducts(1, 10);
+    if (!getProductsTriggered) getProducts(1, 10);
 
     return () => {
       resetGetProducts();
@@ -39,15 +40,16 @@ const ProductList = ({ productState, getProducts, resetGetProducts }) => {
   }, []);
 
   useEffect(() => {
-    if (getProductsSuccess && products.length) {
-      setRawProducts([...rawProducts, ...products]);
-    }
-
-    if (getProductsSuccess && hasNextPage) {
-      getProducts(page + 1, 10);
+    if (getProductsTriggered && getProductsSuccess) {
+      if (products.length) {
+        setRawProducts([...rawProducts, ...products]);
+      }
+      if (hasNextPage) {
+        getProducts(page + 1, 10);
+      }
     }
     // eslint-disable-next-line
-  }, [products]);
+  }, [getProductsTriggered]);
 
   useEffect(() => {
     if (rawProducts.length) {

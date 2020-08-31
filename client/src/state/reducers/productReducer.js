@@ -12,6 +12,7 @@ const initialState = {
   submitProductLoading: false,
   submitProductSuccess: false,
   submitProductTriggered: false,
+  totalDocs: null,
 };
 
 export default (state = initialState, action) => {
@@ -29,10 +30,10 @@ export default (state = initialState, action) => {
     case PRODUCT.GET_ALL_FAIL:
       return {
         ...state,
+        error: action.payload,
         getProductsLoading: true,
         getProductsSuccess: false,
         getProductsTriggered: true,
-        hasNextPage: false,
       };
     case PRODUCT.GET_ALL_LOADING:
       return {
@@ -46,9 +47,6 @@ export default (state = initialState, action) => {
         getProductsLoading: false,
         getProductsSuccess: false,
         getProductsTriggered: false,
-        hasNextPage: false,
-        page: null,
-        products: [],
       };
     case PRODUCT.GET_ALL_SUCCESS:
       return {
@@ -59,6 +57,7 @@ export default (state = initialState, action) => {
         hasNextPage: action.payload.hasNextPage,
         page: action.payload.page,
         products: action.payload.docs,
+        totalDocs: action.payload.totalDocs,
       };
     case PRODUCT.SUBMIT_FAIL:
       return {

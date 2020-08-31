@@ -4,7 +4,10 @@ import { connect } from 'react-redux';
 
 // state
 import { getAccount } from '../../state/actions/accountActions';
-import { getProducts } from '../../state/actions/productActions';
+import {
+  getProducts,
+  resetGetProducts,
+} from '../../state/actions/productActions';
 import {
   addTransaction,
   resetSubmitTransactionState,
@@ -13,12 +16,12 @@ import {
 // components
 import M from 'materialize-css/dist/js/materialize.min.js';
 import ConfirmModal from '../layout/ConfirmModal';
+import ProductOptions from '../products/ProductOptions';
 import Spinner from '../layout/Spinner';
+import TransactionTypeOptions from '../transactions/TransactionTypeOptions';
 
 // styles
 import './TransactionForm.css';
-import TransactionTypeOptions from '../transactions/TransactionTypeOptions';
-import ProductOptions from '../products/ProductOptions';
 
 const TransactionForm = ({
   accountState,
@@ -27,10 +30,18 @@ const TransactionForm = ({
   addTransaction,
   getAccount,
   getProducts,
+  resetGetProducts,
   resetSubmitTransactionState,
 }) => {
   const { account } = accountState;
-  const { getProductsTriggered, products } = productState;
+  const {
+    getProductsSuccess,
+    getProductsTriggered,
+    hasNextPage,
+    page,
+    products,
+    totalDocs,
+  } = productState;
   const {
     error,
     submitTransactionLoading,
@@ -41,6 +52,7 @@ const TransactionForm = ({
   const [amount, setAmount] = useState('');
   const [assignedTo, setAssignedTo] = useState('');
   const [product, setProduct] = useState('');
+  const [rawProducts, setRawProducts] = useState([]);
   const [type, setType] = useState('');
   const [transactionTypeRef, setTransactionTypeRef] = useState({});
 
@@ -69,7 +81,10 @@ const TransactionForm = ({
       );
       setTransactionTypeRef(transactionType);
 
-      if (transactionType.isLinkedToProducts) {
+      if (
+        transactionType.isLinkedToProducts &&
+        totalDocs !== rawProducts.length
+      ) {
         getProducts(1, 10);
       }
     }
@@ -77,8 +92,20 @@ const TransactionForm = ({
   }, [type]);
 
   useEffect(() => {
+    if (getProductsTriggered && getProductsSuccess) {
+      if (products.length > 0) {
+        setRawProducts([...rawProducts, ...products]);
+      }
+      if (hasNextPage) {
+        getProducts(page + 1, 10);
+      }
+    }
+    // eslint-disable-next-line
+  }, [getProductsTriggered]);
+
+  useEffect(() => {
     if (product) {
-      const productRef = products.find((item) => item.name === product);
+      const productRef = rawProducts.find((item) => item.name === product);
 
       setAmount(productRef.amount);
       setDescription(
@@ -151,10 +178,13 @@ const TransactionForm = ({
                 <option value="" disabled>
                   Choose...
                 </option>
-                {getProductsTriggered && products && (
+                {rawProducts.length === totalDocs && (
                   <ProductOptions
-                    products={products}
-                    productOptionsRendered={() => M.AutoInit()}
+                    products={rawProducts}
+                    productOptionsRendered={() => {
+                      M.AutoInit();
+                      resetGetProducts();
+                    }}
                   />
                 )}
               </select>
@@ -230,5 +260,6 @@ export default connect(mapStateToProps, {
   addTransaction,
   getAccount,
   getProducts,
+  resetGetProducts,
   resetSubmitTransactionState,
 })(TransactionForm);
