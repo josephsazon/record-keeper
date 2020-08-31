@@ -32,6 +32,13 @@ const AccountSchema = mongoose.Schema({
       },
     },
   ],
+  users: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      unique: true,
+      ref: 'accounts',
+    },
+  ],
   createdBy: {
     type: String,
     required: true,

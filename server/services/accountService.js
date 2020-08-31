@@ -29,7 +29,12 @@ const createAccount = async (payload, userId) => {
 
   await newAccount.save();
 
-  return newAccount;
+  const updatedUser = await userService.addAccountToUser(
+    userId,
+    newAccount._id
+  );
+
+  return { newAccount, updatedUser };
 };
 
 /**
