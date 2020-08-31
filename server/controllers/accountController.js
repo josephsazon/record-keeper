@@ -59,6 +59,25 @@ router.get('/one', auth, authAccount, async (req, res) => {
 });
 
 /**
+ * @route         POST /api/accounts/user
+ * @description   Add other user to account.
+ * @access        Private
+ */
+router.post('/user', auth, authAccount, async (req, res) => {
+  try {
+    const result = await accountService.addUserToAccount(
+      req.user.id,
+      req.body.userId,
+      req.account.id
+    );
+    res.status(201).json(result);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).json({ msg: err.message });
+  }
+});
+
+/**
  * @route         GET /api/accounts
  * @description   Get accounts for user.
  * @access        Private

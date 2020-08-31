@@ -9,20 +9,13 @@ const User = require('../models/User');
  * @returns {Object} User's accounts.
  */
 const addAccountToUser = async (userId, accountId) => {
-  let user = await User.findById(userId);
-
-  if (
-    user.accounts.find((id) => {
-      return id.toString() === accountId;
-    })
-  ) {
-    throw new Error('Account already added.');
-  }
-
-  user.accounts.push(accountId);
-  user.updatedDate = new Date();
-
-  await user.save();
+  const user = await User.findByIdAndUpdate(
+    userId,
+    {
+      $push: { accounts: accountId },
+    },
+    { new: true, useFindAndModify: false }
+  );
 
   return {
     username: user.username,

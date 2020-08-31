@@ -21,8 +21,7 @@ const UserSchema = mongoose.Schema({
   accounts: [
     {
       type: mongoose.Schema.Types.ObjectId,
-      unique: true,
-      ref: 'accounts',
+      ref: 'account',
     },
   ],
 });

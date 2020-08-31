@@ -5,6 +5,32 @@ const Account = require('../models/Account');
 
 const userService = require('./userService');
 
+const addUserToAccount = async (ownerId, userIdToBeAdded, accountId) => {
+  const owner = await userService.getUser(ownerId);
+  const account = await Account.findById(accountId);
+
+  if (!account) throw new Error('Account not found.');
+  if (account.createdBy !== owner.username)
+    throw new Error('Current user does not own account.');
+
+  if (account.users.find((user) => user.toString() !== userIdToBeAdded)) {
+    account.users.push(userIdToBeAdded);
+    account.updatedBy = owner.username;
+    account.updatedDate = new Date();
+  } else {
+    throw new Error('User already added in account.');
+  }
+
+  const updatedAccount = await account.save();
+
+  const updatedUser = await userService.addAccountToUser(
+    userIdToBeAdded,
+    accountId
+  );
+
+  return { account: updatedAccount, user: updatedUser };
+};
+
 /**
  * Create new account.
  * @param {Object} payload - Account to be created.
@@ -55,7 +81,9 @@ const getAccount = async (id) => {
  * @returns {Array} List of accounts.
  */
 const getAccounts = async () => {
-  const accounts = await Account.find().sort({ name: 1 });
+  const accounts = await Account.find()
+    .sort({ name: 1 })
+    .select('-transactionTypes');
 
   return accounts;
 };
@@ -134,6 +162,7 @@ const updateBalance = async (id, username, payload) => {
 };
 
 module.exports = {
+  addUserToAccount,
   createAccount,
   getAccount,
   getAccounts,

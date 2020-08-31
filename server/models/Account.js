@@ -35,8 +35,7 @@ const AccountSchema = mongoose.Schema({
   users: [
     {
       type: mongoose.Schema.Types.ObjectId,
-      unique: true,
-      ref: 'accounts',
+      ref: 'user',
     },
   ],
   createdBy: {

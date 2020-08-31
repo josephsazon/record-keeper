@@ -4,7 +4,7 @@ const mongoosePaginate = require('mongoose-paginate-v2');
 const TransactionSchema = mongoose.Schema({
   account: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'accounts',
+    ref: 'account',
     required: true,
   },
   amount: {
