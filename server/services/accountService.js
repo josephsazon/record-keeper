@@ -75,7 +75,7 @@ const createAccount = async (payload, userId) => {
  * @returns {Object} Account details.
  */
 const getAccount = async (id) => {
-  const account = await Account.findById(id);
+  const account = await Account.findById(id).populate('users', 'username');
 
   if (!account) throw new Error('Account not found.');
 
