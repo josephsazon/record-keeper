@@ -1,0 +1,9 @@
+.account-form__content {
+  margin: auto;
+  margin-bottom: 30px;
+  max-width: 750px;
+}
+
+.account-form__submit-btn {
+  display: block !important;
+}

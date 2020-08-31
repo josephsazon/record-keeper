@@ -8,6 +8,7 @@ import { store, persistor } from './state/store';
 
 // pages
 import Accounts from './components/pages/Accounts';
+import AccountForm from './components/pages/AccountForm';
 import AccountSettings from './components/accounts/AccountSettings';
 import Home from './components/pages/Home';
 import Login from './components/auth/Login';
@@ -52,6 +53,11 @@ const App = () => {
               <Route exact path="/login" component={Login} />
               <PrivateRoute exact path="/" component={Home} />
               <PrivateRoute exact path="/accounts" component={Accounts} />
+              <PrivateRoute
+                exact
+                path="/account/form"
+                component={AccountForm}
+              />
               <PrivateAccountRoute
                 exact
                 path="/account/settings"

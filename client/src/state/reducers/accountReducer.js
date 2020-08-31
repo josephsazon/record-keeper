@@ -8,6 +8,9 @@ const initialState = {
   getAccountLoading: false,
   isAccountAuthenticated: false,
   loading: false,
+  submitAccountLoading: false,
+  submitAccountSuccess: false,
+  submitAccountTriggered: false,
 };
 
 export default (state = initialState, action) => {
@@ -43,6 +46,34 @@ export default (state = initialState, action) => {
       return {
         ...state,
         loading: true,
+      };
+    case ACCOUNT.SUBMIT_FAIL:
+      return {
+        ...state,
+        error: action.payload,
+        submitAccountLoading: false,
+        submitAccountSuccess: false,
+        submitAccountTriggered: true,
+      };
+    case ACCOUNT.SUBMIT_LOADING:
+      return {
+        ...state,
+        submitAccountLoading: true,
+      };
+    case ACCOUNT.SUBMIT_RESET:
+      return {
+        ...state,
+        error: null,
+        submitAccountLoading: false,
+        submitAccountSuccess: false,
+        submitAccountTriggered: false,
+      };
+    case ACCOUNT.SUBMIT_SUCCESS:
+      return {
+        ...state,
+        submitAccountLoading: false,
+        submitAccountSuccess: true,
+        submitAccountTriggered: true,
       };
     case ACCOUNT.TOKEN_CLEAR:
       localStorage.removeItem('accountToken');

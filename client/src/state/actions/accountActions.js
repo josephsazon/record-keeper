@@ -2,6 +2,27 @@ import axios from 'axios';
 
 import { ACCOUNT } from './types';
 
+export const addAccount = (payload) => async (dispatch) => {
+  dispatch({ type: ACCOUNT.SUBMIT_RESET });
+  dispatch({ type: ACCOUNT.SUBMIT_LOADING });
+
+  axios
+    .post('/api/accounts', JSON.stringify(payload), {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+    .then((res) => {
+      dispatch({ type: ACCOUNT.SUBMIT_SUCCESS, payload: res.data });
+    })
+    .catch((err) => {
+      dispatch({
+        type: ACCOUNT.SUBMIT_FAIL,
+        payload: err.response.data.msg || err.response.statusText,
+      });
+    });
+};
+
 export const getAccount = () => async (dispatch) => {
   dispatch({ type: ACCOUNT.GET_ONE_LOADING });
 
@@ -56,4 +77,8 @@ export const requestAccountToken = (id) => async (dispatch) => {
 
 export const clearAccountToken = () => async (dispatch) => {
   dispatch({ type: ACCOUNT.TOKEN_CLEAR });
+};
+
+export const resetSubmitAccountState = () => (dispatch) => {
+  dispatch({ type: ACCOUNT.SUBMIT_RESET });
 };
