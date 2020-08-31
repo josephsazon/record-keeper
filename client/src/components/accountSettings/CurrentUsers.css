@@ -1,0 +1,26 @@
+.current-users__header {
+  font-size: 16px;
+  font-weight: 500;
+  margin: 20px 0
+}
+
+.current-users > .collection {
+  border: none;
+}
+
+.current-users > .collection > .collection-item {
+  display: flex;
+}
+
+.current-users > .collection > .collection-item > span {
+  font-weight: 300;
+  padding-left: 10px;
+}
+
+.current-users__add-user-block {
+  display: flex;
+}
+
+.current-users__add-user-block > span {
+  padding-left: 10px
+}

@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 // components
 import AccountDetails from './AccountDetails';
 import TransactionTypes from './TransactionTypes';
+import CurrentUsers from '../accountSettings/CurrentUsers';
 
 const AccountSettings = ({ account, history }) => {
   return (
@@ -22,6 +23,8 @@ const AccountSettings = ({ account, history }) => {
         transactionTypes={account.transactionTypes}
         history={history}
       />
+      <div className="divider"></div>
+      <CurrentUsers users={account.users} />
     </div>
   );
 };

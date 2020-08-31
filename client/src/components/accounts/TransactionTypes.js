@@ -19,6 +19,14 @@ const TransactionTypes = ({
     <div className="transaction-types">
       <div className="transaction-types__header">Transaction types</div>
       <ul className="collection">
+        <TransactionTypeItem
+          name="Add transaction type..."
+          icon="add"
+          iconColor="blue"
+          onClick={() =>
+            history.push('/account/settings/transaction-type/form')
+          }
+        />
         {transactionTypes.map((transactionType) => {
           const { name, icon, entryType } = transactionType;
           const onClick = () => {
@@ -36,14 +44,6 @@ const TransactionTypes = ({
             />
           );
         })}
-        <TransactionTypeItem
-          name="Add transaction type..."
-          icon="add"
-          iconColor="blue"
-          onClick={() =>
-            history.push('/account/settings/transaction-type/form')
-          }
-        />
       </ul>
     </div>
   );

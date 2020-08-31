@@ -5,6 +5,7 @@ import authReducer from './authReducer';
 import productReducer from './productReducer';
 import transactionReducer from './transactionReducer';
 import transactionTypeReducer from './transactionTypeReducer';
+import userReducer from './userReducer';
 
 export default combineReducers({
   account: accountReducer,
@@ -12,4 +13,5 @@ export default combineReducers({
   product: productReducer,
   transaction: transactionReducer,
   transactionType: transactionTypeReducer,
+  user: userReducer,
 });
