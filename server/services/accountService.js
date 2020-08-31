@@ -111,6 +111,34 @@ const getAccountsForUser = async (userId) => {
 };
 
 /**
+ * Remove user id from account.
+ * @param {string} ownerId - Account owner's user id.
+ * @param {string} userIdToBeAdded - User id to be removed to account.
+ * @param {string} accountId - Target account.
+ */
+const removeUserFromAccount = async (ownerId, userIdToBeRemoved, accountId) => {
+  const owner = await userService.getUser(ownerId);
+  const account = await Account.findById(accountId);
+
+  if (!account) throw new Error('Account not found.');
+  if (account.createdBy !== owner.username)
+    throw new Error('Current user does not own account.');
+
+  const updatedAccount = await Account.findByIdAndUpdate(
+    accountId,
+    { $pull: { users: userIdToBeRemoved } },
+    { new: true }
+  );
+
+  const updatedUser = await userService.deleteAccountFromUser(
+    userIdToBeRemoved,
+    accountId
+  );
+
+  return { account: updatedAccount, user: updatedUser };
+};
+
+/**
  * Authenticate user on selected account.
  * @param {string} accountId - ID from Account schema.
  * @param {string} userId - ID from User schema.
@@ -173,6 +201,7 @@ module.exports = {
   getAccount,
   getAccounts,
   getAccountsForUser,
+  removeUserFromAccount,
   requestToken,
   updateBalance,
 };

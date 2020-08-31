@@ -70,7 +70,28 @@ router.post('/user', auth, authAccount, async (req, res) => {
       req.body.userId,
       req.account.id
     );
+
     res.status(201).json(result);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).json({ msg: err.message });
+  }
+});
+
+/**
+ * @route         DELETE /api/accounts/user
+ * @description   Delete other user from account.
+ * @access        Private
+ */
+router.delete('/user', auth, authAccount, async (req, res) => {
+  try {
+    const result = await accountService.removeUserFromAccount(
+      req.user.id,
+      req.body.userId,
+      req.account.id
+    );
+
+    res.status(200).json(result);
   } catch (err) {
     console.error(err.message);
     res.status(500).json({ msg: err.message });
