@@ -23,7 +23,7 @@ const Sidenav = ({ auth: { user }, accountState, logout }) => {
     <ul id="slide-out" className="sidenav sidenav-close">
       <li>
         <div className="user-view">
-          <a href="#!">{user ? user.username : null}</a>
+          <Link to="/user/profile">{user ? user.username : null}</Link>
           <a
             href="#!"
             className="secondary-content"

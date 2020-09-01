@@ -4,6 +4,27 @@ import axios from 'axios';
 // utils
 import setAuthToken from '../../utils/setAuthToken';
 
+export const changePassword = (payload) => async (dispatch) => {
+  dispatch({ type: AUTH.SUBMIT_RESET });
+  dispatch({ type: AUTH.SUBMIT_LOADING });
+
+  axios
+    .put('/api/auth/password', JSON.stringify(payload), {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+    .then((res) => {
+      dispatch({ type: AUTH.SUBMIT_SUCCESS, payload: res.data });
+    })
+    .catch((err) => {
+      dispatch({
+        type: AUTH.SUBMIT_FAIL,
+        payload: err.response.data.msg || err.response.statusText,
+      });
+    });
+};
+
 export const login = (formData) => async (dispatch) => {
   dispatch({ type: AUTH.SET_LOADING });
 
@@ -46,4 +67,8 @@ export const loadUser = () => async (dispatch) => {
         payload: response.data.msg || response.statusText,
       });
     });
+};
+
+export const resetSubmitAuthState = () => (dispatch) => {
+  dispatch({ type: AUTH.SUBMIT_RESET });
 };

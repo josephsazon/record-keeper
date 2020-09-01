@@ -18,6 +18,7 @@ import ProductForm from './components/pages/ProductForm';
 import Transactions from './components/pages/Transactions';
 import TransactionForm from './components/pages/TransactionForm';
 import TransactionTypeForm from './components/pages/TransactionTypeForm';
+import UserProfile from './components/pages/UserProfile';
 
 // components
 import M from 'materialize-css/dist/js/materialize.min.js';
@@ -58,6 +59,11 @@ const App = () => {
                 exact
                 path="/account/form"
                 component={AccountForm}
+              />
+              <PrivateRoute
+                exact
+                path="/user/profile"
+                component={UserProfile}
               />
               <PrivateAccountRoute
                 exact

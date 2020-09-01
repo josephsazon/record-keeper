@@ -4,6 +4,9 @@ const initialState = {
   error: null,
   isAuthenticated: false,
   loading: false,
+  submitAuthLoading: false,
+  submitAuthSuccess: false,
+  submitAuthTriggered: false,
   token: localStorage.getItem('token'),
   user: null,
 };
@@ -42,6 +45,34 @@ export default (state = initialState, action) => {
       return {
         ...state,
         loading: true,
+      };
+    case AUTH.SUBMIT_FAIL:
+      return {
+        ...state,
+        error: action.payload,
+        submitAuthLoading: false,
+        submitAuthSuccess: false,
+        submitAuthTriggered: true,
+      };
+    case AUTH.SUBMIT_LOADING:
+      return {
+        ...state,
+        submitAuthLoading: true,
+      };
+    case AUTH.SUBMIT_RESET:
+      return {
+        ...state,
+        error: null,
+        submitAuthLoading: false,
+        submitAuthSuccess: false,
+        submitAuthTriggered: false,
+      };
+    case AUTH.SUBMIT_SUCCESS:
+      return {
+        ...state,
+        submitAuthLoading: false,
+        submitAuthSuccess: true,
+        submitAuthTriggered: true,
       };
     default:
       return state;
