@@ -4,6 +4,24 @@ const config = require('config');
 
 const User = require('../models/User');
 
+const changePassword = async (userId, { oldPassword, newPassword }) => {
+  let user = await User.findById(userId);
+
+  const isMatch = await bcrypt.compare(oldPassword, user.password);
+
+  if (!isMatch) {
+    throw new Error('Invalid credentials.');
+  }
+
+  const salt = await bcrypt.genSalt(10);
+
+  user.password = await bcrypt.hash(newPassword, salt);
+
+  await user.save();
+
+  return user;
+};
+
 const loginUser = async ({ username, password }) => {
   let user = await User.findOne({ username });
 
@@ -31,5 +49,6 @@ const loginUser = async ({ username, password }) => {
 };
 
 module.exports = {
+  changePassword,
   loginUser,
 };
