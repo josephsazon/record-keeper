@@ -8,6 +8,10 @@ import TransactionTypes from './TransactionTypes';
 import CurrentUsers from '../accountSettings/CurrentUsers';
 
 const AccountSettings = ({ account, history }) => {
+  const onAddUser = () => {
+    history.push('/account/settings/add-user');
+  };
+
   return (
     <div className="container">
       <div className="page-header">
@@ -24,7 +28,7 @@ const AccountSettings = ({ account, history }) => {
         history={history}
       />
       <div className="divider"></div>
-      <CurrentUsers users={account.users} />
+      <CurrentUsers users={account.users} onAddUser={onAddUser} />
     </div>
   );
 };

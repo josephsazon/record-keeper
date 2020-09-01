@@ -1,0 +1,13 @@
+.user-list > .collection {
+  border: none;
+}
+
+.user-list > .collection > .collection-item {
+  display: flex;
+}
+
+.user-list > .collection > .collection-item > span {
+  font-weight: 300;
+  padding-left: 10px;
+}
+

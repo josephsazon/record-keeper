@@ -10,6 +10,7 @@
 
 .current-users > .collection > .collection-item {
   display: flex;
+  justify-content: space-between;
 }
 
 .current-users > .collection > .collection-item > span {
@@ -21,6 +22,19 @@
   display: flex;
 }
 
+.current-users__add-user-block:hover {
+  cursor: pointer;
+}
+
 .current-users__add-user-block > span {
   padding-left: 10px
+}
+
+.current-users__label {
+  display: flex;
+}
+
+.current-users__label > span {
+  font-weight: 300;
+  padding-left: 10px;
 }

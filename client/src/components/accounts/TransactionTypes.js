@@ -18,7 +18,7 @@ const TransactionTypes = ({
   return (
     <div className="transaction-types">
       <div className="transaction-types__header">Transaction types</div>
-      <ul className="collection">
+      <ul className="collection container">
         <TransactionTypeItem
           name="Add transaction type..."
           icon="add"

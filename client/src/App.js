@@ -10,6 +10,7 @@ import { store, persistor } from './state/store';
 import Accounts from './components/pages/Accounts';
 import AccountForm from './components/pages/AccountForm';
 import AccountSettings from './components/accounts/AccountSettings';
+import AddUserToAccount from './components/accountSettings/AddUserToAccount';
 import Home from './components/pages/Home';
 import Login from './components/auth/Login';
 import Products from './components/pages/Products';
@@ -67,6 +68,11 @@ const App = () => {
                 exact
                 path="/account/settings/transaction-type/form"
                 component={TransactionTypeForm}
+              />
+              <PrivateAccountRoute
+                exact
+                path="/account/settings/add-user"
+                component={AddUserToAccount}
               />
               <PrivateAccountRoute
                 exact
