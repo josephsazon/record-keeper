@@ -85,6 +85,7 @@ router.post('/user', auth, authAccount, async (req, res) => {
  */
 router.delete('/user', auth, authAccount, async (req, res) => {
   try {
+    console.log(req.body);
     const result = await accountService.removeUserFromAccount(
       req.user.id,
       req.body.userId,

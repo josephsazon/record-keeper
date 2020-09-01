@@ -76,6 +76,29 @@ export const getAccounts = () => async (dispatch) => {
     });
 };
 
+export const removeUserFromAccount = (payload) => async (dispatch) => {
+  console.log(payload);
+  dispatch({ type: ACCOUNT.SUBMIT_RESET });
+  dispatch({ type: ACCOUNT.SUBMIT_LOADING });
+
+  axios
+    .delete('/api/accounts/user', {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      data: payload,
+    })
+    .then((res) => {
+      dispatch({ type: ACCOUNT.SUBMIT_SUCCESS, payload: res.data });
+    })
+    .catch((err) => {
+      dispatch({
+        type: ACCOUNT.SUBMIT_FAIL,
+        payload: err.response.data.msg || err.response.statusText,
+      });
+    });
+};
+
 export const requestAccountToken = (id) => async (dispatch) => {
   dispatch({ type: ACCOUNT.GET_ONE_LOADING });
 

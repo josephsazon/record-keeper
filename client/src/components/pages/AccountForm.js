@@ -66,7 +66,7 @@ const AccountForm = ({ accountState, addAccount, resetSubmitAccountState }) => {
         {`Add account`}
       </div>
       <div className="account-form__content">
-        <form>
+        <form autoComplete="off">
           <div className="input-field">
             <input
               type="text"

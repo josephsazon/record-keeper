@@ -149,7 +149,7 @@ const TransactionForm = ({
         <span>Add Transaction</span>
       </div>
       <div className="transaction-form__content">
-        <form>
+        <form autoComplete="off">
           <div className="input-field">
             <select
               name="type"

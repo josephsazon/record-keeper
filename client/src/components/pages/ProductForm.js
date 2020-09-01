@@ -123,7 +123,7 @@ const ProductForm = ({
         )}
       </div>
       <div className="product-form__content">
-        <form>
+        <form autoComplete="off">
           <div className="input-field">
             <input
               type="text"

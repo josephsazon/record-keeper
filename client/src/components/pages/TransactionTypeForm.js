@@ -127,7 +127,7 @@ const TransactionTypeForm = ({
         )}
       </div>
       <div className="transaction-type-form__content">
-        <form>
+        <form autoComplete="off">
           <div className="input-field">
             <input
               type="text"
