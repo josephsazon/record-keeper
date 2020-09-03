@@ -4,6 +4,9 @@ import { ACCOUNT } from '../actions/types';
 const initialState = {
   accounts: null,
   accountToken: null,
+  deleteAccountLoading: false,
+  deleteAccountSuccess: false,
+  deleteAccountTriggered: false,
   error: null,
   getAccountLoading: false,
   getAccountsLoading: false,
@@ -21,6 +24,34 @@ const initialState = {
 
 export default (state = initialState, action) => {
   switch (action.type) {
+    case ACCOUNT.DELETE_FAIL:
+      return {
+        ...state,
+        deleteAccountLoading: false,
+        deleteAccountSuccess: false,
+        deleteAccountTriggered: false,
+        error: action.payload,
+      };
+    case ACCOUNT.DELETE_LOADING:
+      return {
+        ...state,
+        deleteAccountLoading: true,
+      };
+    case ACCOUNT.DELETE_RESET:
+      return {
+        ...state,
+        deleteAccountLoading: false,
+        deleteAccountSuccess: false,
+        deleteAccountTriggered: false,
+        error: null,
+      };
+    case ACCOUNT.DELETE_SUCCESS:
+      return {
+        ...state,
+        deleteAccountLoading: false,
+        deleteAccountSuccess: true,
+        deleteAccountTriggered: true,
+      };
     case ACCOUNT.ERROR: {
       return {
         ...state,

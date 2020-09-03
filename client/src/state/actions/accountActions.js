@@ -44,6 +44,23 @@ export const addUserToAccount = (payload) => async (dispatch) => {
     });
 };
 
+export const deleteAccount = () => async (dispatch) => {
+  dispatch({ type: ACCOUNT.DELETE_RESET });
+  dispatch({ type: ACCOUNT.DELETE_LOADING });
+
+  axios
+    .delete('/api/accounts')
+    .then(() => {
+      dispatch({ type: ACCOUNT.DELETE_SUCCESS });
+    })
+    .catch((err) => {
+      dispatch({
+        type: ACCOUNT.DELETE_FAIL,
+        payload: err.response.data.msg || err.response.statusText,
+      });
+    });
+};
+
 export const getAccount = () => async (dispatch) => {
   dispatch({ type: ACCOUNT.GET_ONE_LOADING });
 
@@ -122,6 +139,10 @@ export const requestAccountToken = (id) => async (dispatch) => {
 
 export const clearAccountToken = () => async (dispatch) => {
   dispatch({ type: ACCOUNT.TOKEN_CLEAR });
+};
+
+export const resetDeleteAccountState = () => (dispatch) => {
+  dispatch({ type: ACCOUNT.DELETE_RESET });
 };
 
 export const resetGetAccountsState = () => (dispatch) => {
