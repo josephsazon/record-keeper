@@ -99,13 +99,18 @@ const getAccounts = async () => {
  * @param {string} userId - ID from User schema.
  * @returns {Array} List of accounts.
  */
-const getAccountsForUser = async (userId) => {
+const getAccountsForUser = async (userId, page, limit) => {
   const user = await userService.getUser(userId);
 
-  const accounts = await Account.find()
-    .where('_id')
-    .in(user.accounts)
-    .sort({ name: 1 });
+  const accounts = await Account.paginate(
+    { _id: { $in: user.accounts } },
+    {
+      page: page || 1,
+      limit: limit || 10,
+      sort: { name: 'asc' },
+      select: 'name updatedBy updatedDate',
+    }
+  );
 
   return accounts;
 };

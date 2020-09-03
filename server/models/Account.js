@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const mongoosePaginate = require('mongoose-paginate-v2');
 
 const AccountSchema = mongoose.Schema({
   name: {
@@ -55,5 +56,7 @@ const AccountSchema = mongoose.Schema({
     default: Date.now,
   },
 });
+
+AccountSchema.plugin(mongoosePaginate);
 
 module.exports = mongoose.model('account', AccountSchema);

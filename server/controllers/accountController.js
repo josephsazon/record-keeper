@@ -106,7 +106,11 @@ router.delete('/user', auth, authAccount, async (req, res) => {
  */
 router.get('/', auth, async (req, res) => {
   try {
-    const accounts = await accountService.getAccountsForUser(req.user.id);
+    const accounts = await accountService.getAccountsForUser(
+      req.user.id,
+      req.query.page,
+      req.query.limit
+    );
 
     res.status(200).json(accounts);
   } catch (err) {
