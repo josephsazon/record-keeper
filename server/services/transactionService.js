@@ -47,6 +47,12 @@ const addTransaction = async (transaction, userId, accountId) => {
   return result;
 };
 
+const deleteAllTransactionsFromAccount = async (accountId) => {
+  const result = await Transaction.deleteMany({ account: accountId });
+
+  return result;
+};
+
 /**
  * Get paginated transactions.
  * @param {string} accountId - ID from Account schema.
@@ -65,5 +71,6 @@ const getTransactions = async (accountId, limit, page) => {
 
 module.exports = {
   addTransaction,
+  deleteAllTransactionsFromAccount,
   getTransactions,
 };

@@ -141,4 +141,18 @@ router.post(
   }
 );
 
+router.delete('/', auth, authAccount, async (req, res) => {
+  try {
+    const result = await accountService.deleteAccount(
+      req.account.id,
+      req.user.id
+    );
+
+    res.status(200).json(result);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).json({ msg: err.message });
+  }
+});
+
 module.exports = router;

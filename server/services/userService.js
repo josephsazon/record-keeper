@@ -24,6 +24,16 @@ const addAccountToUser = async (userId, accountId) => {
 };
 
 /**
+ * Delete account from all users.
+ * @param {string} accountId
+ */
+const deleteAccountFromAllUsers = async (accountId) => {
+  const result = await User.updateMany({}, { $pull: { accounts: accountId } });
+
+  return result;
+};
+
+/**
  * Deletes an account from user profile.
  * @param {string} userId - ID from User schema.
  * @param {string} accountId - ID from Account schema.
@@ -113,6 +123,7 @@ const getUsers = async (page, limit) => {
 
 module.exports = {
   addAccountToUser,
+  deleteAccountFromAllUsers,
   deleteAccountFromUser,
   createUser,
   getUser,

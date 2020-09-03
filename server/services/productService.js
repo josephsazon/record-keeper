@@ -53,6 +53,16 @@ const deleteProduct = async (productId) => {
 };
 
 /**
+ * Delete all products from account.
+ * @param {string} accountId
+ */
+const deleteAllProductsFromAccount = async (accountId) => {
+  const result = await Product.deleteMany({ account: accountId });
+
+  return result;
+};
+
+/**
  * Get paginated products.
  * @param {string} accountId
  * @param {number} limit
@@ -116,6 +126,7 @@ const updateProduct = async (productDTO, accountId, userId) => {
 
 module.exports = {
   addProduct,
+  deleteAllProductsFromAccount,
   deleteProduct,
   getProducts,
   updateProduct,
