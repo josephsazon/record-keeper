@@ -60,17 +60,18 @@ export const getAccount = () => async (dispatch) => {
     });
 };
 
-export const getAccounts = () => async (dispatch) => {
-  dispatch({ type: ACCOUNT.SET_LOADING });
+export const getAccounts = (page, limit) => async (dispatch) => {
+  dispatch({ type: ACCOUNT.GET_ALL_RESET });
+  dispatch({ type: ACCOUNT.GET_ALL_LOADING });
 
   axios
-    .get('/api/accounts')
+    .get(`/api/accounts?page=${page}&limit=${limit}`)
     .then((res) => {
-      dispatch({ type: ACCOUNT.GET_ALL, payload: res.data });
+      dispatch({ type: ACCOUNT.GET_ALL_SUCCESS, payload: res.data });
     })
     .catch((err) => {
       dispatch({
-        type: ACCOUNT.ERROR,
+        type: ACCOUNT.GET_ALL_FAIL,
         payload: err.response.data.msg || err.response.statusText,
       });
     });
@@ -121,6 +122,10 @@ export const requestAccountToken = (id) => async (dispatch) => {
 
 export const clearAccountToken = () => async (dispatch) => {
   dispatch({ type: ACCOUNT.TOKEN_CLEAR });
+};
+
+export const resetGetAccountsState = () => (dispatch) => {
+  dispatch({ type: ACCOUNT.GET_ALL_RESET });
 };
 
 export const resetSubmitAccountState = () => (dispatch) => {

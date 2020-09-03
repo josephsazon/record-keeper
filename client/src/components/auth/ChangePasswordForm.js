@@ -51,6 +51,7 @@ const ChangePasswordForm = ({
         M.toast({ html: error });
       }
     }
+    // eslint-disable-next-line
   }, [submitAuthTriggered]);
 
   const onSubmit = () => {

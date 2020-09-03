@@ -6,8 +6,14 @@ const initialState = {
   accountToken: null,
   error: null,
   getAccountLoading: false,
+  getAccountsLoading: false,
+  getAccountsSuccess: false,
+  getAccountsTriggered: false,
   isAccountAuthenticated: false,
+  hasNextPage: false,
+  limit: null,
   loading: false,
+  page: null,
   submitAccountLoading: false,
   submitAccountSuccess: false,
   submitAccountTriggered: false,
@@ -36,11 +42,38 @@ export default (state = initialState, action) => {
         ...state,
         getAccountLoading: true,
       };
-    case ACCOUNT.GET_ALL:
+    case ACCOUNT.GET_ALL_FAIL:
       return {
         ...state,
-        accounts: action.payload,
-        loading: false,
+        error: action.payload,
+        getAccountsLoading: false,
+        getAccountsSuccess: false,
+        getAccountsTriggered: true,
+      };
+    case ACCOUNT.GET_ALL_LOADING:
+      return {
+        ...state,
+        getAccountsLoading: true,
+      };
+    case ACCOUNT.GET_ALL_RESET:
+      return {
+        ...state,
+        accounts: null,
+        error: null,
+        getAccountsLoading: false,
+        getAccountsSuccess: false,
+        getAccountsTriggered: false,
+      };
+    case ACCOUNT.GET_ALL_SUCCESS:
+      return {
+        ...state,
+        accounts: action.payload.docs,
+        getAccountsLoading: false,
+        getAccountsSuccess: true,
+        getAccountsTriggered: true,
+        hasNextPage: action.payload.hasNextPage,
+        limit: action.payload.limit,
+        page: action.payload.page,
       };
     case ACCOUNT.SET_LOADING:
       return {
