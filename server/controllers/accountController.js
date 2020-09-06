@@ -6,6 +6,9 @@ const validate = require('../middleware/validate');
 const router = express.Router();
 
 const accountService = require('../services/accountService');
+const productService = require('../services/productService');
+const transactionService = require('../services/transactionService');
+const userService = require('../services/userService');
 
 /**
  * @route         GET /api/accounts/all
@@ -143,12 +146,23 @@ router.post(
 
 router.delete('/', auth, authAccount, async (req, res) => {
   try {
-    const result = await accountService.deleteAccount(
+    const accountResult = await accountService.deleteAccount(
       req.account.id,
       req.user.id
     );
+    const productResult = await productService.deleteAllProductsFromAccount(
+      req.account.id
+    );
+    const transactionResult = await transactionService.deleteAllTransactionsFromAccount(
+      req.account.id
+    );
+    const userResult = await userService.deleteAccountFromAllUsers(
+      req.account.id
+    );
 
-    res.status(200).json(result);
+    res
+      .status(200)
+      .json({ accountResult, productResult, transactionResult, userResult });
   } catch (err) {
     console.error(err.message);
     res.status(500).json({ msg: err.message });

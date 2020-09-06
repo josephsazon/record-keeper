@@ -2,8 +2,6 @@ const jwt = require('jsonwebtoken');
 
 const Account = require('../models/Account');
 
-const productService = require('./productService');
-const transactionService = require('./transactionService');
 const userService = require('./userService');
 
 /**
@@ -80,19 +78,9 @@ const deleteAccount = async (accountId, userId) => {
   if (account.createdBy !== user.username)
     throw new Error('User does not own account.');
 
-  const productResult = await productService.deleteAllProductsFromAccount(
-    accountId
-  );
+  const result = await Account.deleteOne({ _id: accountId });
 
-  const transactionResult = await transactionService.deleteAllTransactionsFromAccount(
-    accountId
-  );
-
-  const userResult = await userService.deleteAccountFromAllUsers(accountId);
-
-  const accountResult = await Account.deleteOne({ _id: accountId });
-
-  return { productResult, transactionResult, userResult, accountResult };
+  return result;
 };
 
 /**
