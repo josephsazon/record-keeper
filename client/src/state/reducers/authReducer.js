@@ -3,22 +3,38 @@ import { AUTH } from '../actions/types';
 const initialState = {
   error: null,
   isAuthenticated: false,
-  loading: false,
+  loginLoading: false,
+  loginSuccess: false,
+  loginTriggered: false,
   submitAuthLoading: false,
   submitAuthSuccess: false,
   submitAuthTriggered: false,
-  token: localStorage.getItem('token'),
-  user: null,
 };
 
 export default (state = initialState, action) => {
   switch (action.type) {
-    case AUTH.LOAD_USER_SUCCESS:
+    case AUTH.LOGIN_FAIL:
+      localStorage.removeItem('token');
+
       return {
         ...state,
-        isAuthenticated: true,
-        loading: false,
-        user: action.payload,
+        error: action.payload,
+        loginLoading: false,
+        loginSuccess: false,
+        loginTriggered: true,
+      };
+    case AUTH.LOGIN_LOADING:
+      return {
+        ...state,
+        loginLoading: true,
+      };
+    case AUTH.LOGIN_RESET:
+      return {
+        ...state,
+        error: null,
+        loginLoading: false,
+        loginSuccess: false,
+        loginTriggered: false,
       };
     case AUTH.LOGIN_SUCCESS:
       localStorage.setItem('token', action.payload.token);
@@ -26,25 +42,9 @@ export default (state = initialState, action) => {
       return {
         ...state,
         isAuthenticated: true,
-        loading: false,
-      };
-    case AUTH.LOAD_USER_FAIL:
-    case AUTH.LOGIN_FAIL:
-    case AUTH.LOGOUT:
-      localStorage.removeItem('token');
-
-      return {
-        ...state,
-        error: action.payload,
-        isAuthenticated: false,
-        loading: false,
-        token: null,
-        user: null,
-      };
-    case AUTH.SET_LOADING:
-      return {
-        ...state,
-        loading: true,
+        loginLoading: false,
+        loginSuccess: true,
+        loginTriggered: true,
       };
     case AUTH.SUBMIT_FAIL:
       return {

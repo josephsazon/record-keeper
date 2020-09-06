@@ -18,7 +18,7 @@ import Preloader from '../layout/Preloader';
 
 const CurrentUsers = ({
   accountState,
-  authState,
+  userState,
   users,
   onAddUser,
   getAccount,
@@ -81,7 +81,7 @@ const CurrentUsers = ({
       <div className="current-users__header">Current users</div>
       {submitAccountLoading && <Preloader />}
       <ul className="collection container">
-        {account.createdBy === authState.user.username && (
+        {account.createdBy === userState.user.username && (
           <li
             className="current-users__add-user-block collection-item"
             onClick={onAddUser}
@@ -99,7 +99,7 @@ const CurrentUsers = ({
               <span>{user.username}</span>
             </div>
             {account.createdBy !== user.username &&
-              account.createdBy === authState.user.username && (
+              account.createdBy === userState.user.username && (
                 <div onClick={() => onSelectUserToRemove(user)}>
                   <i className="material-icons grey-text text-lighten-1">
                     delete
@@ -115,7 +115,7 @@ const CurrentUsers = ({
 
 const mapStateToProps = (state) => ({
   accountState: state.account,
-  authState: state.auth,
+  userState: state.user,
 });
 
 export default connect(mapStateToProps, {

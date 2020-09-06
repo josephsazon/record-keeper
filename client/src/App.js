@@ -1,10 +1,9 @@
 import React, { useEffect, Fragment } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { Provider } from 'react-redux';
-import { PersistGate } from 'redux-persist/integration/react';
 
 // state
-import { store, persistor } from './state/store';
+import store from './state/store';
 
 // pages
 import Accounts from './components/pages/Accounts';
@@ -15,6 +14,7 @@ import Home from './components/pages/Home';
 import Login from './components/auth/Login';
 import Products from './components/pages/Products';
 import ProductForm from './components/pages/ProductForm';
+import Register from './components/auth/Register';
 import Transactions from './components/pages/Transactions';
 import TransactionForm from './components/pages/TransactionForm';
 import TransactionTypeForm from './components/pages/TransactionTypeForm';
@@ -46,64 +46,51 @@ const App = () => {
 
   return (
     <Provider store={store}>
-      <PersistGate persistor={persistor}>
-        <Router>
-          <Fragment>
-            <Navbar />
-            <SideNav />
-            <Switch>
-              <Route exact path="/login" component={Login} />
-              <PrivateRoute exact path="/" component={Home} />
-              <PrivateRoute exact path="/accounts" component={Accounts} />
-              <PrivateRoute
-                exact
-                path="/account/form"
-                component={AccountForm}
-              />
-              <PrivateRoute
-                exact
-                path="/user/profile"
-                component={UserProfile}
-              />
-              <PrivateAccountRoute
-                exact
-                path="/account/settings"
-                component={AccountSettings}
-              />
-              <PrivateAccountRoute
-                exact
-                path="/account/settings/transaction-type/form"
-                component={TransactionTypeForm}
-              />
-              <PrivateAccountRoute
-                exact
-                path="/account/settings/add-user"
-                component={AddUserToAccount}
-              />
-              <PrivateAccountRoute
-                exact
-                path="/products"
-                component={Products}
-              />
-              <PrivateAccountRoute
-                exact
-                path="/products/form"
-                component={ProductForm}
-              />
-              <PrivateAccountRoute
-                exact
-                path="/transactions"
-                component={Transactions}
-              />
-              <PrivateAccountRoute
-                exact
-                path="/transactions/form"
-                component={TransactionForm}
-              />
-            </Switch>
-          </Fragment>
-        </Router>
-      </PersistGate>
+      <Router>
+        <Fragment>
+          <Navbar />
+          <SideNav />
+          <Switch>
+            <Route exact path="/login" component={Login} />
+            <Route exact path="/register" component={Register} />
+            <PrivateRoute exact path="/" component={Home} />
+            <PrivateRoute exact path="/accounts" component={Accounts} />
+            <PrivateRoute exact path="/account/form" component={AccountForm} />
+            <PrivateRoute exact path="/user/profile" component={UserProfile} />
+            <PrivateAccountRoute
+              exact
+              path="/account/settings"
+              component={AccountSettings}
+            />
+            <PrivateAccountRoute
+              exact
+              path="/account/settings/transaction-type/form"
+              component={TransactionTypeForm}
+            />
+            <PrivateAccountRoute
+              exact
+              path="/account/settings/add-user"
+              component={AddUserToAccount}
+            />
+            <PrivateAccountRoute exact path="/products" component={Products} />
+            <PrivateAccountRoute
+              exact
+              path="/products/form"
+              component={ProductForm}
+            />
+            <PrivateAccountRoute
+              exact
+              path="/transactions"
+              component={Transactions}
+            />
+            <PrivateAccountRoute
+              exact
+              path="/transactions/form"
+              component={TransactionForm}
+            />
+          </Switch>
+        </Fragment>
+      </Router>
     </Provider>
   );
 };

@@ -4,29 +4,36 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 // state
-import { loadUser } from '../../state/actions/authActions';
+import { logout } from '../../state/actions/authActions';
 
 // components
-import Spinner from '../layout/Spinner';
+import Preloader from '../layout/Preloader';
 
 const PrivateRoute = ({
-  auth: { isAuthenticated, loading },
+  authState,
+  userState,
+  logout,
   component: Component,
-  loadUser,
   ...rest
 }) => {
+  const { isAuthenticated } = authState;
+  const { getUserLoading, getUserSuccess, getUserTriggered } = userState;
+
   useEffect(() => {
-    console.log(isAuthenticated);
-    if (!isAuthenticated) loadUser();
+    if (getUserTriggered) {
+      if (!getUserSuccess) logout();
+    }
     // eslint-disable-next-line
-  }, []);
+  }, [getUserTriggered]);
+
+  console.log(getUserTriggered, getUserSuccess);
 
   return (
     <Route
       {...rest}
       render={(props) =>
-        loading ? (
-          <Spinner />
+        getUserLoading ? (
+          <Preloader />
         ) : isAuthenticated ? (
           <Component {...props} />
         ) : (
@@ -37,12 +44,12 @@ const PrivateRoute = ({
   );
 };
 PrivateRoute.propTypes = {
-  auth: PropTypes.object.isRequired,
-  loadUser: PropTypes.func.isRequired,
+  authState: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = (state) => ({
-  auth: state.auth,
+  authState: state.auth,
+  userState: state.user,
 });
 
-export default connect(mapStateToProps, { loadUser })(PrivateRoute);
+export default connect(mapStateToProps, { logout })(PrivateRoute);

@@ -8,8 +8,9 @@ import { logout } from '../../state/actions/authActions';
 // components
 import M from 'materialize-css/dist/js/materialize.min.js';
 
-const Sidenav = ({ auth: { user }, accountState, logout }) => {
+const Sidenav = ({ accountState, userState, logout }) => {
   const { isAccountAuthenticated } = accountState;
+  const { user } = userState;
 
   useEffect(() => {
     M.AutoInit();
@@ -73,7 +74,7 @@ const Sidenav = ({ auth: { user }, accountState, logout }) => {
 
 const mapStateToProps = (state) => ({
   accountState: state.account,
-  auth: state.auth,
+  userState: state.user,
 });
 
 export default connect(mapStateToProps, { logout })(Sidenav);

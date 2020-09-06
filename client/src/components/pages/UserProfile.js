@@ -8,8 +8,8 @@ import ChangePasswordForm from '../auth/ChangePasswordForm';
 // styles
 import './UserProfile.css';
 
-const UserProfile = ({ authState }) => {
-  const { username, createdDate } = authState.user;
+const UserProfile = ({ userState }) => {
+  const { username, createdDate } = userState.user;
 
   console.log(username);
   return (
@@ -39,7 +39,7 @@ const UserProfile = ({ authState }) => {
 };
 
 const mapStateToProps = (state) => ({
-  authState: state.auth,
+  userState: state.user,
 });
 
 export default connect(mapStateToProps)(UserProfile);

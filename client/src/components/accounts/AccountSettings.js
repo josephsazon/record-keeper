@@ -18,7 +18,7 @@ import Preloader from '../layout/Preloader';
 
 const AccountSettings = ({
   accountState,
-  authState,
+  userState,
   history,
   deleteAccount,
 }) => {
@@ -68,7 +68,7 @@ const AccountSettings = ({
           <i className="material-icons">arrow_back</i>
         </Link>
         Account Settings
-        {authState.user.username === account.createdBy && (
+        {userState.user.username === account.createdBy && (
           <a href="#confirmDeleteAccountModal" className="modal-trigger right">
             <i className="material-icons grey-text">delete</i>
           </a>
@@ -90,7 +90,7 @@ const AccountSettings = ({
 
 const mapStateToProps = (state) => ({
   accountState: state.account,
-  authState: state.auth,
+  userState: state.user,
 });
 
 export default connect(mapStateToProps, {

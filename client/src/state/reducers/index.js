@@ -7,7 +7,9 @@ import transactionReducer from './transactionReducer';
 import transactionTypeReducer from './transactionTypeReducer';
 import userReducer from './userReducer';
 
-export default combineReducers({
+import { AUTH } from '../actions/types';
+
+const appReducer = combineReducers({
   account: accountReducer,
   auth: authReducer,
   product: productReducer,
@@ -15,3 +17,18 @@ export default combineReducers({
   transactionType: transactionTypeReducer,
   user: userReducer,
 });
+
+export default (state, action) => {
+  if (action.type === AUTH.LOGOUT) {
+    localStorage.removeItem('token');
+    localStorage.removeItem('accountToken');
+
+    state = {
+      auth: {
+        isAuthenticated: false,
+      },
+    };
+  }
+
+  return appReducer(state, action);
+};
