@@ -55,7 +55,6 @@ const CurrentUsers = ({
   }, [submitAccountTriggered]);
 
   const onRemoveUser = () => {
-    console.log(userToRemove);
     const payload = { userId: userToRemove._id };
 
     removeUserFromAccount(payload);

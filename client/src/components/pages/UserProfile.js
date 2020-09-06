@@ -11,7 +11,6 @@ import './UserProfile.css';
 const UserProfile = ({ userState }) => {
   const { username, createdDate } = userState.user;
 
-  console.log(username);
   return (
     <div className="user-profile container">
       <div className="page-header">User profile</div>

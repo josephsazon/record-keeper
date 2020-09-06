@@ -95,7 +95,6 @@ export const getAccounts = (page, limit) => async (dispatch) => {
 };
 
 export const removeUserFromAccount = (payload) => async (dispatch) => {
-  console.log(payload);
   dispatch({ type: ACCOUNT.SUBMIT_RESET });
   dispatch({ type: ACCOUNT.SUBMIT_LOADING });
 
