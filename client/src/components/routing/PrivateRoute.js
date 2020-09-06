@@ -26,13 +26,11 @@ const PrivateRoute = ({
     // eslint-disable-next-line
   }, [getUserTriggered]);
 
-  console.log(getUserTriggered, getUserSuccess);
-
   return (
     <Route
       {...rest}
       render={(props) =>
-        getUserLoading ? (
+        getUserLoading && !getUserTriggered ? (
           <Preloader />
         ) : isAuthenticated ? (
           <Component {...props} />
