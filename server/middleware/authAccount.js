@@ -1,5 +1,4 @@
 const jwt = require('jsonwebtoken');
-const config = require('config');
 
 module.exports = (req, res, next) => {
   const accountToken = req.header('x-account-token');
@@ -9,7 +8,7 @@ module.exports = (req, res, next) => {
   }
 
   try {
-    const decoded = jwt.verify(accountToken, config.get('jwtSecret'));
+    const decoded = jwt.verify(accountToken, process.env.JWT_SECRET);
 
     req.account = decoded.account;
     next();

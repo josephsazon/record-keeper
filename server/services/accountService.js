@@ -1,5 +1,4 @@
 const jwt = require('jsonwebtoken');
-const config = require('config');
 
 const Account = require('../models/Account');
 
@@ -192,7 +191,7 @@ const requestToken = async (accountId, userId) => {
     },
   };
 
-  const accountToken = jwt.sign(payload, config.get('jwtSecret'), {
+  const accountToken = jwt.sign(payload, process.env.JWT_SECRET, {
     expiresIn: 3600,
   });
 

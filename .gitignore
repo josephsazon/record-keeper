@@ -8,6 +8,8 @@ node_modules/
 /client/.test.local
 /client/.production.local
 
+/server/.env
+
 npm-debug.log*
 npm-debug.log*
 npm-debug.log*
