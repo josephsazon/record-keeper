@@ -135,7 +135,7 @@ const getAccountsForUser = async (userId, page, limit) => {
       page: page || 1,
       limit: limit || 10,
       sort: { name: 'asc' },
-      select: 'name updatedBy updatedDate',
+      select: 'name balance updatedBy updatedDate',
     }
   );
 
